@@ -1,0 +1,90 @@
+{
+  "_resourceType": "actor",
+  "id": "a2c8425a-cb0c-492f-9f38-80dea5f9df8a",
+  "name": "fallingRockPlatform",
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "f3bec626-5365-4594-8b4a-18c286c69cab",
+  "prefabId": "",
+  "direction": "down",
+  "moveSpeed": 2,
+  "animSpeed": 1,
+  "paletteId": "",
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "3",
+  "prefabScriptOverrides": {},
+  "symbol": "actor_46",
+  "script": [
+    {
+      "command": "EVENT_ACTOR_SET_STATE",
+      "args": {
+        "actorId": "$self$",
+        "spriteStateId": "fall",
+        "loopAnim": true
+      },
+      "id": "359f6c24-5557-418c-8078-63ade04981df"
+    },
+    {
+      "command": "EVENT_WAIT",
+      "args": {
+        "time": 1,
+        "frames": 30,
+        "__collapse": false
+      },
+      "id": "d283c1de-a163-4317-a826-555f26ad8a7a"
+    },
+    {
+      "command": "EVENT_ACTOR_SET_STATE",
+      "args": {
+        "actorId": "$self$",
+        "spriteStateId": "",
+        "loopAnim": true,
+        "__collapse": true
+      },
+      "id": "ca77e3a9-ced0-4d9f-90df-7ca27d901af0"
+    },
+    {
+      "command": "EVENT_ACTOR_MOVE_TO",
+      "args": {
+        "actorId": "$self$",
+        "x": {
+          "type": "property",
+          "target": "$self$",
+          "property": "xpos"
+        },
+        "y": {
+          "type": "number",
+          "value": 20
+        },
+        "moveType": "vertical",
+        "useCollisions": false
+      },
+      "id": "f22a31ac-f411-4826-a1c7-ce06539ec474"
+    },
+    {
+      "command": "EVENT_ACTOR_DEACTIVATE",
+      "args": {
+        "actorId": "$self$"
+      },
+      "id": "8174f696-93ca-467f-a590-eb476ad1302e"
+    }
+  ],
+  "startScript": [
+    {
+      "command": "EVENT_ACTOR_STOP_UPDATE",
+      "args": {
+        "actorId": "$self$",
+        "__collapse": true
+      },
+      "id": "34d9f9b1-495a-4e5f-9f61-2b5a3ea62a67"
+    }
+  ],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": [],
+  "x": 16,
+  "y": 13,
+  "_index": 2
+}

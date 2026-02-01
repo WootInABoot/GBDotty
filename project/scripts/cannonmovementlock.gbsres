@@ -1,0 +1,113 @@
+{
+  "_resourceType": "script",
+  "id": "0226ac56-3830-4d36-81d4-44d2a557b943",
+  "name": "cannonMovementLock",
+  "description": "",
+  "variables": {},
+  "actors": {},
+  "symbol": "script_2",
+  "script": [
+    {
+      "command": "EVENT_GROUP",
+      "args": {
+        "__label": "Revert Engine Fields",
+        "__collapse": false
+      },
+      "children": {
+        "true": [
+          {
+            "command": "EVENT_ENGINE_FIELD_SET",
+            "args": {
+              "engineFieldKey": "plat_grav",
+              "value": {
+                "type": "number",
+                "value": 0
+              },
+              "__collapse": true
+            },
+            "id": "47b54efb-7710-4f67-a753-0d18268d2d14"
+          },
+          {
+            "command": "EVENT_ENGINE_FIELD_SET",
+            "args": {
+              "engineFieldKey": "plat_hold_grav",
+              "value": {
+                "type": "number",
+                "value": 0
+              },
+              "__collapse": true
+            },
+            "id": "d8b6cbcd-853d-46aa-9b4b-dd87af5e19e3"
+          },
+          {
+            "command": "EVENT_ENGINE_FIELD_SET",
+            "args": {
+              "engineFieldKey": "plat_dec",
+              "value": {
+                "type": "number",
+                "value": 768
+              },
+              "__collapse": false
+            },
+            "id": "41f6de9b-f51e-4a47-9fc3-a5e9af333265"
+          },
+          {
+            "command": "EVENT_ENGINE_FIELD_SET",
+            "args": {
+              "engineFieldKey": "plat_walk_vel",
+              "value": {
+                "type": "number",
+                "value": 0
+              },
+              "__collapse": true
+            },
+            "id": "58a5f48b-aad0-4814-bb4e-4e0efebb8f8e"
+          },
+          {
+            "command": "EVENT_ENGINE_FIELD_SET",
+            "args": {
+              "engineFieldKey": "plat_air_dec",
+              "value": {
+                "type": "number",
+                "value": 768
+              },
+              "__collapse": false
+            },
+            "id": "296095b0-8b35-432c-9c7f-46717ea84aa7"
+          },
+          {
+            "command": "EVENT_COMMENT",
+            "args": {
+              "text": "Make sure Dotty doesn't drift off into space",
+              "__collapse": true
+            },
+            "id": "08488251-885e-4d8d-bf24-df1e7d7cdffd"
+          },
+          {
+            "command": "PT_EVENT_PLAYER_FIELD_SET",
+            "args": {
+              "field": "pl_vel_x",
+              "variable": "V0",
+              "value": 0,
+              "type": "number",
+              "__collapse": true
+            },
+            "id": "93e83172-0465-4c05-a924-7545cb091282"
+          },
+          {
+            "command": "PT_EVENT_PLAYER_FIELD_SET",
+            "args": {
+              "field": "pl_vel_y",
+              "variable": "V0",
+              "value": 0,
+              "type": "number",
+              "__collapse": true
+            },
+            "id": "4a59f434-5b14-4839-9850-5bcca51715d2"
+          }
+        ]
+      },
+      "id": "0bf07d73-0781-4a33-90ef-734ed395cbb9"
+    }
+  ]
+}

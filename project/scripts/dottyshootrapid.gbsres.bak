@@ -1,0 +1,260 @@
+{
+  "_resourceType": "script",
+  "id": "2f10b678-0ede-4520-b45f-a286eb15678b",
+  "name": "DottyShootRapid",
+  "description": "",
+  "variables": {},
+  "actors": {},
+  "symbol": "script_7",
+  "script": [
+    {
+      "command": "EVENT_SET_INPUT_SCRIPT",
+      "args": {
+        "input": [
+          "b"
+        ],
+        "override": true,
+        "__scriptTabs": "press"
+      },
+      "children": {
+        "true": [
+          {
+            "command": "EVENT_LOOP",
+            "args": {},
+            "children": {
+              "true": [
+                {
+                  "command": "EVENT_IDLE",
+                  "args": {},
+                  "id": "10ffa47d-4edb-4270-abc9-1d7e8cc2abe8"
+                },
+                {
+                  "command": "EVENT_IF_INPUT",
+                  "args": {
+                    "input": [
+                      "b"
+                    ],
+                    "__collapseElse": false,
+                    "__collapse": false
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "command": "EVENT_GROUP",
+                        "args": {
+                          "__label": "shoot",
+                          "__collapse": false
+                        },
+                        "children": {
+                          "true": [
+                            {
+                              "command": "EVENT_RNG_SEED",
+                              "args": {
+                                "__collapse": true
+                              },
+                              "id": "e6b58a6f-a9a1-4049-9822-3bd8546a18ca"
+                            },
+                            {
+                              "command": "EVENT_IF",
+                              "args": {
+                                "condition": {
+                                  "type": "not",
+                                  "value": {
+                                    "type": "variable",
+                                    "value": "2"
+                                  }
+                                },
+                                "__collapseElse": false,
+                                "__label": "Rail Check",
+                                "__collapse": true
+                              },
+                              "children": {
+                                "true": [
+                                  {
+                                    "command": "EVENT_SET_VALUE",
+                                    "args": {
+                                      "variable": "0",
+                                      "value": {
+                                        "type": "property",
+                                        "target": "player",
+                                        "property": "frame"
+                                      },
+                                      "__collapse": true
+                                    },
+                                    "id": "ad9f64ed-1d9f-4129-a15e-8f9eda70204d"
+                                  },
+                                  {
+                                    "command": "EVENT_ACTOR_SET_STATE",
+                                    "args": {
+                                      "actorId": "player",
+                                      "spriteStateId": "Shoot",
+                                      "loopAnim": true,
+                                      "__collapse": true
+                                    },
+                                    "id": "6163a9c0-2429-4d53-986d-a97915e22752"
+                                  },
+                                  {
+                                    "command": "EVENT_ACTOR_SET_FRAME",
+                                    "args": {
+                                      "actorId": "$self$",
+                                      "frame": {
+                                        "type": "variable",
+                                        "value": "0"
+                                      },
+                                      "__collapse": true
+                                    },
+                                    "id": "9ba83a9a-2047-4a40-8404-bdc4c34259c3"
+                                  }
+                                ],
+                                "false": [
+                                  {
+                                    "command": "EVENT_SET_VALUE",
+                                    "args": {
+                                      "variable": "0",
+                                      "value": {
+                                        "type": "property",
+                                        "target": "player",
+                                        "property": "frame"
+                                      },
+                                      "__collapse": true
+                                    },
+                                    "id": "0687ef6a-16f3-4ccb-8075-dfc04d72595f"
+                                  },
+                                  {
+                                    "command": "EVENT_ACTOR_SET_STATE",
+                                    "args": {
+                                      "actorId": "player",
+                                      "spriteStateId": "RailShoot",
+                                      "loopAnim": true,
+                                      "__collapse": true
+                                    },
+                                    "id": "41035342-6c16-499a-93f9-7f0f3da38d4c"
+                                  },
+                                  {
+                                    "command": "EVENT_ACTOR_SET_FRAME",
+                                    "args": {
+                                      "actorId": "$self$",
+                                      "frame": {
+                                        "type": "variable",
+                                        "value": "0"
+                                      },
+                                      "__collapse": true
+                                    },
+                                    "id": "a14197b9-5968-4394-870d-c4e320709a6f"
+                                  }
+                                ]
+                              },
+                              "id": "d4e0a8de-ab2c-4714-9b52-bc4b1daa1ba4"
+                            },
+                            {
+                              "command": "EVENT_SOUND_PLAY_EFFECT",
+                              "args": {
+                                "type": "a6dcd336-abde-4ea1-b9a1-0c67e01261ea",
+                                "priority": "medium",
+                                "pitch": 4,
+                                "frequency": 200,
+                                "duration": 0.5,
+                                "wait": true,
+                                "effect": 11,
+                                "__collapse": true
+                              },
+                              "id": "513f55dc-5198-41b0-a380-4c2c0a63cb94"
+                            },
+                            {
+                              "command": "EVENT_LAUNCH_PROJECTILE",
+                              "args": {
+                                "__section": "projectile",
+                                "spriteSheetId": "2682956a-d40c-4e4f-b8cb-3de7c01b03db",
+                                "spriteStateId": "",
+                                "actorId": "$self$",
+                                "x": 0,
+                                "y": 0,
+                                "directionType": "actor",
+                                "otherActorId": "$self$",
+                                "direction": "right",
+                                "angle": 0,
+                                "angleVariable": "V0",
+                                "targetActorId": "$self$",
+                                "initialOffset": 10,
+                                "speed": 6,
+                                "animSpeed": 255,
+                                "lifeTime": 2,
+                                "loopAnim": false,
+                                "destroyOnHit": true,
+                                "collisionGroup": "1",
+                                "collisionMask": [
+                                  "2"
+                                ],
+                                "__collapse": true
+                              },
+                              "id": "3c69c1e4-072d-4680-a6a0-3a24a907b333"
+                            },
+                            {
+                              "command": "EVENT_WAIT",
+                              "args": {
+                                "time": 0.15,
+                                "frames": 30,
+                                "__collapse": true
+                              },
+                              "id": "59dd161b-bf79-40f9-a5ee-ef7ce6a6e285"
+                            }
+                          ]
+                        },
+                        "id": "94759591-11df-4a5b-89ae-6a5aad71e41a"
+                      }
+                    ],
+                    "false": [
+                      {
+                        "command": "EVENT_SET_VALUE",
+                        "args": {
+                          "variable": "0",
+                          "value": {
+                            "type": "property",
+                            "target": "player",
+                            "property": "frame"
+                          },
+                          "__collapse": true
+                        },
+                        "id": "2b245b76-febd-4d24-a335-54b44ae487ee"
+                      },
+                      {
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "$self$",
+                          "spriteStateId": "",
+                          "loopAnim": true,
+                          "__collapse": true
+                        },
+                        "id": "89080fba-11da-41b5-a0a6-0248fa0226ea"
+                      },
+                      {
+                        "command": "EVENT_ACTOR_SET_FRAME",
+                        "args": {
+                          "actorId": "$self$",
+                          "frame": {
+                            "type": "variable",
+                            "value": "0"
+                          },
+                          "__collapse": true
+                        },
+                        "id": "7348a589-cd7e-4bc5-b6e5-059ede39a878"
+                      },
+                      {
+                        "command": "EVENT_STOP",
+                        "args": {},
+                        "id": "bd936df4-7b92-4eb6-b5d9-943c19133ab1"
+                      }
+                    ]
+                  },
+                  "id": "7277880c-e6ce-40b1-9143-b46e0c1c0bf6"
+                }
+              ]
+            },
+            "id": "5c95235f-dd5d-4ec0-baec-1cdac889e65d"
+          }
+        ]
+      },
+      "id": "d14ff5e6-8f89-451b-9408-7ff46932d0c0"
+    }
+  ]
+}

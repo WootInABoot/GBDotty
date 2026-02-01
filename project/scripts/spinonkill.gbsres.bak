@@ -1,0 +1,236 @@
+{
+  "_resourceType": "script",
+  "id": "90bc34f8-2da7-494a-91eb-5748fdbeedbd",
+  "name": "spinOnKill",
+  "description": "",
+  "variables": {},
+  "actors": {},
+  "symbol": "script_0",
+  "script": [
+    {
+      "command": "EVENT_GROUP",
+      "args": {
+        "__label": "Start Spin",
+        "__collapse": false
+      },
+      "children": {
+        "true": [
+          {
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "0",
+              "value": {
+                "type": "true"
+              },
+              "__collapse": true
+            },
+            "id": "ba7c3d7e-9547-4585-832a-b86e11275446"
+          },
+          {
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "39",
+              "value": {
+                "type": "number",
+                "value": 0
+              },
+              "__collapse": true,
+              "__label": "Set spinTime(Alt) to 0"
+            },
+            "id": "977287e6-5907-4923-91ab-56989d2ad02b"
+          },
+          {
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "33",
+              "value": {
+                "type": "number",
+                "value": 0
+              },
+              "__collapse": false,
+              "__label": "Set spinTime to 0"
+            },
+            "id": "a2192591-5d04-4b7f-b1b3-d19e83619c38"
+          },
+          {
+            "command": "EVENT_LAUNCH_PROJECTILE",
+            "args": {
+              "__section": "projectile",
+              "spriteSheetId": "c5c4103f-bb5d-4987-a7b7-2f8a243167cf",
+              "spriteStateId": "",
+              "actorId": "$self$",
+              "x": 0,
+              "y": 0,
+              "directionType": "actor",
+              "otherActorId": "$self$",
+              "direction": "right",
+              "angle": 0,
+              "angleVariable": "0",
+              "targetActorId": "$self$",
+              "initialOffset": 0,
+              "speed": 0,
+              "animSpeed": 3,
+              "lifeTime": 0.5,
+              "loopAnim": false,
+              "destroyOnHit": false,
+              "collisionGroup": "1",
+              "collisionMask": [],
+              "__collapse": true,
+              "__label": "Spin Projectile"
+            },
+            "id": "a95ef1ca-a858-426b-9901-f8407b3a2f17"
+          },
+          {
+            "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
+            "args": {
+              "actorId": "$self$",
+              "speed": 1,
+              "__collapse": true
+            },
+            "id": "5493af6b-9188-49f1-8376-78e7d64b5447"
+          },
+          {
+            "command": "EVENT_ACTOR_SET_STATE",
+            "args": {
+              "actorId": "$self$",
+              "spriteStateId": "spin",
+              "loopAnim": true,
+              "__collapse": true
+            },
+            "id": "1481911d-2ef6-4e2f-8886-8754ebd1ed54"
+          },
+          {
+            "command": "EVENT_SOUND_PLAY_EFFECT",
+            "args": {
+              "type": "a6dcd336-abde-4ea1-b9a1-0c67e01261ea",
+              "priority": "high",
+              "pitch": 4,
+              "frequency": 200,
+              "duration": 0.5,
+              "wait": true,
+              "effect": 11,
+              "__collapse": true
+            },
+            "id": "18ff7190-7fc4-4946-be79-a5ccfab41894"
+          }
+        ]
+      },
+      "id": "f0276b51-806b-4af7-ba09-7235155f4025"
+    },
+    {
+      "command": "EVENT_LOOP_FOR",
+      "args": {
+        "variable": "39",
+        "from": {
+          "type": "number",
+          "value": 0
+        },
+        "comparison": "<=",
+        "to": {
+          "type": "number",
+          "value": 40
+        },
+        "operation": "+=",
+        "value": {
+          "type": "number",
+          "value": 1
+        },
+        "__collapse": true,
+        "__label": "For Loop Timer (Spin Time/Duration)"
+      },
+      "children": {
+        "true": [
+          {
+            "command": "EVENT_IDLE",
+            "args": {},
+            "id": "55d70364-88c2-48bc-afed-61e2f26708d4"
+          }
+        ]
+      },
+      "id": "772a4123-7131-486c-846c-c76436e57aa9"
+    },
+    {
+      "command": "EVENT_ACTOR_SET_STATE",
+      "args": {
+        "actorId": "$self$",
+        "spriteStateId": "",
+        "loopAnim": true,
+        "__collapse": true
+      },
+      "id": "4876dd87-f7f5-4184-aab0-33d822bf0453"
+    },
+    {
+      "command": "EVENT_SET_VALUE",
+      "args": {
+        "variable": "0",
+        "value": {
+          "type": "false"
+        },
+        "__collapse": true
+      },
+      "id": "1e0ee0a8-1b69-4e63-92df-444209521811"
+    },
+    {
+      "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
+      "args": {
+        "actorId": "$self$",
+        "speed": 7,
+        "__collapse": true
+      },
+      "id": "99b8257f-8ef1-445b-9da1-883f32b2aef6"
+    },
+    {
+      "command": "EVENT_GROUP",
+      "args": {
+        "__label": "Revert Engine Fields",
+        "__collapse": true
+      },
+      "children": {
+        "true": [
+          {
+            "command": "EVENT_ENGINE_FIELD_SET",
+            "args": {
+              "engineFieldKey": "plat_air_dec",
+              "value": {
+                "type": "variable",
+                "value": "46"
+              },
+              "__collapse": true
+            },
+            "id": "746bd10d-6a63-4a49-9269-c935958b2dbe"
+          },
+          {
+            "command": "EVENT_ENGINE_FIELD_SET",
+            "args": {
+              "engineFieldKey": "plat_dec",
+              "value": {
+                "type": "variable",
+                "value": "507"
+              },
+              "__collapse": true
+            },
+            "id": "e2bd3c50-db53-4ec2-aa4b-def68566fed9"
+          },
+          {
+            "command": "EVENT_ENGINE_FIELD_SET",
+            "args": {
+              "engineFieldKey": "plat_walk_vel",
+              "value": {
+                "type": "variable",
+                "value": "26"
+              },
+              "__collapse": true
+            },
+            "id": "8bf2ad2e-89a0-4e48-aa87-3d3b4637b86c"
+          }
+        ]
+      },
+      "id": "549f8b02-f711-4bb7-b207-cbee3b72260b"
+    },
+    {
+      "command": "EVENT_STOP",
+      "args": {},
+      "id": "c6d0d678-f75b-45f1-bfc9-5eed080453db"
+    }
+  ]
+}

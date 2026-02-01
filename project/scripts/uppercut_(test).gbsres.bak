@@ -1,0 +1,75 @@
+{
+  "_resourceType": "script",
+  "id": "448fadbf-d275-44c2-af9a-7ba22dc36bab",
+  "name": "Uppercut (Test)",
+  "description": "",
+  "variables": {},
+  "actors": {},
+  "symbol": "script_11",
+  "script": [
+    {
+      "command": "EVENT_IF_INPUT",
+      "args": {
+        "input": [
+          "up"
+        ],
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "command": "EVENT_SET_INPUT_SCRIPT",
+            "args": {
+              "input": [
+                "b"
+              ],
+              "override": true,
+              "__scriptTabs": "press"
+            },
+            "children": {
+              "true": [
+                {
+                  "command": "PT_EVENT_PLAYER_FIELD_SET",
+                  "args": {
+                    "field": "pl_vel_y",
+                    "variable": "0",
+                    "value": -5000,
+                    "type": "number",
+                    "__collapse": false
+                  },
+                  "id": "ceb42502-13e4-448f-ac20-5e544bb70d0a"
+                },
+                {
+                  "command": "EVENT_WAIT",
+                  "args": {
+                    "time": 0.5,
+                    "frames": 30
+                  },
+                  "id": "2a73782d-c7e9-4953-9d59-8db45236861c"
+                },
+                {
+                  "command": "EVENT_REMOVE_INPUT_SCRIPT",
+                  "args": {
+                    "input": [
+                      "b"
+                    ],
+                    "__collapse": true
+                  },
+                  "id": "68a608a3-67cd-438f-940f-1fe40cc5d26c"
+                },
+                {
+                  "command": "EVENT_STOP",
+                  "args": {},
+                  "id": "83c1dd51-e6b4-41bb-be42-ee5c6d11a0be"
+                }
+              ]
+            },
+            "id": "6ac6a840-db18-4478-88c9-b47d5372d099"
+          }
+        ],
+        "false": []
+      },
+      "id": "b6367f7d-c5db-4042-92c8-4c2788a967c5"
+    }
+  ]
+}
