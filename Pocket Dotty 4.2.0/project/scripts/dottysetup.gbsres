@@ -50,7 +50,8 @@
         ],
         "override": true,
         "__scriptTabs": "press",
-        "__label": "Spin attack!"
+        "__label": "Spin attack!",
+        "__collapse": true
       },
       "children": {
         "true": [
@@ -64,7 +65,8 @@
                   "value": "39"
                 }
               },
-              "__collapseElse": true
+              "__collapseElse": true,
+              "__collapse": false
             },
             "children": {
               "true": [
@@ -176,14 +178,6 @@
                               "id": "26b6984b-7bd8-49ab-8594-707cf4e9b413"
                             },
                             {
-                              "command": "EVENT_TIMER_DISABLE",
-                              "args": {
-                                "timer": 1,
-                                "__collapse": true
-                              },
-                              "id": "9b8d5fad-1542-484f-9ad5-e8d223b8c8b0"
-                            },
-                            {
                               "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
                               "args": {
                                 "actorId": "$self$",
@@ -261,7 +255,8 @@
                               "command": "EVENT_THREAD_START",
                               "args": {
                                 "variable": "63",
-                                "__scriptTabs": "true"
+                                "__scriptTabs": "true",
+                                "__collapse": false
                               },
                               "children": {
                                 "true": [
@@ -288,14 +283,11 @@
                                                 "command": "EVENT_IF",
                                                 "args": {
                                                   "condition": {
-                                                    "type": "not",
-                                                    "value": {
-                                                      "type": "constant",
-                                                      "value": "engine::PLATFORM_GROUND_STATE"
-                                                    }
+                                                    "type": "constant",
+                                                    "value": "engine::PLATFORM_JUMP_STATE"
                                                   },
                                                   "__collapseElse": false,
-                                                  "__collapse": true
+                                                  "__collapse": false
                                                 },
                                                 "children": {
                                                   "true": [
@@ -316,7 +308,7 @@
                                                         "actorId": "$self$",
                                                         "spriteStateId": "stomp",
                                                         "loopAnim": true,
-                                                        "__collapse": false
+                                                        "__collapse": true
                                                       },
                                                       "id": "773c9354-cc70-4b8a-9458-c784c07008ea"
                                                     },
@@ -331,7 +323,7 @@
                                                     {
                                                       "command": "EVENT_ENGINE_FIELD_SET",
                                                       "args": {
-                                                        "engineFieldKey": "adv_vel_y",
+                                                        "engineFieldKey": "plat_vel_y",
                                                         "value": {
                                                           "type": "number",
                                                           "value": 20000
@@ -399,7 +391,8 @@
                                                 "value": "48"
                                               }
                                             },
-                                            "__collapseElse": true
+                                            "__collapseElse": true,
+                                            "__collapse": true
                                           },
                                           "children": {
                                             "true": [
@@ -426,7 +419,8 @@
                                                   "destroyOnHit": false,
                                                   "collisionGroup": "1",
                                                   "collisionMask": [],
-                                                  "__label": "Spin projectile"
+                                                  "__label": "Spin projectile",
+                                                  "__collapse": true
                                                 },
                                                 "id": "b763012f-864f-4bb4-b87a-c68b299ec01e"
                                               },
@@ -434,27 +428,116 @@
                                                 "command": "EVENT_IF_INPUT",
                                                 "args": {
                                                   "input": [
-                                                    "left",
                                                     "right"
                                                   ],
-                                                  "__collapseElse": true,
-                                                  "__collapse": true
+                                                  "__collapseElse": false,
+                                                  "__collapse": false
                                                 },
                                                 "children": {
                                                   "true": [
                                                     {
-                                                      "command": "EVENT_ENGINE_FIELD_SET",
+                                                      "command": "EVENT_IF",
                                                       "args": {
-                                                        "engineFieldKey": "plat_walk_vel",
-                                                        "value": {
-                                                          "type": "number",
-                                                          "value": 9000
-                                                        }
+                                                        "condition": {
+                                                          "type": "constant",
+                                                          "value": "engine::PLATFORM_JUMP_STATE"
+                                                        },
+                                                        "__collapseElse": false,
+                                                        "__collapse": true
                                                       },
-                                                      "id": "76154307-c04e-4185-a343-3a4d2add81e9"
+                                                      "children": {
+                                                        "true": [
+                                                          {
+                                                            "command": "EVENT_ENGINE_FIELD_SET",
+                                                            "args": {
+                                                              "engineFieldKey": "plat_vel_x",
+                                                              "value": {
+                                                                "type": "number",
+                                                                "value": 10000
+                                                              },
+                                                              "__collapse": true
+                                                            },
+                                                            "id": "cc367a8e-658e-4a6c-9655-9c348dfbe8f4"
+                                                          }
+                                                        ],
+                                                        "false": [
+                                                          {
+                                                            "command": "EVENT_ENGINE_FIELD_SET",
+                                                            "args": {
+                                                              "engineFieldKey": "plat_vel_x",
+                                                              "value": {
+                                                                "type": "number",
+                                                                "value": 15000
+                                                              },
+                                                              "__collapse": true
+                                                            },
+                                                            "id": "8ea8b056-703e-46a5-b228-bb66c2f28b60"
+                                                          }
+                                                        ]
+                                                      },
+                                                      "id": "b419fe59-6d97-4702-aad6-2223540e9ef9"
                                                     }
                                                   ],
-                                                  "false": []
+                                                  "false": [
+                                                    {
+                                                      "command": "EVENT_IF_INPUT",
+                                                      "args": {
+                                                        "input": [
+                                                          "left"
+                                                        ],
+                                                        "__collapseElse": true,
+                                                        "__collapse": false
+                                                      },
+                                                      "children": {
+                                                        "true": [
+                                                          {
+                                                            "command": "EVENT_IF",
+                                                            "args": {
+                                                              "condition": {
+                                                                "type": "constant",
+                                                                "value": "engine::PLATFORM_JUMP_STATE"
+                                                              },
+                                                              "__collapseElse": false,
+                                                              "__collapse": false
+                                                            },
+                                                            "children": {
+                                                              "true": [
+                                                                {
+                                                                  "command": "EVENT_ENGINE_FIELD_SET",
+                                                                  "args": {
+                                                                    "engineFieldKey": "plat_vel_x",
+                                                                    "value": {
+                                                                      "type": "number",
+                                                                      "value": -10000
+                                                                    },
+                                                                    "__collapse": true
+                                                                  },
+                                                                  "id": "54c13492-bded-4a17-95bb-acbb99d66dbd"
+                                                                }
+                                                              ],
+                                                              "false": [
+                                                                {
+                                                                  "command": "EVENT_ENGINE_FIELD_SET",
+                                                                  "args": {
+                                                                    "engineFieldKey": "plat_vel_x",
+                                                                    "value": {
+                                                                      "type": "number",
+                                                                      "value": -15000
+                                                                    },
+                                                                    "__collapse": false
+                                                                  },
+                                                                  "id": "829f2b01-a54e-4aeb-834f-95779a9c306c"
+                                                                }
+                                                              ]
+                                                            },
+                                                            "id": "c72cb16a-3e50-4fac-b9e8-e401dc3d6eff"
+                                                          }
+                                                        ],
+                                                        "false": []
+                                                      },
+                                                      "id": "0dcdeaf9-78f3-4889-abd6-15e89e99b83b"
+                                                    }
+                                                  ]
                                                 },
                                                 "id": "d9ad1fd2-13b2-47fe-8401-f1462f3baf2e"
                                               }
@@ -588,6 +671,73 @@
         ]
       },
       "id": "72e43111-d18b-47a1-8e42-c0c4101404f5"
+    },
+    {
+      "command": "EVENT_GROUP",
+      "args": {
+        "__label": "Platformer State Stuff",
+        "__collapse": false
+      },
+      "children": {
+        "true": [
+          {
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "not",
+                "value": {
+                  "type": "constant",
+                  "value": "engine::PLATFORM_JUMP_STATE"
+                }
+              },
+              "__collapseElse": true
+            },
+            "children": {
+              "true": [
+                {
+                  "command": "EVENT_COMMENT",
+                  "args": {
+                    "text": "Stomping Ground Ends Attack"
+                  },
+                  "id": "22e93f0d-310e-41c3-86b1-e6dbdda27c4b"
+                },
+                {
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "variable",
+                      "value": "48"
+                    },
+                    "__collapseElse": true,
+                    "__collapse": false
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "command": "EVENT_SET_VALUE",
+                        "args": {
+                          "variable": "33",
+                          "value": {
+                            "type": "number",
+                            "value": 15
+                          },
+                          "__collapse": true
+                        },
+                        "id": "139d72a5-957f-4c35-9ab8-6a9efe8acf82"
+                      }
+                    ],
+                    "false": []
+                  },
+                  "id": "07a4185d-5995-4258-9cac-78c7d5eb79b1"
+                }
+              ],
+              "false": []
+            },
+            "id": "a4d07ff2-6483-4a4f-a440-ce7b0492b028"
+          }
+        ]
+      },
+      "id": "47beb237-dde5-401c-a5f8-45b7dc41aece"
     }
   ]
 }
