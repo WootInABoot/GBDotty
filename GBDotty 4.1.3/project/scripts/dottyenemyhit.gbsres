@@ -181,7 +181,7 @@
               "duration": 0.4,
               "frames": 30,
               "__scriptTabs": "end",
-              "__collapse": true
+              "__collapse": false
             },
             "children": {
               "script": [
@@ -239,7 +239,7 @@
                             "value": "left"
                           },
                           "__collapseElse": false,
-                          "__collapse": true
+                          "__collapse": false
                         },
                         "children": {
                           "true": [
@@ -272,14 +272,45 @@
                     ],
                     "false": [
                       {
-                        "command": "EVENT_ACTOR_SET_STATE",
+                        "command": "EVENT_IF",
                         "args": {
-                          "actorId": "$self$",
-                          "spriteStateId": "",
-                          "loopAnim": true,
+                          "condition": {
+                            "type": "not",
+                            "value": {
+                              "type": "variable",
+                              "value": "2"
+                            }
+                          },
+                          "__collapseElse": false,
                           "__collapse": true
                         },
-                        "id": "8c6ec320-d73c-4c63-97d1-8e75985cc831"
+                        "children": {
+                          "true": [
+                            {
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "$self$",
+                                "spriteStateId": "",
+                                "loopAnim": true,
+                                "__collapse": true
+                              },
+                              "id": "8c6ec320-d73c-4c63-97d1-8e75985cc831"
+                            }
+                          ],
+                          "false": [
+                            {
+                              "command": "EVENT_ACTOR_SET_STATE",
+                              "args": {
+                                "actorId": "$self$",
+                                "spriteStateId": "Rail",
+                                "loopAnim": true,
+                                "__collapse": false
+                              },
+                              "id": "a1caf26b-b672-4978-84e6-299ec3e8bc56"
+                            }
+                          ]
+                        },
+                        "id": "340fe14c-c540-42de-9479-32fe14c8bf25"
                       }
                     ]
                   },
@@ -299,7 +330,7 @@
                 "value": "57"
               },
               "__collapseElse": true,
-              "__collapse": true,
+              "__collapse": false,
               "__label": ""
             },
             "children": {
@@ -356,7 +387,7 @@
                     "duration": 0.5,
                     "frames": 30,
                     "__scriptTabs": "end",
-                    "__collapse": true
+                    "__collapse": false
                   },
                   "children": {
                     "script": [
@@ -402,7 +433,7 @@
                           },
                           "__collapseElse": false,
                           "__comment": false,
-                          "__collapse": true
+                          "__collapse": false
                         },
                         "children": {
                           "true": [
@@ -419,14 +450,45 @@
                           ],
                           "false": [
                             {
-                              "command": "EVENT_ACTOR_SET_STATE",
+                              "command": "EVENT_IF",
                               "args": {
-                                "actorId": "$self$",
-                                "spriteStateId": "",
-                                "loopAnim": true,
-                                "__collapse": true
+                                "condition": {
+                                  "type": "not",
+                                  "value": {
+                                    "type": "variable",
+                                    "value": "2"
+                                  }
+                                },
+                                "__collapseElse": false,
+                                "__collapse": false
                               },
-                              "id": "b098ca59-a084-46dc-9fd0-102beca852d3"
+                              "children": {
+                                "true": [
+                                  {
+                                    "command": "EVENT_ACTOR_SET_STATE",
+                                    "args": {
+                                      "actorId": "$self$",
+                                      "spriteStateId": "",
+                                      "loopAnim": true,
+                                      "__collapse": true
+                                    },
+                                    "id": "95eeb266-7c6e-4429-8838-40f495c7166b"
+                                  }
+                                ],
+                                "false": [
+                                  {
+                                    "command": "EVENT_ACTOR_SET_STATE",
+                                    "args": {
+                                      "actorId": "$self$",
+                                      "spriteStateId": "Rail",
+                                      "loopAnim": true,
+                                      "__collapse": false
+                                    },
+                                    "id": "6b64055a-eecb-4e65-bcb1-dad2e6475184"
+                                  }
+                                ]
+                              },
+                              "id": "a23f9427-5ed6-4acc-ae7c-582e14e11f17"
                             }
                           ]
                         },

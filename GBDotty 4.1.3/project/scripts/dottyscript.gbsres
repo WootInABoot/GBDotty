@@ -61,7 +61,7 @@
       "command": "EVENT_GROUP",
       "args": {
         "__label": "Vars on Startup",
-        "__collapse": true
+        "__collapse": false
       },
       "children": {
         "true": [
@@ -233,7 +233,7 @@
             "command": "EVENT_GROUP",
             "args": {
               "__label": "Grind Rail Fix",
-              "__collapse": true
+              "__collapse": false
             },
             "children": {
               "true": [
@@ -303,6 +303,14 @@
                   },
                   "id": "ba38bde2-980f-4c74-8fe9-039d03c77007",
                   "children": {}
+                },
+                {
+                  "command": "EVENT_ENGINE_FIELD_SET",
+                  "args": {
+                    "engineFieldKey": "plat_turn_control",
+                    "__collapse": true
+                  },
+                  "id": "19826bfd-3af6-460b-b0c2-9a2167c4fbcb"
                 }
               ]
             },
@@ -320,7 +328,7 @@
         ],
         "override": true,
         "__scriptTabs": "press",
-        "__collapse": true,
+        "__collapse": false,
         "__label": "Spin",
         "__comment": false
       },
@@ -996,16 +1004,6 @@
                                           "id": "eed855c3-7704-4d04-87f6-e62d3bcdda47"
                                         },
                                         {
-                                          "command": "EVENT_ACTOR_SET_STATE",
-                                          "args": {
-                                            "actorId": "$self$",
-                                            "spriteStateId": "",
-                                            "loopAnim": true,
-                                            "__collapse": true
-                                          },
-                                          "id": "ea17abeb-eb6d-490a-b696-35a8346a8876"
-                                        },
-                                        {
                                           "command": "EVENT_SET_VALUE",
                                           "args": {
                                             "variable": "0",
@@ -1051,85 +1049,148 @@
                                           "id": "56372761-878c-4e24-bca3-244ce5004e74"
                                         },
                                         {
-                                          "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
+                                          "command": "EVENT_IF",
                                           "args": {
-                                            "actorId": "$self$",
-                                            "speed": 7,
-                                            "__collapse": true
-                                          },
-                                          "id": "36bc9374-4fa3-443d-bf9a-f570f17d8614"
-                                        },
-                                        {
-                                          "command": "EVENT_GROUP",
-                                          "args": {
-                                            "__label": "Revert Engine Fields",
-                                            "__collapse": true
+                                            "condition": {
+                                              "type": "not",
+                                              "value": {
+                                                "type": "variable",
+                                                "value": "2"
+                                              }
+                                            },
+                                            "__collapseElse": false,
+                                            "__collapse": false
                                           },
                                           "children": {
                                             "true": [
                                               {
-                                                "command": "EVENT_ENGINE_FIELD_SET",
+                                                "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
                                                 "args": {
-                                                  "engineFieldKey": "plat_air_dec",
-                                                  "value": {
-                                                    "type": "variable",
-                                                    "value": "46"
-                                                  },
+                                                  "actorId": "$self$",
+                                                  "speed": 7,
                                                   "__collapse": true
                                                 },
-                                                "id": "6b0565be-3dd7-49d6-9be9-92056a7f3a91"
+                                                "id": "36bc9374-4fa3-443d-bf9a-f570f17d8614"
                                               },
                                               {
-                                                "command": "EVENT_ENGINE_FIELD_SET",
+                                                "command": "EVENT_ACTOR_SET_STATE",
                                                 "args": {
-                                                  "engineFieldKey": "plat_dec",
-                                                  "value": {
-                                                    "type": "variable",
-                                                    "value": "507"
-                                                  },
+                                                  "actorId": "$self$",
+                                                  "spriteStateId": "",
+                                                  "loopAnim": true,
                                                   "__collapse": true
                                                 },
-                                                "id": "ec1729e4-5e16-4027-91b4-acf214563a48"
+                                                "id": "ea17abeb-eb6d-490a-b696-35a8346a8876"
+                                              },
+                                              {
+                                                "command": "EVENT_GROUP",
+                                                "args": {
+                                                  "__label": "Revert Engine Fields",
+                                                  "__collapse": true
+                                                },
+                                                "children": {
+                                                  "true": [
+                                                    {
+                                                      "command": "EVENT_ENGINE_FIELD_SET",
+                                                      "args": {
+                                                        "engineFieldKey": "plat_air_dec",
+                                                        "value": {
+                                                          "type": "variable",
+                                                          "value": "46"
+                                                        },
+                                                        "__collapse": true
+                                                      },
+                                                      "id": "6b0565be-3dd7-49d6-9be9-92056a7f3a91"
+                                                    },
+                                                    {
+                                                      "command": "EVENT_ENGINE_FIELD_SET",
+                                                      "args": {
+                                                        "engineFieldKey": "plat_dec",
+                                                        "value": {
+                                                          "type": "variable",
+                                                          "value": "507"
+                                                        },
+                                                        "__collapse": true
+                                                      },
+                                                      "id": "ec1729e4-5e16-4027-91b4-acf214563a48"
+                                                    },
+                                                    {
+                                                      "command": "EVENT_ENGINE_FIELD_SET",
+                                                      "args": {
+                                                        "engineFieldKey": "plat_walk_vel",
+                                                        "value": {
+                                                          "type": "variable",
+                                                          "value": "26"
+                                                        },
+                                                        "__collapse": true
+                                                      },
+                                                      "id": "6867d517-e8a0-43be-9c90-f8108c1137a5"
+                                                    },
+                                                    {
+                                                      "command": "EVENT_ENGINE_FIELD_SET",
+                                                      "args": {
+                                                        "engineFieldKey": "plat_grav",
+                                                        "value": {
+                                                          "type": "variable",
+                                                          "value": "42"
+                                                        },
+                                                        "__collapse": true
+                                                      },
+                                                      "id": "098a21c4-ec71-4028-8e96-0c44e4d8de36"
+                                                    },
+                                                    {
+                                                      "command": "EVENT_ENGINE_FIELD_SET",
+                                                      "args": {
+                                                        "engineFieldKey": "plat_hold_grav",
+                                                        "value": {
+                                                          "type": "variable",
+                                                          "value": "60"
+                                                        },
+                                                        "__collapse": true
+                                                      },
+                                                      "id": "bde68a56-6757-410f-b7ba-e305c779447c"
+                                                    }
+                                                  ]
+                                                },
+                                                "id": "6fe85015-45f6-4018-bad7-9a9307cdf4ff"
+                                              }
+                                            ],
+                                            "false": [
+                                              {
+                                                "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
+                                                "args": {
+                                                  "actorId": "$self$",
+                                                  "speed": 3,
+                                                  "__collapse": true
+                                                },
+                                                "id": "e831dba4-f41c-4575-a525-bde4094843ff"
+                                              },
+                                              {
+                                                "command": "EVENT_ACTOR_SET_STATE",
+                                                "args": {
+                                                  "actorId": "$self$",
+                                                  "spriteStateId": "Rail",
+                                                  "loopAnim": true,
+                                                  "__collapse": true
+                                                },
+                                                "id": "0049a2be-646f-45b9-b1b1-3482d1d452b9"
                                               },
                                               {
                                                 "command": "EVENT_ENGINE_FIELD_SET",
                                                 "args": {
                                                   "engineFieldKey": "plat_walk_vel",
                                                   "value": {
-                                                    "type": "variable",
-                                                    "value": "26"
+                                                    "type": "number",
+                                                    "value": 9000
                                                   },
                                                   "__collapse": true
                                                 },
-                                                "id": "6867d517-e8a0-43be-9c90-f8108c1137a5"
-                                              },
-                                              {
-                                                "command": "EVENT_ENGINE_FIELD_SET",
-                                                "args": {
-                                                  "engineFieldKey": "plat_grav",
-                                                  "value": {
-                                                    "type": "variable",
-                                                    "value": "42"
-                                                  },
-                                                  "__collapse": true
-                                                },
-                                                "id": "098a21c4-ec71-4028-8e96-0c44e4d8de36"
-                                              },
-                                              {
-                                                "command": "EVENT_ENGINE_FIELD_SET",
-                                                "args": {
-                                                  "engineFieldKey": "plat_hold_grav",
-                                                  "value": {
-                                                    "type": "variable",
-                                                    "value": "60"
-                                                  },
-                                                  "__collapse": true
-                                                },
-                                                "id": "bde68a56-6757-410f-b7ba-e305c779447c"
+                                                "id": "772fa9f6-b0f7-49b6-b952-5c7bc37bf103",
+                                                "children": {}
                                               }
                                             ]
                                           },
-                                          "id": "6fe85015-45f6-4018-bad7-9a9307cdf4ff"
+                                          "id": "78ae02e5-705e-4061-a95a-2c07bdc2bd41"
                                         }
                                       ]
                                     },
@@ -1388,7 +1449,7 @@
                                           "args": {
                                             "variable": "63",
                                             "__scriptTabs": "true",
-                                            "__collapse": true
+                                            "__collapse": false
                                           },
                                           "children": {
                                             "true": [
@@ -1824,16 +1885,6 @@
                                                 "id": "ceefa6b9-f749-405d-92be-a6ec1d755b3d"
                                               },
                                               {
-                                                "command": "EVENT_ACTOR_SET_STATE",
-                                                "args": {
-                                                  "actorId": "$self$",
-                                                  "spriteStateId": "",
-                                                  "loopAnim": true,
-                                                  "__collapse": true
-                                                },
-                                                "id": "724007bd-7eb0-4eee-942d-440b47931211"
-                                              },
-                                              {
                                                 "command": "EVENT_SET_VALUE",
                                                 "args": {
                                                   "variable": "0",
@@ -1879,85 +1930,148 @@
                                                 "id": "987bcdf0-b692-422c-9653-4a222161de0e"
                                               },
                                               {
-                                                "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
+                                                "command": "EVENT_IF",
                                                 "args": {
-                                                  "actorId": "$self$",
-                                                  "speed": 7,
-                                                  "__collapse": true
-                                                },
-                                                "id": "08767c27-e461-487a-8a91-b86020a3f6ec"
-                                              },
-                                              {
-                                                "command": "EVENT_GROUP",
-                                                "args": {
-                                                  "__label": "Revert Engine Fields",
-                                                  "__collapse": true
+                                                  "condition": {
+                                                    "type": "not",
+                                                    "value": {
+                                                      "type": "variable",
+                                                      "value": "2"
+                                                    }
+                                                  },
+                                                  "__collapseElse": false,
+                                                  "__collapse": false
                                                 },
                                                 "children": {
                                                   "true": [
                                                     {
-                                                      "command": "EVENT_ENGINE_FIELD_SET",
+                                                      "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
                                                       "args": {
-                                                        "engineFieldKey": "plat_air_dec",
-                                                        "value": {
-                                                          "type": "variable",
-                                                          "value": "46"
-                                                        },
+                                                        "actorId": "$self$",
+                                                        "speed": 7,
                                                         "__collapse": true
                                                       },
-                                                      "id": "e13d2a01-f571-481d-9081-373abefa0dfa"
+                                                      "id": "453f4a49-1cde-401d-974e-89e1c46be769"
                                                     },
                                                     {
-                                                      "command": "EVENT_ENGINE_FIELD_SET",
+                                                      "command": "EVENT_ACTOR_SET_STATE",
                                                       "args": {
-                                                        "engineFieldKey": "plat_dec",
-                                                        "value": {
-                                                          "type": "variable",
-                                                          "value": "507"
-                                                        },
+                                                        "actorId": "$self$",
+                                                        "spriteStateId": "",
+                                                        "loopAnim": true,
                                                         "__collapse": true
                                                       },
-                                                      "id": "3b3c9041-5c3d-4d25-bcbb-1e6d85ae76b8"
+                                                      "id": "2304467f-1290-40fc-8271-12ca58aeeb6f"
+                                                    },
+                                                    {
+                                                      "command": "EVENT_GROUP",
+                                                      "args": {
+                                                        "__label": "Revert Engine Fields",
+                                                        "__collapse": true
+                                                      },
+                                                      "children": {
+                                                        "true": [
+                                                          {
+                                                            "command": "EVENT_ENGINE_FIELD_SET",
+                                                            "args": {
+                                                              "engineFieldKey": "plat_air_dec",
+                                                              "value": {
+                                                                "type": "variable",
+                                                                "value": "46"
+                                                              },
+                                                              "__collapse": true
+                                                            },
+                                                            "id": "f78ef581-df0f-4e25-9b7a-1a1e9434c5e9"
+                                                          },
+                                                          {
+                                                            "command": "EVENT_ENGINE_FIELD_SET",
+                                                            "args": {
+                                                              "engineFieldKey": "plat_dec",
+                                                              "value": {
+                                                                "type": "variable",
+                                                                "value": "507"
+                                                              },
+                                                              "__collapse": true
+                                                            },
+                                                            "id": "2f675e6b-7d39-4bd2-a2a7-3397ad148fac"
+                                                          },
+                                                          {
+                                                            "command": "EVENT_ENGINE_FIELD_SET",
+                                                            "args": {
+                                                              "engineFieldKey": "plat_walk_vel",
+                                                              "value": {
+                                                                "type": "variable",
+                                                                "value": "26"
+                                                              },
+                                                              "__collapse": true
+                                                            },
+                                                            "id": "f10dda9e-5ed9-4e22-8750-f517ee1af9d4"
+                                                          },
+                                                          {
+                                                            "command": "EVENT_ENGINE_FIELD_SET",
+                                                            "args": {
+                                                              "engineFieldKey": "plat_grav",
+                                                              "value": {
+                                                                "type": "variable",
+                                                                "value": "42"
+                                                              },
+                                                              "__collapse": true
+                                                            },
+                                                            "id": "acdc812b-30c2-41e0-9901-8747073d5623"
+                                                          },
+                                                          {
+                                                            "command": "EVENT_ENGINE_FIELD_SET",
+                                                            "args": {
+                                                              "engineFieldKey": "plat_hold_grav",
+                                                              "value": {
+                                                                "type": "variable",
+                                                                "value": "60"
+                                                              },
+                                                              "__collapse": true
+                                                            },
+                                                            "id": "0fe39b0d-0487-4c35-8c33-b72abc77e483"
+                                                          }
+                                                        ]
+                                                      },
+                                                      "id": "875bb939-5211-4655-9f90-b574374e8727"
+                                                    }
+                                                  ],
+                                                  "false": [
+                                                    {
+                                                      "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
+                                                      "args": {
+                                                        "actorId": "$self$",
+                                                        "speed": 3,
+                                                        "__collapse": true
+                                                      },
+                                                      "id": "f1eca26e-263f-4c85-bda4-441464bd2f06"
+                                                    },
+                                                    {
+                                                      "command": "EVENT_ACTOR_SET_STATE",
+                                                      "args": {
+                                                        "actorId": "$self$",
+                                                        "spriteStateId": "Rail",
+                                                        "loopAnim": true,
+                                                        "__collapse": true
+                                                      },
+                                                      "id": "827caf40-87c9-4f2f-b72b-e4886ffd7912"
                                                     },
                                                     {
                                                       "command": "EVENT_ENGINE_FIELD_SET",
                                                       "args": {
                                                         "engineFieldKey": "plat_walk_vel",
                                                         "value": {
-                                                          "type": "variable",
-                                                          "value": "26"
+                                                          "type": "number",
+                                                          "value": 9000
                                                         },
                                                         "__collapse": true
                                                       },
-                                                      "id": "80bc126b-62c3-4029-a139-b41265b75b5c"
-                                                    },
-                                                    {
-                                                      "command": "EVENT_ENGINE_FIELD_SET",
-                                                      "args": {
-                                                        "engineFieldKey": "plat_grav",
-                                                        "value": {
-                                                          "type": "variable",
-                                                          "value": "42"
-                                                        },
-                                                        "__collapse": true
-                                                      },
-                                                      "id": "f204fa54-4954-447a-bd6d-3d1250ccb274"
-                                                    },
-                                                    {
-                                                      "command": "EVENT_ENGINE_FIELD_SET",
-                                                      "args": {
-                                                        "engineFieldKey": "plat_hold_grav",
-                                                        "value": {
-                                                          "type": "variable",
-                                                          "value": "60"
-                                                        },
-                                                        "__collapse": true
-                                                      },
-                                                      "id": "d051d22c-72ba-43ea-9448-915729dd02bf"
+                                                      "id": "b8b25f6f-2ed1-41c0-804d-976d7334164a",
+                                                      "children": {}
                                                     }
                                                   ]
                                                 },
-                                                "id": "db56b78e-8f6a-49d9-861d-b96c727cd7e7"
+                                                "id": "4d022dae-f020-4fa2-b62c-c6307886d755"
                                               },
                                               {
                                                 "command": "EVENT_THREAD_STOP",
