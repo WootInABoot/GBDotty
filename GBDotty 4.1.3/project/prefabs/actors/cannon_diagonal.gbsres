@@ -61,6 +61,16 @@
             "children": {
               "true": [
                 {
+                  "command": "EVENT_REMOVE_INPUT_SCRIPT",
+                  "args": {
+                    "input": [
+                      "b"
+                    ],
+                    "__collapse": true
+                  },
+                  "id": "2d1af756-07b7-4ca8-978f-0d8dfdce5904"
+                },
+                {
                   "command": "EVENT_SET_INPUT_SCRIPT",
                   "args": {
                     "input": [
@@ -68,7 +78,7 @@
                       "up",
                       "down",
                       "right",
-                      "b"
+                      "a"
                     ],
                     "override": true,
                     "__scriptTabs": "press",
@@ -77,7 +87,7 @@
                   "children": {
                     "true": []
                   },
-                  "id": "f9265cfd-4148-42c5-a134-a07f145040cc"
+                  "id": "64cf8993-e453-460d-9e82-2301d04dec54"
                 },
                 {
                   "command": "EVENT_ACTOR_COLLISIONS_DISABLE",
@@ -94,7 +104,7 @@
                     "variable": "33",
                     "value": {
                       "type": "number",
-                      "value": 15
+                      "value": 60
                     },
                     "__collapse": true
                   },
@@ -125,6 +135,17 @@
                   },
                   "id": "aa3f1cdc-5147-47fc-b1da-b21e3aff4ac4",
                   "children": {}
+                },
+                {
+                  "command": "EVENT_SET_VALUE",
+                  "args": {
+                    "variable": "0",
+                    "value": {
+                      "type": "false"
+                    },
+                    "__collapse": true
+                  },
+                  "id": "dde5efe6-1639-49ee-b325-6f2f18292716"
                 },
                 {
                   "command": "EVENT_ACTOR_DEACTIVATE",
@@ -211,25 +232,21 @@
             "children": {
               "true": [
                 {
-                  "command": "EVENT_AWAIT_INPUT",
+                  "command": "EVENT_IDLE",
                   "args": {
-                    "input": [
-                      "a"
-                    ],
                     "__collapse": true
                   },
-                  "id": "aa4dbb37-8b52-44ea-8a56-05ca4b7605fd",
-                  "children": {}
+                  "id": "6c59d511-ac25-43af-8407-0a4bb0074950"
                 },
                 {
                   "command": "EVENT_SET_INPUT_SCRIPT",
                   "args": {
                     "input": [
-                      "right",
-                      "down",
-                      "up",
                       "left",
-                      "b"
+                      "up",
+                      "down",
+                      "right",
+                      "a"
                     ],
                     "override": true,
                     "__scriptTabs": "press",
@@ -238,7 +255,7 @@
                   "children": {
                     "true": []
                   },
-                  "id": "89332d22-9a5c-4615-a2b2-22d5998c6038"
+                  "id": "4c4a6c8b-98a7-40a1-8266-c1a1e817cb00"
                 },
                 {
                   "command": "EVENT_ACTOR_SET_STATE",
@@ -293,11 +310,10 @@
                   "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
                   "args": {
                     "actorId": "player",
-                    "speed": 3,
-                    "__collapse": true
+                    "speed": 1,
+                    "__collapse": false
                   },
-                  "id": "19da2916-64fd-4b6a-a6d5-f17111d4dcca",
-                  "children": {}
+                  "id": "1f9d779c-cf5f-44e0-8375-5b096f5b6d01"
                 }
               ]
             },
@@ -835,46 +851,6 @@
                   "children": {}
                 },
                 {
-                  "command": "EVENT_IF_INPUT",
-                  "args": {
-                    "input": [
-                      "up"
-                    ],
-                    "__collapseElse": false,
-                    "__collapse": true,
-                    "__label": "If up held, set state to hover, else default",
-                    "__comment": true
-                  },
-                  "children": {
-                    "true": [
-                      {
-                        "command": "EVENT_ACTOR_SET_STATE",
-                        "args": {
-                          "actorId": "player",
-                          "spriteStateId": "Hover",
-                          "loopAnim": true
-                        },
-                        "id": "bb3ddde7-c227-491d-ac2d-d7d2d55de304",
-                        "children": {}
-                      }
-                    ],
-                    "false": [
-                      {
-                        "command": "EVENT_ACTOR_SET_STATE",
-                        "args": {
-                          "actorId": "player",
-                          "spriteStateId": "",
-                          "loopAnim": true,
-                          "__collapse": false
-                        },
-                        "id": "1c0a30c8-cfe2-47fd-9db4-8d85b4989321",
-                        "children": {}
-                      }
-                    ]
-                  },
-                  "id": "0d953185-17aa-4fec-aa17-a292cc7546a4"
-                },
-                {
                   "command": "EVENT_SET_INPUT_SCRIPT",
                   "args": {
                     "input": [
@@ -882,16 +858,17 @@
                       "up",
                       "down",
                       "right",
-                      "b"
+                      "a"
                     ],
                     "override": false,
                     "__scriptTabs": "press",
-                    "__collapse": true
+                    "__collapse": true,
+                    "__comment": false
                   },
                   "children": {
                     "true": []
                   },
-                  "id": "56308c47-5509-4d34-9050-cc20f273bbe6"
+                  "id": "c1ff0920-0323-42ad-814b-edf1ee40f6df"
                 },
                 {
                   "command": "EVENT_CALL_CUSTOM_EVENT",
@@ -1070,6 +1047,18 @@
       },
       "id": "a285cf28-6061-41da-9d35-0d974b1ff842",
       "children": {}
+    },
+    {
+      "command": "EVENT_SET_VALUE",
+      "args": {
+        "variable": "L0",
+        "value": {
+          "type": "false"
+        },
+        "__label": "Cannon Input?",
+        "__collapse": true
+      },
+      "id": "803ed468-f1da-4c02-9357-38f1050bc5de"
     }
   ],
   "updateScript": [],
