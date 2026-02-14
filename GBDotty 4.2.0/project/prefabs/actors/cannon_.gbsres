@@ -22,6 +22,25 @@
       "children": {}
     },
     {
+      "command": "EVENT_SET_INPUT_SCRIPT",
+      "args": {
+        "input": [
+          "left",
+          "up",
+          "down",
+          "right",
+          "a"
+        ],
+        "override": false,
+        "__scriptTabs": "press",
+        "__collapse": true
+      },
+      "children": {
+        "true": []
+      },
+      "id": "41028fbb-13b9-49f7-8fd6-df745a95f665"
+    },
+    {
       "command": "EVENT_GROUP",
       "args": {
         "__label": "Hide/Warp Player to Cannon",
@@ -33,7 +52,7 @@
             "command": "EVENT_GROUP",
             "args": {
               "__label": "Set player up to shoot",
-              "__collapse": false
+              "__collapse": true
             },
             "children": {
               "true": [
@@ -54,8 +73,7 @@
                       "right",
                       "down",
                       "up",
-                      "left",
-                      "a"
+                      "left"
                     ],
                     "override": true,
                     "__scriptTabs": "press",
@@ -202,7 +220,8 @@
           {
             "command": "EVENT_GROUP",
             "args": {
-              "__label": "Cannon Input"
+              "__label": "Cannon Input",
+              "__collapse": false
             },
             "children": {
               "true": [
@@ -758,46 +777,6 @@
                   "children": {}
                 },
                 {
-                  "command": "EVENT_IF_INPUT",
-                  "args": {
-                    "input": [
-                      "up"
-                    ],
-                    "__collapseElse": false,
-                    "__collapse": true,
-                    "__label": "If up held, set state to hover, else default",
-                    "__comment": true
-                  },
-                  "children": {
-                    "true": [
-                      {
-                        "command": "EVENT_ACTOR_SET_STATE",
-                        "args": {
-                          "actorId": "player",
-                          "spriteStateId": "Hover",
-                          "loopAnim": true
-                        },
-                        "id": "27e3c907-cc35-4622-aaaf-2edef373c775",
-                        "children": {}
-                      }
-                    ],
-                    "false": [
-                      {
-                        "command": "EVENT_ACTOR_SET_STATE",
-                        "args": {
-                          "actorId": "player",
-                          "spriteStateId": "",
-                          "loopAnim": true,
-                          "__collapse": false
-                        },
-                        "id": "932a2eff-e5a0-4aaf-b52c-6905ca2cd853",
-                        "children": {}
-                      }
-                    ]
-                  },
-                  "id": "8b9f216c-c9bb-4f74-98d7-7e59e35554b6"
-                },
-                {
                   "command": "EVENT_SET_INPUT_SCRIPT",
                   "args": {
                     "input": [
@@ -815,6 +794,17 @@
                     "true": []
                   },
                   "id": "8876d788-a2c3-4300-b16b-cdcbbe154818"
+                },
+                {
+                  "command": "EVENT_ACTOR_SET_STATE",
+                  "args": {
+                    "actorId": "player",
+                    "spriteStateId": "",
+                    "loopAnim": true,
+                    "__collapse": true
+                  },
+                  "id": "fca9a649-670d-4e76-b64e-7027480cab1a",
+                  "children": {}
                 },
                 {
                   "command": "EVENT_CALL_CUSTOM_EVENT",
