@@ -116,7 +116,7 @@
             "command": "EVENT_GROUP",
             "args": {
               "__label": "Vars",
-              "__collapse": false
+              "__collapse": true
             },
             "children": {
               "true": [
@@ -227,18 +227,6 @@
                     "__collapse": true
                   },
                   "id": "6377d472-042b-4e1c-b788-158b77e3ae85"
-                },
-                {
-                  "command": "EVENT_SET_VALUE",
-                  "args": {
-                    "variable": "28",
-                    "value": {
-                      "type": "number",
-                      "value": -1000
-                    },
-                    "__collapse": true
-                  },
-                  "id": "996ee8c6-df0d-4c79-aff0-2d37885dddba"
                 }
               ]
             },
@@ -384,7 +372,7 @@
                         "command": "EVENT_GROUP",
                         "args": {
                           "__label": "Spin",
-                          "__collapse": true
+                          "__collapse": false
                         },
                         "children": {
                           "true": [
@@ -724,7 +712,7 @@
                                               }
                                             },
                                             "__collapseElse": true,
-                                            "__collapse": true
+                                            "__collapse": false
                                           },
                                           "children": {
                                             "true": [
@@ -757,13 +745,25 @@
                                                 "id": "db957d9f-24c6-4ca7-86c5-5f12a1537221"
                                               },
                                               {
+                                                "command": "EVENT_ENGINE_FIELD_SET",
+                                                "args": {
+                                                  "engineFieldKey": "plat_walk_vel",
+                                                  "value": {
+                                                    "type": "number",
+                                                    "value": 9000
+                                                  },
+                                                  "__collapse": true,
+                                                  "__comment": false
+                                                },
+                                                "id": "39fe12fc-b468-4b2a-951a-df81ed4bb45a"
+                                              },
+                                              {
                                                 "command": "EVENT_IF_INPUT",
                                                 "args": {
                                                   "input": [
-                                                    "left",
                                                     "right"
                                                   ],
-                                                  "__collapseElse": true,
+                                                  "__collapseElse": false,
                                                   "__collapse": false,
                                                   "__label": "If Left/Right Held, give x velocity",
                                                   "__comment": false
@@ -773,18 +773,48 @@
                                                     {
                                                       "command": "EVENT_ENGINE_FIELD_SET",
                                                       "args": {
-                                                        "engineFieldKey": "plat_walk_vel",
+                                                        "engineFieldKey": "plat_vel_x",
                                                         "value": {
                                                           "type": "number",
-                                                          "value": 9000
+                                                          "value": 5000
                                                         },
-                                                        "__collapse": true,
-                                                        "__comment": false
+                                                        "__collapse": false
                                                       },
-                                                      "id": "39fe12fc-b468-4b2a-951a-df81ed4bb45a"
+                                                      "id": "253d2a16-69ad-47c3-ab4f-d8eedbad3e54"
                                                     }
                                                   ],
-                                                  "false": []
+                                                  "false": [
+                                                    {
+                                                      "command": "EVENT_IF_INPUT",
+                                                      "args": {
+                                                        "input": [
+                                                          "left"
+                                                        ],
+                                                        "__collapseElse": false,
+                                                        "__collapse": false,
+                                                        "__label": "If Left/Right Held, give x velocity",
+                                                        "__comment": false
+                                                      },
+                                                      "children": {
+                                                        "true": [
+                                                          {
+                                                            "command": "EVENT_ENGINE_FIELD_SET",
+                                                            "args": {
+                                                              "engineFieldKey": "plat_vel_x",
+                                                              "value": {
+                                                                "type": "number",
+                                                                "value": -5000
+                                                              },
+                                                              "__collapse": true
+                                                            },
+                                                            "id": "614a92e3-5640-4d65-aaef-9f0c02dc1047"
+                                                          }
+                                                        ],
+                                                        "false": []
+                                                      },
+                                                      "id": "24753aa6-64d3-471c-b224-823645dec644"
+                                                    }
+                                                  ]
                                                 },
                                                 "id": "f59b2a68-dbeb-492e-b024-3bb83543c1ac"
                                               }
@@ -811,7 +841,7 @@
                                               "type": "number",
                                               "value": 1
                                             },
-                                            "__collapse": false,
+                                            "__collapse": true,
                                             "__label": "For Loop Timer (Spin Time/Duration)"
                                           },
                                           "children": {
