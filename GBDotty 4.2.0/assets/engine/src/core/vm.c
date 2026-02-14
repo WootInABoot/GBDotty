@@ -8,6 +8,7 @@
 
 #include "vm.h"
 #include "math.h"
+#include "compat.h"
 
 BANKREF(VM_MAIN)
 
@@ -98,21 +99,18 @@ void vm_switch(DUMMY0_t dummy0, DUMMY1_t dummy1, SCRIPT_CTX * THIS, INT16 idx, U
     if (idx < 0) value = *(THIS->stack_ptr + idx); else value = *(script_memory + idx);
     if (n) THIS->stack_ptr -= n;        // dispose values on VM stack if required
 
-    UBYTE _save = CURRENT_BANK;         // we must preserve current bank,
-    SWITCH_ROM(THIS->bank);             // then switch to bytecode bank
+    SWITCH_ROM(THIS->bank);             // switch to bytecode bank
 
     table = (INT16 *)(THIS->PC);
     while (size) {
         if (value == *table++) {
             THIS->PC = (UBYTE *)(*table);   // condition met, perform jump
-            SWITCH_ROM(_save);              // restore bank
             return;
         } else table++;
         size--;
     }
 
-    SWITCH_ROM(_save);                  // restore bank
-    THIS->PC = (UBYTE *)table;          // make PC point to the next instruction command
+    THIS->PC = (UBYTE *)table;          // make PC point to the next instruction instruction
 }
 
 // jump absolute
@@ -150,15 +148,13 @@ void vm_beginthread(DUMMY0_t dummy0, DUMMY1_t dummy1, SCRIPT_CTX * THIS, UBYTE b
     // initialize thread locals if any
     if (!(nargs)) return;
     if (ctx) {
-        UBYTE _save = CURRENT_BANK;         // we must preserve current bank,
-        SWITCH_ROM(THIS->bank);             // then switch to bytecode bank
+        SWITCH_ROM(THIS->bank);             // switch to bytecode bank
         for (UBYTE i = nargs; i != 0; i--) {
             INT16 A = *((INT16 *)THIS->PC);
-            A = (A < 0) ? *(THIS->stack_ptr + idx) : *(script_memory + idx);
+            A = (A < 0) ? *(THIS->stack_ptr + A) : *(script_memory + A);
             *(ctx->stack_ptr++) = (UWORD)A;
             THIS->PC += 2;
         }
-        SWITCH_ROM(_save);
     }
 }
 //
@@ -260,8 +256,7 @@ void vm_rpn(DUMMY0_t dummy0, DUMMY1_t dummy1, SCRIPT_CTX * THIS) OLDCALL NONBANK
     INT16 * A, * B, * ARGS;
     INT16 idx;
 
-    UBYTE _save = CURRENT_BANK;         // we must preserve current bank,
-    SWITCH_ROM(THIS->bank);             // then switch to bytecode bank
+    SWITCH_ROM(THIS->bank);             // switch to bytecode bank
 
     ARGS = THIS->stack_ptr;             // fix position of the stack to simplify parameter addressing
     while (TRUE) {
@@ -269,104 +264,115 @@ void vm_rpn(DUMMY0_t dummy0, DUMMY1_t dummy1, SCRIPT_CTX * THIS) OLDCALL NONBANK
         op = *(THIS->PC++);
         if (op < 0) {
             switch (op) {
+                // read memory indirect
+                case VM_OP_REF_MEM_IND:
+                    op = *(THIS->PC++);
+                    idx = *((INT16 *)(THIS->PC));
+                    idx = *((idx < 0) ? ARGS + idx : script_memory + idx);
+                    switch ((UINT8)op) {
+                        case VM_OP_MEM_I8  : *(THIS->stack_ptr) = *((INT8 *)idx);  break;
+                        case VM_OP_MEM_U8  : *(THIS->stack_ptr) = *((UINT8 *)idx); break;
+                        case VM_OP_MEM_I16 : *(THIS->stack_ptr) = *((INT16 *)idx); break;
+                    }
+                    THIS->PC += 2;
+                    break;
                 // write memory
-                case -8:
+                case VM_OP_REF_MEM_SET:
                     op = *(THIS->PC++);
                     switch ((UINT8)op) {
-                        case 'i' : **((INT8 **)(THIS->PC))  = *(--(THIS->stack_ptr)); break;
-                        case 'u' : **((UINT8 **)(THIS->PC)) = *(--(THIS->stack_ptr)); break;
-                        case 'I' : **((INT16 **)(THIS->PC)) = *(--(THIS->stack_ptr)); break;
+                        case VM_OP_MEM_I8  : **((INT8 **)(THIS->PC))  = *(--(THIS->stack_ptr)); break;
+                        case VM_OP_MEM_U8  : **((UINT8 **)(THIS->PC)) = *(--(THIS->stack_ptr)); break;
+                        case VM_OP_MEM_I16 : **((INT16 **)(THIS->PC)) = *(--(THIS->stack_ptr)); break;
                     }
                     THIS->PC += 2;
                     continue;
                 // read memory
-                case -7:
+                case VM_OP_REF_MEM:
                     op = *(THIS->PC++);
                     switch ((UINT8)op) {
-                        case 'i' : *(THIS->stack_ptr) = **((INT8 **)(THIS->PC));  break;
-                        case 'u' : *(THIS->stack_ptr) = **((UINT8 **)(THIS->PC)); break;
-                        case 'I' : *(THIS->stack_ptr) = **((INT16 **)(THIS->PC)); break;
+                        case VM_OP_MEM_I8  : *(THIS->stack_ptr) = **((INT8 **)(THIS->PC));  break;
+                        case VM_OP_MEM_U8  : *(THIS->stack_ptr) = **((UINT8 **)(THIS->PC)); break;
+                        case VM_OP_MEM_I16 : *(THIS->stack_ptr) = **((INT16 **)(THIS->PC)); break;
                     }
                     THIS->PC += 2;
                     break;
                 // set by indirect reference
-                case -6:
+                case VM_OP_REF_SET_IND:
                     idx = *((INT16 *)(THIS->PC));
                     idx = *((idx < 0) ? ARGS + idx : script_memory + idx);
                     *((idx < 0) ? ARGS + idx : script_memory + idx) = *(--(THIS->stack_ptr));
                     THIS->PC += 2;
                     continue;
                 // set by reference
-                case -5:
+                case VM_OP_REF_SET:
                     idx = *((INT16 *)(THIS->PC));
                     *((idx < 0) ? ARGS + idx : script_memory + idx) = *(--(THIS->stack_ptr));
                     THIS->PC += 2;
                     continue;
                 // indirect reference
-                case -4:
+                case VM_OP_REF_IND:
                     idx = *((INT16 *)(THIS->PC));
                     idx = *((idx < 0) ? ARGS + idx : script_memory + idx);
                     *(THIS->stack_ptr) = *((idx < 0) ? ARGS + idx : script_memory + idx);
                     THIS->PC += 2;
                     break;
                 // reference
-                case -3:
+                case VM_OP_REF:
                     idx = *((INT16 *)(THIS->PC));
                     *(THIS->stack_ptr) = *((idx < 0) ? ARGS + idx : script_memory + idx);
                     THIS->PC += 2;
                     break;
                 // int16
-                case -2:
+                case VM_OP_INT16:
                     *(THIS->stack_ptr) = *((UWORD *)(THIS->PC));
                     THIS->PC += 2;
                     break;
                 // int8
-                case -1:
+                case VM_OP_INT8:
                     op = *(THIS->PC++);
                     *(THIS->stack_ptr) = op;
                     break;
                 default:
-                    SWITCH_ROM(_save);             // restore bank
                     return;
             }
             THIS->stack_ptr++;
         } else {
             A = THIS->stack_ptr - 2; B = A + 1;
             switch ((UINT8)op) {
-                // arithmetics
-                case '+': *A = *A  +  *B; break;
-                case '-': *A = *A  -  *B; break;
-                case '*': *A = *A  *  *B; break;
-                case '/': *A = *A  /  *B; break;
-                case '%': *A = *A  %  *B; break;
                 // logical
-                case VM_OP_EQ:  *A = (*A  ==  *B); break;
-                case VM_OP_LT:  *A = (*A  <   *B); break;
-                case VM_OP_LE:  *A = (*A  <=  *B); break;
-                case VM_OP_GT:  *A = (*A  >   *B); break;
-                case VM_OP_GE:  *A = (*A  >=  *B); break;
-                case VM_OP_NE:  *A = (*A  !=  *B); break;
-                case VM_OP_AND: *A = ((bool)(*A)  &&  (bool)(*B)); break;
-                case VM_OP_OR:  *A = ((bool)(*A)  ||  (bool)(*B)); break;
-                case VM_OP_NOT: *B = !(*B); continue;
+                case VM_OP_EQ    : *A = (*A == *B); break;
+                case VM_OP_LT    : *A = (*A <  *B); break;
+                case VM_OP_LE    : *A = (*A <= *B); break;
+                case VM_OP_GT    : *A = (*A >  *B); break;
+                case VM_OP_GE    : *A = (*A >= *B); break;
+                case VM_OP_NE    : *A = (*A != *B); break;
+                case VM_OP_AND   : *A = ((bool)(*A) && (bool)(*B)); break;
+                case VM_OP_OR    : *A = ((bool)(*A) || (bool)(*B)); break;
+                case VM_OP_NOT   : *B = !(*B); continue;
+                // arithmetics
+                case VM_OP_ADD   : *A = *A + *B; break;
+                case VM_OP_SUB   : *A = *A - *B; break;
+                case VM_OP_MUL   : *A = *A * *B; break;
+                case VM_OP_DIV   : *A = *A / *B; break;
+                case VM_OP_MOD   : *A = *A % *B; break;
                 // bit
-                case '&': *A = *A  &  *B; break;
-                case '|': *A = *A  |  *B; break;
-                case '^': *A = *A  ^  *B; break;
-                case 'L': *A = *(uint16_t *)A << (*B & 0x0f); break;
-                case 'R': *A = *(uint16_t *)A >> (*B & 0x0f); break;
+                case VM_OP_B_AND : *A = *A & *B; break;
+                case VM_OP_B_OR  : *A = *A | *B; break;
+                case VM_OP_B_XOR : *A = *A ^ *B; break;
+                case VM_OP_SHL   : *A = *(uint16_t *)A << (*B & 0x0f); break;
+                case VM_OP_SHR   : *A = *(uint16_t *)A >> (*B & 0x0f); break;
                 // funcs
-                case 'm': *A = (*A < *B) ? *A : *B; break;  // min
-                case 'M': *A = (*A > *B) ? *A : *B; break;  // max
-                case 'T': *A = atan2((WORD)*A, (WORD)*B); break;
+                case VM_OP_MIN   : *A = (*A < *B) ? *A : *B; break;
+                case VM_OP_MAX   : *A = (*A > *B) ? *A : *B; break;
+                case VM_OP_ATAN2 : *A = atan2((WORD)*A, (WORD)*B); break;
                 // unary
-                case '@': *B = abs(*B); continue;
-                case '~': *B = ~(*B);   continue;
-                case 'Q': *B = isqrt((UWORD)*B); continue;
-                case 'r': *B = randw() % (UWORD)*B; continue;
+                case VM_OP_ABS   : *B = abs(*B); continue;
+                case VM_OP_B_NOT : *B = ~(*B);   continue;
+                case VM_OP_NEG   : *B = -(*B);   continue;
+                case VM_OP_ISQRT : *B = isqrt((UWORD)*B); continue;
+                case VM_OP_RND   : *B = randw() % (UWORD)*B; continue;
                 // terminator
                 default:
-                    SWITCH_ROM(_save);             // restore bank
                     return;
             }
             THIS->stack_ptr--;
@@ -394,10 +400,8 @@ void vm_get_far(DUMMY0_t dummy0, DUMMY1_t dummy1, SCRIPT_CTX * THIS, INT16 idxA,
     dummy0; dummy1;
     UINT16 * A;
     if (idxA < 0) A = THIS->stack_ptr + idxA; else A = script_memory + idxA;
-    UBYTE _save = CURRENT_BANK;   // we must preserve current bank,
-    SWITCH_ROM(bank);             // then switch to bytecode bank
+    SWITCH_ROM(bank);             // switch to bytecode bank
     *A = (size == 0) ? *((UBYTE *)addr) : *((UINT16 *)addr);
-    SWITCH_ROM(_save);
 }
 
 // initializes random number generator
@@ -412,6 +416,17 @@ void vm_rand(SCRIPT_CTX * THIS, INT16 idx, UINT16 min, UINT16 limit) OLDCALL BAN
     UINT16 * A;
     if (idx < 0) A = THIS->stack_ptr + idx; else A = script_memory + idx;
     *A = (randw() % limit) + min;
+}
+
+// rate limit, jump to label if the last execution of the same instruction was less than N frames ago, otherwise update last execution time
+void vm_rate_limit_const(SCRIPT_CTX * THIS, UWORD n_frames, INT16 idxA, UBYTE * pc) OLDCALL BANKED {
+    UINT16 *A;
+    if (idxA < 0) A = THIS->stack_ptr + idxA; else A = script_memory + idxA;
+    if ((UINT16)(sys_time - *A) >= 0x8000u) {
+        THIS->PC = pc;
+    } else {
+        *A = sys_time + n_frames;
+    }
 }
 
 // sets lock flag for current context
@@ -470,20 +485,47 @@ void vm_call_native(DUMMY0_t dummy0, DUMMY1_t dummy1, SCRIPT_CTX * THIS, UINT8 b
     dummy0; dummy1; THIS; bank; ptr; // suppress warnings
 #if defined(__SDCC) && defined(NINTENDO)
 __asm
+        ldhl sp, #8
+        ld a, (hl+)
+        ldh (__current_bank), a
+        ld (_rROMB0), a
+        ld a, (hl+)
+        ld h, (hl)
+        ld l, a
+        jp (hl)
+__endasm;
+#endif
+}
+// call the inlined native code by THIS->PC
+void vm_asm(DUMMY0_t dummy0, DUMMY1_t dummy1, SCRIPT_CTX * THIS) OLDCALL NONBANKED NAKED {
+    dummy0; dummy1; THIS; // suppress warnings
+#if defined(__SDCC) && defined(NINTENDO)
+__asm
         ldhl sp, #6
         ld a, (hl+)
         ld h, (hl)
-        ld l, a
+        ld l, a                 ; hl contains THIS
+
         push hl
 
-        ldhl sp, #10
-        ld a, (hl+)
-        ld e, a
-        ld a, (hl+)
-        ld h, (hl)
-        ld l, a
-        call ___sdcc_bcall_ehl
-        add sp, #2
+        inc hl
+        inc hl
+        ld a, (hl-)             ; a contains THIS->bank
+        ldh (__current_bank), a
+        ld (_rROMB0), a         ; switch bank with script
+        ld a, (hl-)
+        ld l, (hl)
+        ld h, a                 ; hl contains THIS->PC
+
+        rst 0x20                ; call hl, new PC returned on stack
+
+        pop de                  ; de contains the new PC
+
+        pop hl                  ; hl contains THIS
+
+        ld (hl), e
+        inc hl
+        ld (hl), d              ; save new PC to THIS->PC
         ret
 __endasm;
 #endif
@@ -499,8 +541,10 @@ void vm_memcpy(SCRIPT_CTX * THIS, INT16 idxA, INT16 idxB, INT16 count) OLDCALL B
 
 // executes one step in the passed context
 // return zero if script end
-// bank with VM code must be active
-static UBYTE current_fn_bank;
+// VM_STEP must not be called from outside, but not declared static, because the symbol address is required for the GBStudio debugger
+static FASTUBYTE current_fn_bank;
+static FASTUBYTE current_fn_nargs;
+static UINT16 current_sp;
 UBYTE VM_STEP(SCRIPT_CTX * CTX) NAKED NONBANKED STEP_FUNC_ATTR {
     CTX;
 #if defined(__SDCC) && defined(NINTENDO)
@@ -515,98 +559,92 @@ __asm
         ld h, a                 ; hl offset of the script
         inc de
 
-        ldh a, (__current_bank)
-        push af
-
         ld a, (de)              ; bank of the script
         ldh (__current_bank), a
         ld (_rROMB0), a         ; switch bank with vm code
 
-        ld a, (hl+)             ; load current command and return if terminator
-        ld e, a
+        ld a, (hl+)             ; load current instruction and return if terminator
         or a
-        jr z, 3$
+        ret z                   ; exit if VM_STOP encountered
 
-        push bc                 ; store bc
+        ld (_current_sp), sp
+
+        push bc                 ; store bc == THIS
         push hl
 
         ld h, #0
-        ld l, e
+        ld l, a
         add hl, hl
-        add hl, hl              ; hl = de * sizeof(SCRIPT_CMD)
+        add hl, hl              ; hl = instruction * sizeof(SCRIPT_CMD)
         dec hl
         ld de, #_script_cmds
-        add hl, de              ; hl = &script_cmds[command].args_len
+        add hl, de              ; hl = &script_cmds[instruction].args_len
 
         ld a, (hl-)
-        ld e, a                 ; e = args_len
+        ldh (_current_fn_nargs), a
         ld a, (hl-)
-        ld (_current_fn_bank), a
+        ldh (_current_fn_bank), a
         ld a, (hl-)
         ld b, a
         ld c, (hl)              ; bc = fn
 
         pop hl                  ; hl points to the next VM instruction or a first byte of the args
-        ld d, e                 ; d = arg count
-        srl d
+        ldh a, (_current_fn_nargs)
+        srl a
         jr nc, 4$               ; d is even?
-        ld a, (hl+)             ; copy one arg onto stack
-        push af
+        ld d, (hl)              ; copy one arg onto stack
+        inc hl
+        push de
         inc sp
 4$:
         jr z, 1$                ; only one arg?
 2$:
-        ld a, (hl+)
-        push af
-        inc sp
-        ld a, (hl+)
-        push af
-        inc sp
-        dec d
+        ld d, (hl)
+        inc hl
+        ld e, (hl)
+        inc hl
+        push de
+        dec a
         jr nz, 2$               ; loop through remaining args, copy 2 bytes at a time
 1$:
-        push bc                 ; save function pointer
+        ld d, h
+        ld e, l                 ; de points to the next VM instruction
 
-        ld b, h
-        ld c, l                 ; bc points to the next VM instruction
-
-        lda hl, 2(sp)
-        add hl, de              ; add correction
+        ld hl, #_current_sp
         ld a, (hl+)
         ld h, (hl)
         ld l, a
-        ld (hl), c
-        ld c, l
-        ld a, h
-        inc hl
-        ld (hl), b              ; PC = PC + sizeof(instruction) + args_len
-        ld b, a                 ; bc = THIS
+        dec hl
 
-        pop hl                  ; restore function pointer
-        push bc                 ; pushing THIS
+        ld a, (hl-)
+        ld l, (hl)
+        ld h, a                 ; hl = THIS
 
-        push de                 ; not used
-        push de                 ; de: args_len
+        push hl                 ; pushing THIS
 
-        ld a, (_current_fn_bank)    ; a = script_bank
+        ld a, e
+        ld (hl+), a
+        ld (hl), d              ; PC = PC + sizeof(instruction) + args_len
+
+        ld hl, #_current_sp
+        ld a, (hl+)
+        ld h, (hl)
+        ld l, a
+        push hl                 ; not used
+        push hl                 ; SP to restore
+
+        ldh a, (_current_fn_bank)   ; a = script_bank
         ldh (__current_bank), a
         ld (_rROMB0), a         ; switch bank with functions
 
+        ld h, b                 ; restore function pointer
+        ld l, c
         rst 0x20                ; call hl
 
-        pop hl                  ; hl: args_len
-        add hl, sp
-        ld sp, hl               ; deallocate args_len bytes from the stack
-        add sp, #6              ; deallocate dummy word and THIS twice
+        pop hl
+        ld sp, hl
 
-        ld e, #1                ; command executed
-3$:
-        pop af
-        ldh (__current_bank), a
-        ld (_rROMB0), a         ; restore bank
-
-        ld a, e
-
+        ld a, #1                ; instruction executed
         ret
 __endasm;
 #endif
@@ -712,10 +750,13 @@ UBYTE script_detach_hthread(UBYTE ID) BANKED {
 }
 
 // process all contexts
-// executes one command in each active context
+// executes one instruction in each active context
 UBYTE script_runner_update(void) NONBANKED {
     static UBYTE waitable;
     static UBYTE counter;
+    static FASTUBYTE _save;
+
+    _save = CURRENT_BANK;
 
     // if locked then execute last context until it is unlocked or terminated
     if (!vm_lock_state) old_executing_ctx = 0, executing_ctx = first_ctx;
@@ -739,7 +780,10 @@ UBYTE script_runner_update(void) NONBANKED {
             if (old_executing_ctx) executing_ctx = old_executing_ctx->next; else executing_ctx = first_ctx;
         } else {
             // check exception
-            if (vm_exception_code) return RUNNER_EXCEPTION;
+            if (vm_exception_code) {
+                SWITCH_ROM(_save);
+                return RUNNER_EXCEPTION;
+            }
             // loop until waitable state or quant is expired
             if (!(executing_ctx->waitable) && (counter--)) continue;
             // exit while loop if context switching is locked
@@ -750,6 +794,8 @@ UBYTE script_runner_update(void) NONBANKED {
             counter = INSTRUCTIONS_PER_QUANT;
         }
     }
+    SWITCH_ROM(_save);
+
     // return 0 if all threads are finished
     if (first_ctx == 0) return RUNNER_DONE;
     // return 1 if all threads in waitable state else return 2

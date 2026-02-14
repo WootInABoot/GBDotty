@@ -44,7 +44,7 @@ UBYTE text_ff_joypad;
 UBYTE text_ff;
 UBYTE text_bkg_fill;
 
-unsigned char ui_text_data[TEXT_MAX_LENGTH];
+unsigned char ui_text_data[TEXT_MAX_LENGTH + 1];
 
 // char printer internals
 static UBYTE * ui_text_ptr;
@@ -296,9 +296,9 @@ UBYTE ui_draw_text_buffer_char(void) BANKED {
             if (vwf_direction == UI_PRINT_RIGHTTOLEFT) ui_dest_base += 17;  // right_to_left initial pos correction
             // initialize current pointer with corrected base value
             ui_dest_ptr = ui_dest_base;
+            // tileno destination
+            ui_print_reset();
         }
-        // tileno destination
-        ui_print_reset();
     }
 
     // normally runs once, but if control code encountered, then process them until printable symbol or terminator
@@ -384,15 +384,15 @@ UBYTE ui_draw_text_buffer_char(void) BANKED {
             case 0x09:
                 break;
             case '\n':  // 0x0a
-                // carriage return
+                // new line
                 ui_dest_ptr = ui_dest_base += 32u;
                 if (vwf_current_offset) ui_print_reset();
                 break;
             case 0x0b:
-                text_palette = (*++ui_text_ptr & 0x07);
+                text_palette = (((*++ui_text_ptr) - 1u) & 0x07u);
                 break;
             case '\r':  // 0x0d
-                // line feed
+                // new line and scroll the text area
                 if ((ui_dest_ptr + 32u) > (UBYTE *)((((UWORD)text_scroll_addr + ((UWORD)text_scroll_height << 5)) & 0xFFE0) - 1)) {
                     scroll_rect(text_scroll_addr, text_scroll_width, text_scroll_height, text_scroll_fill);
 #ifdef CGB
@@ -425,7 +425,7 @@ UBYTE ui_draw_text_buffer_char(void) BANKED {
     }
 }
 
-void ui_update(void) NONBANKED {
+void ui_update(void) BANKED {
     UBYTE flag = FALSE;
 
     // y should always move first
@@ -489,6 +489,7 @@ UBYTE ui_run_menu(menu_item_t * start_item, UBYTE bank, UBYTE options, UBYTE cou
         camera_update();
         scroll_update();
         actors_update();
+        actors_render();
         projectiles_render();
         activate_shadow_OAM();
 
@@ -542,6 +543,7 @@ UBYTE ui_run_menu(menu_item_t * start_item, UBYTE bank, UBYTE options, UBYTE cou
 
 void ui_run_modal(UBYTE wait_flags) BANKED {
     UBYTE fail;
+    input_update();
     do {
         fail = FALSE;
 
@@ -564,6 +566,7 @@ void ui_run_modal(UBYTE wait_flags) BANKED {
         camera_update();
         scroll_update();
         actors_update();
+        actors_render();
         projectiles_render();
         activate_shadow_OAM();
 

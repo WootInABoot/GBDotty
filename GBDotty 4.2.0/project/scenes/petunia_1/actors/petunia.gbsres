@@ -1,20 +1,25 @@
 {
   "_resourceType": "actor",
   "id": "f4d7ab2c-ffcc-485c-8477-2627c14fe6ab",
+  "_index": 0,
+  "symbol": "actor_55",
+  "prefabId": "",
   "name": "Petunia",
+  "coordinateType": "tiles",
+  "x": 16,
+  "y": 15,
   "frame": 0,
   "animate": false,
   "spriteSheetId": "deb22aa4-46fc-42ac-8a83-5118beeab834",
-  "prefabId": "",
+  "paletteId": "",
   "direction": "left",
   "moveSpeed": 1,
   "animSpeed": 7,
-  "paletteId": "",
   "isPinned": false,
   "persistent": false,
   "collisionGroup": "1",
+  "collisionExtraFlags": [],
   "prefabScriptOverrides": {},
-  "symbol": "actor_55",
   "script": [
     {
       "command": "EVENT_IF",
@@ -249,8 +254,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 2,
-                                      "frames": 30,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 2
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 30
+                                      },
                                       "__collapse": true
                                     },
                                     "id": "2bc8c8af-909c-4f45-9ba1-d13dd0a1d5be"
@@ -280,8 +291,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.5,
-                                      "frames": 30,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.5
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 30
+                                      },
                                       "__collapse": true
                                     },
                                     "id": "3c9be2e7-44fa-4c79-b67e-7c4464d4b1eb"
@@ -305,707 +322,16 @@
                               "id": "a4b83575-b8c1-4334-93e6-f0e5546b531f"
                             },
                             {
-                              "command": "EVENT_GROUP",
-                              "args": {
-                                "__label": "Spin To other side",
-                                "__collapse": true
-                              },
-                              "children": {
-                                "true": [
-                                  {
-                                    "command": "EVENT_WAIT",
-                                    "args": {
-                                      "time": 0.5,
-                                      "frames": 30,
-                                      "__collapse": true
-                                    },
-                                    "id": "d944e948-4a68-45f2-9cc3-e7b3c740f9de"
-                                  },
-                                  {
-                                    "command": "EVENT_ACTOR_SET_STATE",
-                                    "args": {
-                                      "actorId": "$self$",
-                                      "spriteStateId": "spin",
-                                      "loopAnim": true,
-                                      "__collapse": true
-                                    },
-                                    "id": "5dfae582-85f9-43d0-99f5-11b573d4f583"
-                                  },
-                                  {
-                                    "command": "EVENT_WAIT",
-                                    "args": {
-                                      "time": 1,
-                                      "frames": 30,
-                                      "__collapse": true
-                                    },
-                                    "id": "3a852f4f-dabd-4d2c-82b0-2fee0d24c219"
-                                  },
-                                  {
-                                    "command": "EVENT_IF",
-                                    "args": {
-                                      "condition": {
-                                        "type": "not",
-                                        "value": {
-                                          "type": "variable",
-                                          "value": "59"
-                                        }
-                                      },
-                                      "__collapseElse": false,
-                                      "__collapse": false
-                                    },
-                                    "children": {
-                                      "true": [
-                                        {
-                                          "command": "EVENT_LOOP_FOR",
-                                          "args": {
-                                            "variable": "L4",
-                                            "from": {
-                                              "type": "number",
-                                              "value": 0
-                                            },
-                                            "comparison": "<=",
-                                            "to": {
-                                              "type": "number",
-                                              "value": 6
-                                            },
-                                            "operation": "+=",
-                                            "value": {
-                                              "type": "number",
-                                              "value": 1
-                                            },
-                                            "__collapse": true
-                                          },
-                                          "children": {
-                                            "true": [
-                                              {
-                                                "command": "EVENT_ACTOR_MOVE_RELATIVE",
-                                                "args": {
-                                                  "actorId": "$self$",
-                                                  "x": {
-                                                    "type": "number",
-                                                    "value": -2
-                                                  },
-                                                  "y": {
-                                                    "type": "number",
-                                                    "value": 0
-                                                  },
-                                                  "moveType": "horizontal",
-                                                  "useCollisions": false,
-                                                  "__collapse": true
-                                                },
-                                                "id": "e525159b-90e5-40ca-b077-70a08702c296"
-                                              },
-                                              {
-                                                "command": "FO_EVENT_CUSTOM_PROJECTILE",
-                                                "args": {
-                                                  "tabs": "default",
-                                                  "lifetime": false,
-                                                  "bounds": false,
-                                                  "ignore": false,
-                                                  "gravity": 4,
-                                                  "collision": 1,
-                                                  "bounce": 10,
-                                                  "death": 0,
-                                                  "varX": "L0",
-                                                  "varY": "L0",
-                                                  "projectile": 1,
-                                                  "arc_height": 40,
-                                                  "distance": 2,
-                                                  "amplitude": 30,
-                                                  "frequency": 10,
-                                                  "phase": 64,
-                                                  "actor": "$self$",
-                                                  "orbit_x_offset": 0,
-                                                  "orbit_y_offset": 0,
-                                                  "orbit_amplitude": 100,
-                                                  "orbit_frequency": 20,
-                                                  "orbit_phase": 64,
-                                                  "launch": false,
-                                                  "hookshot_chain": 0,
-                                                  "anchor_ignore": true,
-                                                  "dir_offset": 0,
-                                                  "customX": "L0",
-                                                  "customY": "L0",
-                                                  "__collapse": true
-                                                },
-                                                "children": {
-                                                  "script": []
-                                                },
-                                                "id": "10df2265-8abf-4379-9999-72735340f1ff"
-                                              },
-                                              {
-                                                "command": "EVENT_LAUNCH_PROJECTILE",
-                                                "args": {
-                                                  "__section": "projectile",
-                                                  "spriteSheetId": "64df57f3-29cf-4534-9a11-48b87ddc7b69",
-                                                  "spriteStateId": "spikeball",
-                                                  "actorId": "$self$",
-                                                  "x": 0,
-                                                  "y": 4,
-                                                  "directionType": "direction",
-                                                  "otherActorId": "$self$",
-                                                  "direction": "up",
-                                                  "angle": 0,
-                                                  "angleVariable": "L0",
-                                                  "targetActorId": "player",
-                                                  "initialOffset": 0,
-                                                  "speed": 2,
-                                                  "animSpeed": 3,
-                                                  "lifeTime": 1,
-                                                  "loopAnim": true,
-                                                  "destroyOnHit": false,
-                                                  "collisionGroup": "2",
-                                                  "collisionMask": [
-                                                    "player"
-                                                  ],
-                                                  "__collapse": true
-                                                },
-                                                "id": "a6c7ed4e-341f-4663-b1ef-5230d8853844"
-                                              },
-                                              {
-                                                "command": "FO_EVENT_CUSTOM_PROJECTILE",
-                                                "args": {
-                                                  "tabs": "default",
-                                                  "lifetime": false,
-                                                  "bounds": false,
-                                                  "ignore": false,
-                                                  "gravity": 0,
-                                                  "collision": 0,
-                                                  "bounce": 0,
-                                                  "death": 0,
-                                                  "varX": "L0",
-                                                  "varY": "L0",
-                                                  "projectile": 0,
-                                                  "arc_height": 50,
-                                                  "distance": 2,
-                                                  "amplitude": 30,
-                                                  "frequency": 10,
-                                                  "phase": 64,
-                                                  "actor": "$self$",
-                                                  "orbit_x_offset": 0,
-                                                  "orbit_y_offset": 0,
-                                                  "orbit_amplitude": 100,
-                                                  "orbit_frequency": 20,
-                                                  "orbit_phase": 64,
-                                                  "launch": false,
-                                                  "hookshot_chain": 0,
-                                                  "anchor_ignore": true,
-                                                  "dir_offset": 0,
-                                                  "customX": "L0",
-                                                  "customY": "L0",
-                                                  "__collapse": true
-                                                },
-                                                "children": {
-                                                  "script": []
-                                                },
-                                                "id": "5effbc47-de81-437c-aec8-9cee935b2842"
-                                              },
-                                              {
-                                                "command": "EVENT_IDLE",
-                                                "args": {
-                                                  "__collapse": true
-                                                },
-                                                "id": "3b67c1af-a5fb-4b58-9948-654ce148cb5c"
-                                              }
-                                            ]
-                                          },
-                                          "id": "77068463-df64-4e71-8328-3fb1450b6fba"
-                                        },
-                                        {
-                                          "command": "EVENT_WAIT",
-                                          "args": {
-                                            "time": 0.5,
-                                            "frames": 30,
-                                            "__collapse": true
-                                          },
-                                          "id": "5663a03f-a0f8-4981-b87c-f6d7fc860afc"
-                                        },
-                                        {
-                                          "command": "EVENT_LOOP_FOR",
-                                          "args": {
-                                            "variable": "L4",
-                                            "from": {
-                                              "type": "number",
-                                              "value": 0
-                                            },
-                                            "comparison": "<=",
-                                            "to": {
-                                              "type": "number",
-                                              "value": 6
-                                            },
-                                            "operation": "+=",
-                                            "value": {
-                                              "type": "number",
-                                              "value": 1
-                                            },
-                                            "__collapse": true
-                                          },
-                                          "children": {
-                                            "true": [
-                                              {
-                                                "command": "EVENT_ACTOR_MOVE_RELATIVE",
-                                                "args": {
-                                                  "actorId": "$self$",
-                                                  "x": {
-                                                    "type": "number",
-                                                    "value": 2
-                                                  },
-                                                  "y": {
-                                                    "type": "number",
-                                                    "value": 0
-                                                  },
-                                                  "moveType": "horizontal",
-                                                  "useCollisions": false,
-                                                  "__collapse": true
-                                                },
-                                                "id": "9e20248e-34cf-4eea-998a-5e2724cee09f"
-                                              },
-                                              {
-                                                "command": "FO_EVENT_CUSTOM_PROJECTILE",
-                                                "args": {
-                                                  "tabs": "default",
-                                                  "lifetime": false,
-                                                  "bounds": false,
-                                                  "ignore": false,
-                                                  "gravity": 4,
-                                                  "collision": 1,
-                                                  "bounce": 10,
-                                                  "death": 0,
-                                                  "varX": "L0",
-                                                  "varY": "L0",
-                                                  "projectile": 1,
-                                                  "arc_height": 40,
-                                                  "distance": 2,
-                                                  "amplitude": 30,
-                                                  "frequency": 10,
-                                                  "phase": 64,
-                                                  "actor": "$self$",
-                                                  "orbit_x_offset": 0,
-                                                  "orbit_y_offset": 0,
-                                                  "orbit_amplitude": 100,
-                                                  "orbit_frequency": 20,
-                                                  "orbit_phase": 64,
-                                                  "launch": false,
-                                                  "hookshot_chain": 0,
-                                                  "anchor_ignore": true,
-                                                  "dir_offset": 0,
-                                                  "customX": "L0",
-                                                  "customY": "L0",
-                                                  "__collapse": true
-                                                },
-                                                "children": {
-                                                  "script": []
-                                                },
-                                                "id": "5973a1c2-e2b0-47e8-b2b6-f381f7abf8fa"
-                                              },
-                                              {
-                                                "command": "EVENT_LAUNCH_PROJECTILE",
-                                                "args": {
-                                                  "__section": "projectile",
-                                                  "spriteSheetId": "64df57f3-29cf-4534-9a11-48b87ddc7b69",
-                                                  "spriteStateId": "spikeball",
-                                                  "actorId": "$self$",
-                                                  "x": 0,
-                                                  "y": 4,
-                                                  "directionType": "direction",
-                                                  "otherActorId": "$self$",
-                                                  "direction": "up",
-                                                  "angle": 0,
-                                                  "angleVariable": "L0",
-                                                  "targetActorId": "player",
-                                                  "initialOffset": 0,
-                                                  "speed": 2,
-                                                  "animSpeed": 3,
-                                                  "lifeTime": 1,
-                                                  "loopAnim": true,
-                                                  "destroyOnHit": false,
-                                                  "collisionGroup": "2",
-                                                  "collisionMask": [
-                                                    "player"
-                                                  ],
-                                                  "__collapse": true
-                                                },
-                                                "id": "faa9c315-52fa-4ab1-806b-46fdfd1bff8b"
-                                              },
-                                              {
-                                                "command": "FO_EVENT_CUSTOM_PROJECTILE",
-                                                "args": {
-                                                  "tabs": "default",
-                                                  "lifetime": false,
-                                                  "bounds": false,
-                                                  "ignore": false,
-                                                  "gravity": 0,
-                                                  "collision": 0,
-                                                  "bounce": 0,
-                                                  "death": 0,
-                                                  "varX": "L0",
-                                                  "varY": "L0",
-                                                  "projectile": 0,
-                                                  "arc_height": 50,
-                                                  "distance": 2,
-                                                  "amplitude": 30,
-                                                  "frequency": 10,
-                                                  "phase": 64,
-                                                  "actor": "$self$",
-                                                  "orbit_x_offset": 0,
-                                                  "orbit_y_offset": 0,
-                                                  "orbit_amplitude": 100,
-                                                  "orbit_frequency": 20,
-                                                  "orbit_phase": 64,
-                                                  "launch": false,
-                                                  "hookshot_chain": 0,
-                                                  "anchor_ignore": true,
-                                                  "dir_offset": 0,
-                                                  "customX": "L0",
-                                                  "customY": "L0",
-                                                  "__collapse": true
-                                                },
-                                                "children": {
-                                                  "script": []
-                                                },
-                                                "id": "93fb94bf-1c66-45bf-a709-10010a27743f"
-                                              },
-                                              {
-                                                "command": "EVENT_IDLE",
-                                                "args": {},
-                                                "id": "1b43dbaf-325e-4ce3-82b4-fbb22221ab29"
-                                              }
-                                            ]
-                                          },
-                                          "id": "895bdb8e-6554-4ff5-b7c5-6dbde2538933"
-                                        }
-                                      ],
-                                      "false": [
-                                        {
-                                          "command": "EVENT_LOOP_FOR",
-                                          "args": {
-                                            "variable": "L4",
-                                            "from": {
-                                              "type": "number",
-                                              "value": 0
-                                            },
-                                            "comparison": "<=",
-                                            "to": {
-                                              "type": "number",
-                                              "value": 6
-                                            },
-                                            "operation": "+=",
-                                            "value": {
-                                              "type": "number",
-                                              "value": 1
-                                            },
-                                            "__collapse": true
-                                          },
-                                          "children": {
-                                            "true": [
-                                              {
-                                                "command": "EVENT_ACTOR_MOVE_RELATIVE",
-                                                "args": {
-                                                  "actorId": "$self$",
-                                                  "x": {
-                                                    "type": "number",
-                                                    "value": 2
-                                                  },
-                                                  "y": {
-                                                    "type": "number",
-                                                    "value": 0
-                                                  },
-                                                  "moveType": "horizontal",
-                                                  "useCollisions": false,
-                                                  "__collapse": true
-                                                },
-                                                "id": "1d3ae0cf-6aa0-415a-9f8e-17075eb88af3"
-                                              },
-                                              {
-                                                "command": "FO_EVENT_CUSTOM_PROJECTILE",
-                                                "args": {
-                                                  "tabs": "default",
-                                                  "lifetime": false,
-                                                  "bounds": false,
-                                                  "ignore": false,
-                                                  "gravity": 4,
-                                                  "collision": 1,
-                                                  "bounce": 10,
-                                                  "death": 0,
-                                                  "varX": "L0",
-                                                  "varY": "L0",
-                                                  "projectile": 1,
-                                                  "arc_height": 40,
-                                                  "distance": 2,
-                                                  "amplitude": 30,
-                                                  "frequency": 10,
-                                                  "phase": 64,
-                                                  "actor": "$self$",
-                                                  "orbit_x_offset": 0,
-                                                  "orbit_y_offset": 0,
-                                                  "orbit_amplitude": 100,
-                                                  "orbit_frequency": 20,
-                                                  "orbit_phase": 64,
-                                                  "launch": false,
-                                                  "hookshot_chain": 0,
-                                                  "anchor_ignore": true,
-                                                  "dir_offset": 0,
-                                                  "customX": "L0",
-                                                  "customY": "L0",
-                                                  "__collapse": true
-                                                },
-                                                "children": {
-                                                  "script": []
-                                                },
-                                                "id": "f60dc8b2-afa8-48a0-a665-69c8e2863514"
-                                              },
-                                              {
-                                                "command": "EVENT_LAUNCH_PROJECTILE",
-                                                "args": {
-                                                  "__section": "projectile",
-                                                  "spriteSheetId": "64df57f3-29cf-4534-9a11-48b87ddc7b69",
-                                                  "spriteStateId": "spikeball",
-                                                  "actorId": "$self$",
-                                                  "x": 0,
-                                                  "y": 4,
-                                                  "directionType": "direction",
-                                                  "otherActorId": "$self$",
-                                                  "direction": "up",
-                                                  "angle": 0,
-                                                  "angleVariable": "L0",
-                                                  "targetActorId": "player",
-                                                  "initialOffset": 0,
-                                                  "speed": 2,
-                                                  "animSpeed": 3,
-                                                  "lifeTime": 1,
-                                                  "loopAnim": true,
-                                                  "destroyOnHit": false,
-                                                  "collisionGroup": "2",
-                                                  "collisionMask": [
-                                                    "player"
-                                                  ],
-                                                  "__collapse": true
-                                                },
-                                                "id": "1eb00775-c2d7-49e6-9496-2827f47b8002"
-                                              },
-                                              {
-                                                "command": "FO_EVENT_CUSTOM_PROJECTILE",
-                                                "args": {
-                                                  "tabs": "default",
-                                                  "lifetime": false,
-                                                  "bounds": false,
-                                                  "ignore": false,
-                                                  "gravity": 0,
-                                                  "collision": 0,
-                                                  "bounce": 0,
-                                                  "death": 0,
-                                                  "varX": "L0",
-                                                  "varY": "L0",
-                                                  "projectile": 0,
-                                                  "arc_height": 50,
-                                                  "distance": 2,
-                                                  "amplitude": 30,
-                                                  "frequency": 10,
-                                                  "phase": 64,
-                                                  "actor": "$self$",
-                                                  "orbit_x_offset": 0,
-                                                  "orbit_y_offset": 0,
-                                                  "orbit_amplitude": 100,
-                                                  "orbit_frequency": 20,
-                                                  "orbit_phase": 64,
-                                                  "launch": false,
-                                                  "hookshot_chain": 0,
-                                                  "anchor_ignore": true,
-                                                  "dir_offset": 0,
-                                                  "customX": "L0",
-                                                  "customY": "L0",
-                                                  "__collapse": true
-                                                },
-                                                "children": {
-                                                  "script": []
-                                                },
-                                                "id": "bda68f31-aff0-43c7-9b7a-b680ecc59190"
-                                              },
-                                              {
-                                                "command": "EVENT_IDLE",
-                                                "args": {},
-                                                "id": "b7f4da50-b477-4e20-8e67-3399c8504795"
-                                              }
-                                            ]
-                                          },
-                                          "id": "3f16e503-622b-4c9a-85ef-767d843a5074"
-                                        },
-                                        {
-                                          "command": "EVENT_WAIT",
-                                          "args": {
-                                            "time": 0.5,
-                                            "frames": 30,
-                                            "__collapse": true
-                                          },
-                                          "id": "86e2f55b-09d4-49e6-8224-9af2ff297749"
-                                        },
-                                        {
-                                          "command": "EVENT_LOOP_FOR",
-                                          "args": {
-                                            "variable": "L4",
-                                            "from": {
-                                              "type": "number",
-                                              "value": 0
-                                            },
-                                            "comparison": "<=",
-                                            "to": {
-                                              "type": "number",
-                                              "value": 6
-                                            },
-                                            "operation": "+=",
-                                            "value": {
-                                              "type": "number",
-                                              "value": 1
-                                            },
-                                            "__collapse": true
-                                          },
-                                          "children": {
-                                            "true": [
-                                              {
-                                                "command": "EVENT_ACTOR_MOVE_RELATIVE",
-                                                "args": {
-                                                  "actorId": "$self$",
-                                                  "x": {
-                                                    "type": "number",
-                                                    "value": -2
-                                                  },
-                                                  "y": {
-                                                    "type": "number",
-                                                    "value": 0
-                                                  },
-                                                  "moveType": "horizontal",
-                                                  "useCollisions": false,
-                                                  "__collapse": true
-                                                },
-                                                "id": "e33fda44-9066-4713-8e8f-08c5e8212624"
-                                              },
-                                              {
-                                                "command": "FO_EVENT_CUSTOM_PROJECTILE",
-                                                "args": {
-                                                  "tabs": "default",
-                                                  "lifetime": false,
-                                                  "bounds": false,
-                                                  "ignore": false,
-                                                  "gravity": 4,
-                                                  "collision": 1,
-                                                  "bounce": 10,
-                                                  "death": 0,
-                                                  "varX": "L0",
-                                                  "varY": "L0",
-                                                  "projectile": 1,
-                                                  "arc_height": 40,
-                                                  "distance": 2,
-                                                  "amplitude": 30,
-                                                  "frequency": 10,
-                                                  "phase": 64,
-                                                  "actor": "$self$",
-                                                  "orbit_x_offset": 0,
-                                                  "orbit_y_offset": 0,
-                                                  "orbit_amplitude": 100,
-                                                  "orbit_frequency": 20,
-                                                  "orbit_phase": 64,
-                                                  "launch": false,
-                                                  "hookshot_chain": 0,
-                                                  "anchor_ignore": true,
-                                                  "dir_offset": 0,
-                                                  "customX": "L0",
-                                                  "customY": "L0",
-                                                  "__collapse": true
-                                                },
-                                                "children": {
-                                                  "script": []
-                                                },
-                                                "id": "80415fca-9801-4c87-8c98-2a0d5e88c348"
-                                              },
-                                              {
-                                                "command": "EVENT_LAUNCH_PROJECTILE",
-                                                "args": {
-                                                  "__section": "projectile",
-                                                  "spriteSheetId": "64df57f3-29cf-4534-9a11-48b87ddc7b69",
-                                                  "spriteStateId": "spikeball",
-                                                  "actorId": "$self$",
-                                                  "x": 0,
-                                                  "y": 4,
-                                                  "directionType": "direction",
-                                                  "otherActorId": "$self$",
-                                                  "direction": "up",
-                                                  "angle": 0,
-                                                  "angleVariable": "L0",
-                                                  "targetActorId": "player",
-                                                  "initialOffset": 0,
-                                                  "speed": 2,
-                                                  "animSpeed": 3,
-                                                  "lifeTime": 1,
-                                                  "loopAnim": true,
-                                                  "destroyOnHit": false,
-                                                  "collisionGroup": "2",
-                                                  "collisionMask": [
-                                                    "player"
-                                                  ],
-                                                  "__collapse": true
-                                                },
-                                                "id": "95de7e38-147a-4f65-b76c-7ed876c8fca0"
-                                              },
-                                              {
-                                                "command": "FO_EVENT_CUSTOM_PROJECTILE",
-                                                "args": {
-                                                  "tabs": "default",
-                                                  "lifetime": false,
-                                                  "bounds": false,
-                                                  "ignore": false,
-                                                  "gravity": 0,
-                                                  "collision": 0,
-                                                  "bounce": 0,
-                                                  "death": 0,
-                                                  "varX": "L0",
-                                                  "varY": "L0",
-                                                  "projectile": 0,
-                                                  "arc_height": 50,
-                                                  "distance": 2,
-                                                  "amplitude": 30,
-                                                  "frequency": 10,
-                                                  "phase": 64,
-                                                  "actor": "$self$",
-                                                  "orbit_x_offset": 0,
-                                                  "orbit_y_offset": 0,
-                                                  "orbit_amplitude": 100,
-                                                  "orbit_frequency": 20,
-                                                  "orbit_phase": 64,
-                                                  "launch": false,
-                                                  "hookshot_chain": 0,
-                                                  "anchor_ignore": true,
-                                                  "dir_offset": 0,
-                                                  "customX": "L0",
-                                                  "customY": "L0",
-                                                  "__collapse": true
-                                                },
-                                                "children": {
-                                                  "script": []
-                                                },
-                                                "id": "4930ea34-84ac-424c-90a1-1ff00a3fbda6"
-                                              },
-                                              {
-                                                "command": "EVENT_IDLE",
-                                                "args": {},
-                                                "id": "2b36c7c2-cf16-45a3-ac95-c782be9c6c53"
-                                              }
-                                            ]
-                                          },
-                                          "id": "5edbdcc4-6ba1-4194-bbfb-b8569ca3c876"
-                                        }
-                                      ]
-                                    },
-                                    "id": "133d8f4b-a799-4560-b78c-62e60c86fffa"
-                                  }
-                                ]
-                              },
-                              "id": "3d0b9b6a-4b78-43cc-a598-afa9ac7f43df"
-                            },
-                            {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 1,
-                                "frames": 30
+                                "time": {
+                                  "type": "number",
+                                  "value": 1
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 30
+                                }
                               },
                               "id": "ed58f01d-3cec-4b54-be3a-2bc35db87f09"
                             },
@@ -1020,8 +346,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.5,
-                                      "frames": 30
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.5
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 30
+                                      }
                                     },
                                     "id": "bc480b58-046a-46b2-8d3c-34568ab302ba"
                                   },
@@ -1094,8 +426,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1136,8 +474,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1178,8 +522,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1220,8 +570,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1262,8 +618,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1304,8 +666,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1358,8 +726,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1400,8 +774,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1442,8 +822,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1484,8 +870,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1526,8 +918,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1568,8 +966,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1610,8 +1014,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1698,8 +1108,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1740,8 +1156,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1782,8 +1204,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1824,8 +1252,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1866,8 +1300,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1908,8 +1348,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -1962,8 +1408,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -2004,8 +1456,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -2046,8 +1504,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -2088,8 +1552,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -2130,8 +1600,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -2172,8 +1648,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -2214,8 +1696,14 @@
                                               {
                                                 "command": "EVENT_WAIT",
                                                 "args": {
-                                                  "time": 0.05,
-                                                  "frames": 2,
+                                                  "time": {
+                                                    "type": "number",
+                                                    "value": 0.05
+                                                  },
+                                                  "frames": {
+                                                    "type": "number",
+                                                    "value": 2
+                                                  },
                                                   "__collapse": true,
                                                   "units": "time"
                                                 },
@@ -2296,8 +1784,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.3,
-                                      "frames": 30,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.3
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 30
+                                      },
                                       "__collapse": true
                                     },
                                     "id": "442f0810-039b-499f-a974-fc24a57fcef6"
@@ -2380,8 +1874,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.5,
-                                      "frames": 30,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.5
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 30
+                                      },
                                       "__collapse": true
                                     },
                                     "id": "3ef1301f-ed9a-4795-bf07-97cbc850b8aa"
@@ -2403,8 +1903,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.5,
-                                      "frames": 30,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.5
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 30
+                                      },
                                       "__collapse": false
                                     },
                                     "id": "956a672e-a591-4085-aa24-ef054cb10111"
@@ -2515,8 +2021,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 2,
-                                      "frames": 30,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 2
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 30
+                                      },
                                       "__collapse": true
                                     },
                                     "id": "29ca6f65-e69f-483d-a289-f81dbbd92092"
@@ -2702,8 +2214,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.5,
-                          "frames": 30,
+                          "time": {
+                            "type": "number",
+                            "value": 0.5
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 30
+                          },
                           "__collapse": true
                         },
                         "id": "0ff1d94e-72ff-4545-880e-44df4b6e8cff"
@@ -2777,8 +2295,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.05,
-                                      "frames": 2,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.05
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 2
+                                      },
                                       "__collapse": true,
                                       "units": "time"
                                     },
@@ -2819,8 +2343,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.05,
-                                      "frames": 2,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.05
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 2
+                                      },
                                       "__collapse": true,
                                       "units": "time"
                                     },
@@ -2861,8 +2391,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.05,
-                                      "frames": 2,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.05
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 2
+                                      },
                                       "__collapse": true,
                                       "units": "time"
                                     },
@@ -2903,8 +2439,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.05,
-                                      "frames": 2,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.05
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 2
+                                      },
                                       "__collapse": true,
                                       "units": "time"
                                     },
@@ -2945,8 +2487,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.05,
-                                      "frames": 2,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.05
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 2
+                                      },
                                       "__collapse": true,
                                       "units": "time"
                                     },
@@ -2987,8 +2535,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.05,
-                                      "frames": 2,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.05
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 2
+                                      },
                                       "__collapse": true,
                                       "units": "time"
                                     },
@@ -3075,8 +2629,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.05,
-                                      "frames": 2,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.05
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 2
+                                      },
                                       "__collapse": true,
                                       "units": "time"
                                     },
@@ -3117,8 +2677,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.05,
-                                      "frames": 2,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.05
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 2
+                                      },
                                       "__collapse": true,
                                       "units": "time"
                                     },
@@ -3159,8 +2725,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.05,
-                                      "frames": 2,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.05
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 2
+                                      },
                                       "__collapse": true,
                                       "units": "time"
                                     },
@@ -3201,8 +2773,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.05,
-                                      "frames": 2,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.05
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 2
+                                      },
                                       "__collapse": true,
                                       "units": "time"
                                     },
@@ -3243,8 +2821,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.05,
-                                      "frames": 2,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.05
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 2
+                                      },
                                       "__collapse": true,
                                       "units": "time"
                                     },
@@ -3285,8 +2869,14 @@
                                   {
                                     "command": "EVENT_WAIT",
                                     "args": {
-                                      "time": 0.05,
-                                      "frames": 2,
+                                      "time": {
+                                        "type": "number",
+                                        "value": 0.05
+                                      },
+                                      "frames": {
+                                        "type": "number",
+                                        "value": 2
+                                      },
                                       "__collapse": true,
                                       "units": "time"
                                     },
@@ -3354,8 +2944,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 1,
-                          "frames": 30,
+                          "time": {
+                            "type": "number",
+                            "value": 1
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 30
+                          },
                           "__collapse": true
                         },
                         "id": "6a7d2f5d-4c65-4f5b-a760-4b004d7d0373"
@@ -3396,8 +2992,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.075,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.075
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -3431,8 +3033,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -3466,8 +3074,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.025,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.025
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -3501,8 +3115,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.02,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.02
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -3722,8 +3342,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 1,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 1
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": false,
                                 "units": "time"
                               },
@@ -3763,7 +3389,8 @@
                                 },
                                 "moveType": "horizontal",
                                 "useCollisions": false,
-                                "__collapse": true
+                                "__collapse": true,
+                                "collideWith": []
                               },
                               "id": "6edce97a-6916-4a37-81b5-317f925651c2"
                             },
@@ -3796,7 +3423,8 @@
                                 },
                                 "moveType": "horizontal",
                                 "useCollisions": false,
-                                "__collapse": true
+                                "__collapse": true,
+                                "collideWith": []
                               },
                               "id": "c63ad9b1-389e-4ed4-a639-80591c6deceb"
                             },
@@ -3829,8 +3457,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.5,
-                          "frames": 30,
+                          "time": {
+                            "type": "number",
+                            "value": 0.5
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 30
+                          },
                           "__collapse": true
                         },
                         "id": "fd3d2f16-302d-481b-ab20-f37ce2acfc17"
@@ -3852,8 +3486,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.5,
-                          "frames": 30,
+                          "time": {
+                            "type": "number",
+                            "value": 0.5
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 30
+                          },
                           "__collapse": true
                         },
                         "id": "adb7424c-d033-44fa-90f4-8f126cf46cdb"
@@ -3890,8 +3530,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "__collapse": true
             },
             "id": "55b03cf5-e555-4a38-bda4-eb2e8e9f235f"
@@ -3904,45 +3550,6 @@
               "__collapse": true
             },
             "id": "070b3737-6d1c-4b16-be3b-7c57628a1927"
-          },
-          {
-            "command": "FO_EVENT_CUSTOM_PROJECTILE",
-            "args": {
-              "tabs": "default",
-              "lifetime": false,
-              "bounds": false,
-              "ignore": false,
-              "gravity": 0,
-              "collision": 0,
-              "bounce": 0,
-              "death": 0,
-              "varX": "L0",
-              "varY": "L0",
-              "projectile": 0,
-              "arc_height": 50,
-              "distance": 2,
-              "amplitude": 30,
-              "frequency": 10,
-              "phase": 64,
-              "actor": "$self$",
-              "orbit_x_offset": 0,
-              "orbit_y_offset": 0,
-              "orbit_amplitude": 100,
-              "orbit_frequency": 20,
-              "orbit_phase": 64,
-              "launch": false,
-              "hookshot_chain": 0,
-              "anchor_ignore": true,
-              "dir_offset": 0,
-              "customX": "L0",
-              "customY": "L0",
-              "__collapse": true,
-              "__label": "Return to default projectiles"
-            },
-            "children": {
-              "script": []
-            },
-            "id": "15bb6eeb-03fc-4e0d-847c-b27044ee16ef"
           },
           {
             "command": "EVENT_LOOP_FOR",
@@ -4035,50 +3642,17 @@
                 {
                   "command": "EVENT_WAIT",
                   "args": {
-                    "time": 0.5,
-                    "frames": 30,
+                    "time": {
+                      "type": "number",
+                      "value": 0.5
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 30
+                    },
                     "__collapse": true
                   },
                   "id": "c0785b9c-4ba0-476f-b346-634f2515ff11"
-                },
-                {
-                  "command": "FO_EVENT_CUSTOM_PROJECTILE",
-                  "args": {
-                    "tabs": "default",
-                    "lifetime": false,
-                    "bounds": false,
-                    "ignore": false,
-                    "gravity": 0,
-                    "collision": 0,
-                    "bounce": 0,
-                    "death": 0,
-                    "varX": "L0",
-                    "varY": "L0",
-                    "projectile": 0,
-                    "arc_height": 50,
-                    "distance": 2,
-                    "amplitude": 30,
-                    "frequency": 10,
-                    "phase": 64,
-                    "actor": "$self$",
-                    "orbit_x_offset": 0,
-                    "orbit_y_offset": 0,
-                    "orbit_amplitude": 100,
-                    "orbit_frequency": 20,
-                    "orbit_phase": 64,
-                    "launch": false,
-                    "hookshot_chain": 0,
-                    "anchor_ignore": true,
-                    "dir_offset": 0,
-                    "customX": "L0",
-                    "customY": "L0",
-                    "__collapse": true,
-                    "__label": "Reset Projectile Behavior"
-                  },
-                  "children": {
-                    "script": []
-                  },
-                  "id": "7dacd6fd-a24d-4cfe-bace-950990c72511"
                 },
                 {
                   "command": "EVENT_IF",
@@ -4102,8 +3676,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.2,
-                          "frames": 30,
+                          "time": {
+                            "type": "number",
+                            "value": 0.2
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 30
+                          },
                           "__collapse": true
                         },
                         "id": "f5068c6b-5c77-4784-9c07-21a48801e49d"
@@ -4184,8 +3764,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.2,
-                          "frames": 30,
+                          "time": {
+                            "type": "number",
+                            "value": 0.2
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 30
+                          },
                           "__collapse": true
                         },
                         "id": "d892f773-81c6-474a-b4a8-7a3a6ff43c13"
@@ -4263,8 +3849,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "__collapse": true
             },
             "id": "a0397e46-17b9-4270-8978-c0e77d874ce8"
@@ -4291,8 +3883,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.2,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.2
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "__collapse": true
             },
             "id": "420674ed-5c0d-4ff8-802f-10bc068b6314"
@@ -4301,7 +3899,7 @@
             "command": "EVENT_GROUP",
             "args": {
               "__label": "Fruit",
-              "__collapse": true,
+              "__collapse": false,
               "__comment": false
             },
             "children": {
@@ -4384,49 +3982,17 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.4,
-                          "frames": 30,
+                          "time": {
+                            "type": "number",
+                            "value": 0.4
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 30
+                          },
                           "__collapse": true
                         },
                         "id": "5e1de506-9c12-4b7a-a5c2-baa85bbe8533"
-                      },
-                      {
-                        "command": "FO_EVENT_CUSTOM_PROJECTILE",
-                        "args": {
-                          "tabs": "default",
-                          "lifetime": false,
-                          "bounds": false,
-                          "ignore": false,
-                          "gravity": 6,
-                          "collision": 3,
-                          "bounce": 40,
-                          "death": 0,
-                          "varX": "L0",
-                          "varY": "L0",
-                          "projectile": 1,
-                          "arc_height": 35,
-                          "distance": 2,
-                          "amplitude": 30,
-                          "frequency": 10,
-                          "phase": 64,
-                          "actor": "$self$",
-                          "orbit_x_offset": 0,
-                          "orbit_y_offset": 0,
-                          "orbit_amplitude": 100,
-                          "orbit_frequency": 20,
-                          "orbit_phase": 64,
-                          "launch": false,
-                          "hookshot_chain": 0,
-                          "anchor_ignore": true,
-                          "dir_offset": 0,
-                          "customX": "L0",
-                          "customY": "L0",
-                          "__collapse": true
-                        },
-                        "children": {
-                          "script": []
-                        },
-                        "id": "1f33d8e3-8799-43f0-8f81-08c30ee22006"
                       },
                       {
                         "command": "EVENT_LAUNCH_PROJECTILE",
@@ -4457,45 +4023,6 @@
                           "__presetId": "c0937b20-f6d4-4835-88f8-848d74d6b8f3"
                         },
                         "id": "629f277a-3883-4d28-946c-c5cc7a25eb78"
-                      },
-                      {
-                        "command": "FO_EVENT_CUSTOM_PROJECTILE",
-                        "args": {
-                          "tabs": "general",
-                          "lifetime": false,
-                          "bounds": false,
-                          "ignore": false,
-                          "gravity": 0,
-                          "collision": 0,
-                          "bounce": 0,
-                          "death": 0,
-                          "varX": "L0",
-                          "varY": "L0",
-                          "projectile": 0,
-                          "arc_height": 50,
-                          "distance": 2,
-                          "amplitude": 30,
-                          "frequency": 10,
-                          "phase": 64,
-                          "actor": "$self$",
-                          "orbit_x_offset": 0,
-                          "orbit_y_offset": 0,
-                          "orbit_amplitude": 100,
-                          "orbit_frequency": 20,
-                          "orbit_phase": 64,
-                          "launch": false,
-                          "hookshot_chain": 0,
-                          "anchor_ignore": true,
-                          "dir_offset": 0,
-                          "customX": "L0",
-                          "customY": "L0",
-                          "__collapse": true,
-                          "__label": "reset"
-                        },
-                        "children": {
-                          "script": []
-                        },
-                        "id": "804c6296-869f-47e3-b740-51d1c91b936f"
                       }
                     ],
                     "false": [
@@ -4521,49 +4048,17 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.4,
-                                "frames": 30,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.4
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 30
+                                },
                                 "__collapse": true
                               },
                               "id": "c050288b-769d-410a-86f3-7b71617803f8"
-                            },
-                            {
-                              "command": "FO_EVENT_CUSTOM_PROJECTILE",
-                              "args": {
-                                "tabs": "default",
-                                "lifetime": false,
-                                "bounds": false,
-                                "ignore": false,
-                                "gravity": 6,
-                                "collision": 3,
-                                "bounce": 40,
-                                "death": 0,
-                                "varX": "L0",
-                                "varY": "L0",
-                                "projectile": 1,
-                                "arc_height": 35,
-                                "distance": 2,
-                                "amplitude": 30,
-                                "frequency": 10,
-                                "phase": 64,
-                                "actor": "$self$",
-                                "orbit_x_offset": 0,
-                                "orbit_y_offset": 0,
-                                "orbit_amplitude": 100,
-                                "orbit_frequency": 20,
-                                "orbit_phase": 64,
-                                "launch": false,
-                                "hookshot_chain": 0,
-                                "anchor_ignore": true,
-                                "dir_offset": 0,
-                                "customX": "L0",
-                                "customY": "L0",
-                                "__collapse": true
-                              },
-                              "children": {
-                                "script": []
-                              },
-                              "id": "a7b8518a-508b-4637-a133-8c70476f44f6"
                             },
                             {
                               "command": "EVENT_LAUNCH_PROJECTILE",
@@ -4596,90 +4091,19 @@
                               "id": "92d6dc6c-5523-4a09-8397-3a60c103ab30"
                             },
                             {
-                              "command": "FO_EVENT_CUSTOM_PROJECTILE",
-                              "args": {
-                                "tabs": "default",
-                                "lifetime": false,
-                                "bounds": false,
-                                "ignore": false,
-                                "gravity": 0,
-                                "collision": 0,
-                                "bounce": 0,
-                                "death": 0,
-                                "varX": "L0",
-                                "varY": "L0",
-                                "projectile": 0,
-                                "arc_height": 50,
-                                "distance": 2,
-                                "amplitude": 30,
-                                "frequency": 10,
-                                "phase": 64,
-                                "actor": "$self$",
-                                "orbit_x_offset": 0,
-                                "orbit_y_offset": 0,
-                                "orbit_amplitude": 100,
-                                "orbit_frequency": 20,
-                                "orbit_phase": 64,
-                                "launch": false,
-                                "hookshot_chain": 0,
-                                "anchor_ignore": true,
-                                "dir_offset": 0,
-                                "customX": "L0",
-                                "customY": "L0",
-                                "__collapse": true,
-                                "__label": "reset"
-                              },
-                              "children": {
-                                "script": []
-                              },
-                              "id": "db89a667-efd3-4801-8438-f983902fdc35"
-                            },
-                            {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.4,
-                                "frames": 30,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.4
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 30
+                                },
                                 "__collapse": true
                               },
                               "id": "3b8ef117-478a-4f1a-98a4-1d29f2731868"
-                            },
-                            {
-                              "command": "FO_EVENT_CUSTOM_PROJECTILE",
-                              "args": {
-                                "tabs": "default",
-                                "lifetime": false,
-                                "bounds": false,
-                                "ignore": false,
-                                "gravity": 6,
-                                "collision": 3,
-                                "bounce": 40,
-                                "death": 0,
-                                "varX": "L0",
-                                "varY": "L0",
-                                "projectile": 1,
-                                "arc_height": 35,
-                                "distance": 2,
-                                "amplitude": 30,
-                                "frequency": 10,
-                                "phase": 64,
-                                "actor": "$self$",
-                                "orbit_x_offset": 0,
-                                "orbit_y_offset": 0,
-                                "orbit_amplitude": 100,
-                                "orbit_frequency": 20,
-                                "orbit_phase": 64,
-                                "launch": false,
-                                "hookshot_chain": 0,
-                                "anchor_ignore": true,
-                                "dir_offset": 0,
-                                "customX": "L0",
-                                "customY": "L0",
-                                "__collapse": true
-                              },
-                              "children": {
-                                "script": []
-                              },
-                              "id": "108465dc-ea97-42f4-b60d-d513609616a8"
                             },
                             {
                               "command": "EVENT_LAUNCH_PROJECTILE",
@@ -4710,45 +4134,6 @@
                                 "__presetId": "c0937b20-f6d4-4835-88f8-848d74d6b8f3"
                               },
                               "id": "d3fa1a76-82ba-4269-a13f-a76d7ff69bf5"
-                            },
-                            {
-                              "command": "FO_EVENT_CUSTOM_PROJECTILE",
-                              "args": {
-                                "tabs": "default",
-                                "lifetime": false,
-                                "bounds": false,
-                                "ignore": false,
-                                "gravity": 0,
-                                "collision": 0,
-                                "bounce": 0,
-                                "death": 0,
-                                "varX": "L0",
-                                "varY": "L0",
-                                "projectile": 0,
-                                "arc_height": 50,
-                                "distance": 2,
-                                "amplitude": 30,
-                                "frequency": 10,
-                                "phase": 64,
-                                "actor": "$self$",
-                                "orbit_x_offset": 0,
-                                "orbit_y_offset": 0,
-                                "orbit_amplitude": 100,
-                                "orbit_frequency": 20,
-                                "orbit_phase": 64,
-                                "launch": false,
-                                "hookshot_chain": 0,
-                                "anchor_ignore": true,
-                                "dir_offset": 0,
-                                "customX": "L0",
-                                "customY": "L0",
-                                "__collapse": true,
-                                "__label": "reset"
-                              },
-                              "children": {
-                                "script": []
-                              },
-                              "id": "923308ec-dfb9-4cbb-a986-796f73e2a147"
                             }
                           ],
                           "false": []
@@ -4762,8 +4147,14 @@
                 {
                   "command": "EVENT_WAIT",
                   "args": {
-                    "time": 0.4,
-                    "frames": 30,
+                    "time": {
+                      "type": "number",
+                      "value": 0.4
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 30
+                    },
                     "__collapse": true
                   },
                   "id": "f8215f19-6f01-40e5-a7cb-bd9b32de489b"
@@ -4801,8 +4192,14 @@
                 {
                   "command": "EVENT_WAIT",
                   "args": {
-                    "time": 0.7,
-                    "frames": 30,
+                    "time": {
+                      "type": "number",
+                      "value": 0.7
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 30
+                    },
                     "__collapse": false
                   },
                   "id": "997fc387-8582-4cc9-a744-c48a9519b58e"
@@ -4833,8 +4230,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "__collapse": true
             },
             "id": "b97f7297-cb36-40f4-8553-79881c8b1372"
@@ -4852,8 +4255,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 4,
-              "frames": 30
+              "time": {
+                "type": "number",
+                "value": 4
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              }
             },
             "id": "863f23e8-e74c-4a08-9f8f-7297acd2221a"
           }
@@ -4865,7 +4274,7 @@
       "command": "EVENT_GROUP",
       "args": {
         "__label": "Jump to Opposite Side",
-        "__collapse": true
+        "__collapse": false
       },
       "children": {
         "true": [
@@ -4891,8 +4300,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "__collapse": true
             },
             "id": "8d42eb46-e1ed-4024-8e8c-3bacb0b5fd3d"
@@ -4927,7 +4342,7 @@
                   "command": "EVENT_GROUP",
                   "args": {
                     "__label": "upL",
-                    "__collapse": true
+                    "__collapse": false
                   },
                   "children": {
                     "true": [
@@ -4966,8 +4381,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5008,8 +4429,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5050,8 +4477,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5092,8 +4525,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5134,8 +4573,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5176,8 +4621,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5223,15 +4674,21 @@
                   "command": "EVENT_GROUP",
                   "args": {
                     "__label": "downL",
-                    "__collapse": true
+                    "__collapse": false
                   },
                   "children": {
                     "true": [
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5272,8 +4729,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5314,8 +4777,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5356,8 +4825,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5398,8 +4873,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5440,8 +4921,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5482,8 +4969,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5531,7 +5024,7 @@
                   "command": "EVENT_GROUP",
                   "args": {
                     "__label": "upR",
-                    "__collapse": true
+                    "__collapse": false
                   },
                   "children": {
                     "true": [
@@ -5570,8 +5063,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5612,8 +5111,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5654,8 +5159,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5696,8 +5207,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5738,8 +5255,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5780,8 +5303,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5834,8 +5363,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5876,8 +5411,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5918,8 +5459,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -5960,8 +5507,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -6002,8 +5555,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -6044,8 +5603,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -6086,8 +5651,14 @@
                       {
                         "command": "EVENT_WAIT",
                         "args": {
-                          "time": 0.05,
-                          "frames": 2,
+                          "time": {
+                            "type": "number",
+                            "value": 0.05
+                          },
+                          "frames": {
+                            "type": "number",
+                            "value": 2
+                          },
                           "__collapse": true,
                           "units": "time"
                         },
@@ -6168,8 +5739,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.3,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.3
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "__collapse": true
             },
             "id": "13891e72-56f7-42db-9eac-4977b87baa9b"
@@ -6252,8 +5829,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "__collapse": true
             },
             "id": "20de51eb-cc9e-4aef-86e7-9bdefae49931"
@@ -6275,8 +5858,14 @@
           {
             "command": "EVENT_WAIT",
             "args": {
-              "time": 0.5,
-              "frames": 30,
+              "time": {
+                "type": "number",
+                "value": 0.5
+              },
+              "frames": {
+                "type": "number",
+                "value": 30
+              },
               "__collapse": false
             },
             "id": "749bd682-8cff-4d55-bfa6-f9de7063e817"
@@ -6337,14 +5926,6 @@
       "id": "716d3ef2-a82f-4251-b459-ab940f12e751"
     },
     {
-      "command": "FO_EVENT_PAUSE_PROJECTILES",
-      "args": {
-        "pause": 1,
-        "__collapse": true
-      },
-      "id": "b71df855-c134-48c2-8e6a-a068d248e0ab"
-    },
-    {
       "command": "EVENT_CAMERA_SHAKE",
       "args": {
         "time": 0.02,
@@ -6369,8 +5950,14 @@
     {
       "command": "EVENT_WAIT",
       "args": {
-        "time": 0.75,
-        "frames": 30,
+        "time": {
+          "type": "number",
+          "value": 0.75
+        },
+        "frames": {
+          "type": "number",
+          "value": 30
+        },
         "__collapse": true
       },
       "id": "1e9714bb-6de4-4522-b9bc-0164c50232c8"
@@ -6473,8 +6060,14 @@
                 {
                   "command": "EVENT_WAIT",
                   "args": {
-                    "time": 0.5,
-                    "frames": 30,
+                    "time": {
+                      "type": "number",
+                      "value": 0.5
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 30
+                    },
                     "__collapse": true
                   },
                   "id": "0e186d5d-3126-418d-be35-9dfc8ae368d6"
@@ -6508,8 +6101,14 @@
                 {
                   "command": "EVENT_WAIT",
                   "args": {
-                    "time": 0.5,
-                    "frames": 30
+                    "time": {
+                      "type": "number",
+                      "value": 0.5
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 30
+                    }
                   },
                   "id": "54c8e1fa-a910-49c6-a631-8468cd038be7"
                 },
@@ -6582,8 +6181,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -6624,8 +6229,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -6666,8 +6277,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -6708,8 +6325,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -6750,8 +6373,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -6792,8 +6421,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -6846,8 +6481,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -6888,8 +6529,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -6930,8 +6577,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -6972,8 +6625,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7014,8 +6673,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7056,8 +6721,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7098,8 +6769,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7186,8 +6863,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7228,8 +6911,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7270,8 +6959,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7312,8 +7007,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7354,8 +7055,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7396,8 +7103,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7450,8 +7163,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7492,8 +7211,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7534,8 +7259,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7576,8 +7307,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7618,8 +7355,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7660,8 +7403,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7702,8 +7451,14 @@
                             {
                               "command": "EVENT_WAIT",
                               "args": {
-                                "time": 0.05,
-                                "frames": 2,
+                                "time": {
+                                  "type": "number",
+                                  "value": 0.05
+                                },
+                                "frames": {
+                                  "type": "number",
+                                  "value": 2
+                                },
                                 "__collapse": true,
                                 "units": "time"
                               },
@@ -7784,8 +7539,14 @@
                 {
                   "command": "EVENT_WAIT",
                   "args": {
-                    "time": 0.3,
-                    "frames": 30,
+                    "time": {
+                      "type": "number",
+                      "value": 0.3
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 30
+                    },
                     "__collapse": true
                   },
                   "id": "1d97ac3e-a2a0-4c07-9086-1e9c5daf3279"
@@ -7868,8 +7629,14 @@
                 {
                   "command": "EVENT_WAIT",
                   "args": {
-                    "time": 0.5,
-                    "frames": 30,
+                    "time": {
+                      "type": "number",
+                      "value": 0.5
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 30
+                    },
                     "__collapse": true
                   },
                   "id": "74d6de92-ebc6-4105-baab-db1dece3d4f7"
@@ -7891,8 +7658,14 @@
                 {
                   "command": "EVENT_WAIT",
                   "args": {
-                    "time": 0.5,
-                    "frames": 30,
+                    "time": {
+                      "type": "number",
+                      "value": 0.5
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 30
+                    },
                     "__collapse": false
                   },
                   "id": "b10991c4-d076-46b7-975a-0c3c0d5ff080"
@@ -7922,8 +7695,5 @@
     }
   ],
   "hit2Script": [],
-  "hit3Script": [],
-  "x": 16,
-  "y": 15,
-  "_index": 0
+  "hit3Script": []
 }

@@ -45,8 +45,8 @@ const SCRIPT_CMD script_cmds[] = {
     {vm_idle,                           BANK(VM_MAIN),          0}, // 0x18
     {vm_get_tlocal,                     BANK(VM_MAIN),          4}, // 0x19
     {vm_if_const,                       BANK(VM_MAIN),          8}, // 0x1A
-    {0, 0, 0},
-    {0, 0, 0},
+    {vm_asm,                            BANK(VM_MAIN),          0}, // 0x1B
+    {vm_rate_limit_const,               BANK(VM_MAIN),          6},  // 0x1C
     {0, 0, 0},
     {0, 0, 0},
     {0, 0, 0},
@@ -76,7 +76,7 @@ const SCRIPT_CMD script_cmds[] = {
     {vm_actor_set_anim,                 BANK(VM_ACTOR),         4}, // 0x34
     {vm_actor_set_pos,                  BANK(VM_ACTOR),         2}, // 0x35
     {vm_actor_emote,                    BANK(VM_ACTOR),         5}, // 0x36
-    {vm_actor_set_bounds,               BANK(VM_ACTOR),         6}, // 0x37
+    {vm_actor_set_bounds,               BANK(VM_ACTOR),         2}, // 0x37
     {vm_actor_set_spritesheet,          BANK(VM_ACTOR),         5}, // 0x38
     {vm_actor_replace_tile,             BANK(VM_ACTOR),         8}, // 0x39
     {vm_actor_get_pos,                  BANK(VM_ACTOR),         2}, // 0x3A
@@ -90,7 +90,7 @@ const SCRIPT_CMD script_cmds[] = {
     {vm_load_text,                      BANK(VM_UI),            1}, // 0x40
     {vm_display_text,                   BANK(VM_UI),            2}, // 0x41
     {vm_overlay_setpos,                 BANK(VM_UI),            2}, // 0x42
-    {0, 0, 0},
+    {vm_load_text_ex,                   BANK(VM_UI),            1}, // 0x43
     {vm_overlay_wait,                   BANK(VM_UI),            2}, // 0x44
     {vm_overlay_move_to,                BANK(VM_UI),            3}, // 0x45
     {vm_overlay_show,                   BANK(VM_UI),            4}, // 0x46
@@ -168,7 +168,7 @@ const SCRIPT_CMD script_cmds[] = {
 
     // projectiles instructions section
     {vm_projectile_launch,              BANK(VM_PROJECTILE),    3}, // 0x80
-    {vm_projectile_load_type,           BANK(VM_PROJECTILE),    4}, // 0x81
+    {vm_projectile_load_type,           BANK(VM_PROJECTILE),    5}, // 0x81
     {0, 0, 0},
 
     {vm_actor_get_anim_frame,           BANK(VM_ACTOR),         2}, // 0x83
@@ -188,5 +188,13 @@ const SCRIPT_CMD script_cmds[] = {
     {vm_print_detect,                   BANK(VM_GBPRINTER),     3}, // 0x8C
     {vm_print_overlay,                  BANK(VM_GBPRINTER),     5}, // 0x8D
 
-    {vm_actor_begin_update,             BANK(VM_ACTOR),         2}  // 0x8E
+    {vm_actor_begin_update,             BANK(VM_ACTOR),         2}, // 0x8E
+
+    {vm_actor_move_to_init,             BANK(VM_ACTOR),         3}, // 0x8F
+    {vm_actor_move_to_x,                BANK(VM_ACTOR),         3}, // 0x90
+    {vm_actor_move_to_y,                BANK(VM_ACTOR),         3}, // 0x91
+    {vm_actor_move_to_xy,               BANK(VM_ACTOR),         3}, // 0x92
+    {vm_actor_move_to_set_dir_x,        BANK(VM_ACTOR),         2}, // 0x93
+    {vm_actor_move_to_set_dir_y,        BANK(VM_ACTOR),         2}, // 0x94
+    {vm_actor_set_anim_moving,          BANK(VM_ACTOR),         2}  // 0x95
 };

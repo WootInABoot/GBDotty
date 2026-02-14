@@ -5,13 +5,12 @@
   "frame": 0,
   "animate": false,
   "spriteSheetId": "cb26f184-0059-4082-80c2-c7c069bde85c",
+  "paletteId": "",
   "moveSpeed": 1,
   "animSpeed": 7,
-  "paletteId": "",
   "persistent": false,
   "collisionGroup": "2",
-  "prefabScriptOverrides": {},
-  "_index": 2,
+  "collisionExtraFlags": [],
   "script": [
     {
       "command": "EVENT_TIMER_DISABLE",
@@ -271,8 +270,14 @@
                 {
                   "command": "EVENT_WAIT",
                   "args": {
-                    "time": 0.2,
-                    "frames": 30,
+                    "time": {
+                      "type": "number",
+                      "value": 0.2
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 30
+                    },
                     "__collapse": true
                   },
                   "id": "bc68a342-c51c-4917-bfd1-96d2cd6192e5",
@@ -892,7 +897,7 @@
                   "command": "EVENT_GROUP",
                   "args": {
                     "__label": "Detect Direction / Slight boost in vel",
-                    "__collapse": true
+                    "__collapse": false
                   },
                   "children": {
                     "true": [
@@ -905,21 +910,21 @@
                             "value": "up"
                           },
                           "__collapseElse": false,
-                          "__collapse": true
+                          "__collapse": false
                         },
                         "children": {
                           "true": [
                             {
-                              "command": "PT_EVENT_PLAYER_FIELD_SET",
+                              "command": "EVENT_ENGINE_FIELD_SET",
                               "args": {
-                                "field": "pl_vel_y",
-                                "variable": "L0",
-                                "value": -14000,
-                                "type": "number",
+                                "engineFieldKey": "plat_vel_y",
+                                "value": {
+                                  "type": "number",
+                                  "value": -14000
+                                },
                                 "__collapse": true
                               },
-                              "id": "e16fe5ec-99f9-4195-a1ba-99a04d646378",
-                              "children": {}
+                              "id": "f2081b95-36ae-4f4e-b99f-14f1b7c35daa"
                             }
                           ],
                           "false": []
@@ -935,21 +940,20 @@
                             "value": "down"
                           },
                           "__collapseElse": true,
-                          "__collapse": true
+                          "__collapse": false
                         },
                         "children": {
                           "true": [
                             {
-                              "command": "PT_EVENT_PLAYER_FIELD_SET",
+                              "command": "EVENT_ENGINE_FIELD_SET",
                               "args": {
-                                "field": "pl_vel_y",
-                                "variable": "L0",
-                                "value": 14000,
-                                "type": "number",
-                                "__collapse": true
+                                "engineFieldKey": "plat_vel_y",
+                                "value": {
+                                  "type": "number",
+                                  "value": 14000
+                                }
                               },
-                              "id": "6442ad5d-2ae3-4d0c-b3b2-7f2521dce621",
-                              "children": {}
+                              "id": "842df403-406d-4143-ba9b-413304374a0d"
                             }
                           ],
                           "false": []
@@ -965,21 +969,21 @@
                             "value": "left"
                           },
                           "__collapseElse": true,
-                          "__collapse": true
+                          "__collapse": false
                         },
                         "children": {
                           "true": [
                             {
-                              "command": "PT_EVENT_PLAYER_FIELD_SET",
+                              "command": "EVENT_ENGINE_FIELD_SET",
                               "args": {
-                                "field": "pl_vel_x",
-                                "variable": "L0",
-                                "value": -14000,
-                                "type": "number",
-                                "__collapse": false
+                                "engineFieldKey": "plat_vel_x",
+                                "value": {
+                                  "type": "number",
+                                  "value": -14000
+                                },
+                                "__collapse": true
                               },
-                              "id": "d73e9299-f25b-4fdf-8ae6-a4ec30bd20ae",
-                              "children": {}
+                              "id": "c734d7ae-7c8c-4981-b043-96cbb1a5d67f"
                             }
                           ],
                           "false": []
@@ -995,21 +999,20 @@
                             "value": "right"
                           },
                           "__collapseElse": true,
-                          "__collapse": true
+                          "__collapse": false
                         },
                         "children": {
                           "true": [
                             {
-                              "command": "PT_EVENT_PLAYER_FIELD_SET",
+                              "command": "EVENT_ENGINE_FIELD_SET",
                               "args": {
-                                "field": "pl_vel_x",
-                                "variable": "L0",
-                                "value": 14000,
-                                "type": "number",
-                                "__collapse": true
+                                "engineFieldKey": "plat_vel_x",
+                                "value": {
+                                  "type": "number",
+                                  "value": 14000
+                                }
                               },
-                              "id": "27364f5e-c586-4818-9864-469d80a4aa29",
-                              "children": {}
+                              "id": "28853f42-d5c3-4e82-afa2-7e2b885268bc"
                             }
                           ],
                           "false": []

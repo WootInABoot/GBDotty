@@ -48,9 +48,6 @@
 #define DIV_4(a) ((a) >> 2)
 #define DIV_2(a) ((a) >> 1)
 
-#define SIN(a)  (sine_wave[(uint8_t)(a)])
-#define COS(a)  (sine_wave[(uint8_t)((uint8_t)(a) + 64u)])
-
 #define ANGLE_UP        0
 #define ANGLE_RIGHT     64
 #define ANGLE_DOWN      128
@@ -71,6 +68,39 @@
 
 #define N_DIRECTIONS    4
 
+#define SUBPX_TO_PX(a)      ((a) >> 5)
+#define SUBPX_TO_TILE(a)    ((UBYTE)((a) >> 8))
+#define SUBPX_TO_TILE16(a)  ((UBYTE)((a) >> 9))
+
+#define PX_TO_SUBPX(a)      ((a) << 5)
+#define TILE_TO_SUBPX(a)    (((UBYTE)(a)) << 8)
+#define TILE16_TO_SUBPX(a)  (((UBYTE)(a)) << 9)
+
+#define PX_TO_TILE(a)       ((UBYTE)((a) >> 3))
+#define PX_TO_TILE16(a)     ((UBYTE)((a) >> 4))
+#define TILE_TO_PX(a)       (((UBYTE)(a)) << 3)
+#define TILE16_TO_PX(a)     (((UBYTE)(a)) << 4)
+
+#define SUBPX_SNAP_PX(a)     ((a) & 0xFFE0)
+#define SUBPX_SNAP_TILE(a)   ((a) & 0xFF00)
+#define SUBPX_SNAP_TILE16(a) ((a) & 0xFE00)
+#define PX_SNAP_TILE(a)     ((a) & 0xFFF8)
+
+#define SUBPX_TILE_REMAINDER(a) ((UBYTE)((a) & 0xFF))
+#define SUBPX_PX_REMAINDER(a)   ((UBYTE)((a) & 0x1F))
+#define PX_TILE_REMAINDER(a)    ((UBYTE)((a) & 0x7))
+
+#define EXCLUSIVE_OFFSET(x) ((x) + 1)
+
+#define WORD_MIN            -32768
+#define WORD_MAX            32767
+#define UWORD_MIN           0
+#define UWORD_MAX           65535
+#define BYTE_MIN            -128
+#define BYTE_MAX            127
+#define UBYTE_MIN           0
+#define UBYTE_MAX           255
+
 typedef struct upoint16_t {
     uint16_t x, y;
 } upoint16_t;
@@ -83,6 +113,18 @@ typedef struct point8_t {
     int8_t x, y;
 } point8_t;
 
+typedef struct rect_t {
+    int8_t left, right, top, bottom;
+} rect_t;
+
+typedef struct rect16_t {
+    int16_t left, right, top, bottom;
+} rect16_t;
+
+typedef struct urect16_t {
+    uint16_t left, right, top, bottom;
+} urect16_t;
+
 typedef enum {
     DIR_DOWN = 0,
     DIR_RIGHT,
@@ -91,31 +133,49 @@ typedef enum {
     DIR_NONE
 } direction_e;
 
-extern const int8_t sine_wave[256];
-extern const point8_t dir_lookup[4];
-extern const uint8_t dir_angle_lookup[4];
-
-inline void point_translate_dir(point16_t *point, direction_e dir, uint8_t speed) {
-    point->x += (int16_t)(dir_lookup[dir].x * speed);
-    point->y += (int16_t)(dir_lookup[dir].y * speed);
+inline void point_translate_dir(upoint16_t *point, direction_e dir, uint8_t speed) {
+    if(dir == DIR_RIGHT)
+        point->x += speed;
+    else if(dir == DIR_LEFT)
+        point->x -= speed;
+    else if(dir == DIR_DOWN)
+        point->y += speed;
+    else if(dir == DIR_UP)
+        point->y -= speed;
 }
 
-inline void point_translate_dir_word(point16_t *point, direction_e dir, uint16_t speed) {
-    point->x += (int16_t)(dir_lookup[dir].x * speed);
-    point->y += (int16_t)(dir_lookup[dir].y * speed);
+inline void point_translate_dir_word(upoint16_t *point, direction_e dir, uint16_t speed) {
+    if(dir == DIR_RIGHT)
+        point->x += speed;
+    else if(dir == DIR_LEFT)
+        point->x -= speed;
+    else if(dir == DIR_DOWN)
+        point->y += speed;
+    else if(dir == DIR_UP)
+        point->y -= speed;
 }
 
-inline void point_translate_angle(point16_t *point, uint8_t angle, uint8_t speed) {
-    point->x += ((SIN(angle) * (speed)) >> 7);
-    point->y -= ((COS(angle) * (speed)) >> 7);
+// Saturating addition of a signed 16-bit delta onto an unsigned 16-bit base.
+// Clamps to 0 or UINT16_MAX without ever using a 32-bit type.
+inline uint16_t saturating_add_u16(uint16_t base, int16_t delta) {
+    if (delta >= 0) {
+        uint16_t udelta = (uint16_t)delta;
+        // if base + udelta would wrap past UINT16_MAX, clamp to UINT16_MAX
+        if (base > UINT16_MAX - udelta) {
+            return UINT16_MAX;
+        }
+        return base + udelta;
+    } else {
+        uint16_t mag = (uint16_t)(-delta);
+        // if subtracting would underflow below 0, clamp to 0
+        if (mag > base) {
+            return 0;
+        }
+        return base - mag;
+    }
 }
 
-inline void point_translate_angle_to_delta(point16_t *point, uint8_t angle, uint8_t speed) {
-    point->x = ((SIN(angle) * (speed)) >> 7);
-    point->y = ((COS(angle) * (speed)) >> 7);
-}
-
-uint8_t isqrt(uint16_t x) NONBANKED;
+uint8_t isqrt(uint16_t x) BANKED;
 uint8_t atan2(int16_t y, int16_t x) BANKED;
 
 #endif

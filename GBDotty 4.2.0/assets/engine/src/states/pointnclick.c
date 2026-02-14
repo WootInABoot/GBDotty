@@ -3,6 +3,7 @@
 #include "data/states_defines.h"
 #include "states/pointnclick.h"
 
+#include "sincos.h"
 #include "actor.h"
 #include "camera.h"
 #include "data_manager.h"
@@ -63,26 +64,26 @@ void pointnclick_update(void) BANKED {
 
     // Move cursor
     if (player_moving) {
-        point_translate_angle(&(PLAYER.pos), angle, PLAYER.move_speed);
+        upoint_translate_angle(&(PLAYER.pos), angle, PLAYER.move_speed);
         // Clamp X
-        if ((PLAYER.pos.x >> 4) - PLAYER.bounds.left > image_width) {
-            PLAYER.pos.x = (PLAYER.bounds.left << 4);
-        } else if ((PLAYER.pos.x >> 4) + PLAYER.bounds.right > image_width) {
-            PLAYER.pos.x = (image_width - PLAYER.bounds.right) << 4;
+        if (PLAYER.pos.x + PLAYER.bounds.left > image_width_subpx) {
+            PLAYER.pos.x = -PLAYER.bounds.left;
+        } else if (PLAYER.pos.x + PLAYER.bounds.right > image_width_subpx) {
+            PLAYER.pos.x = image_width_subpx - EXCLUSIVE_OFFSET(PLAYER.bounds.right);
         }
         // Clamp Y
-        if ((PLAYER.pos.y >> 4) + PLAYER.bounds.top > image_height) {
-            PLAYER.pos.y = -(PLAYER.bounds.top << 4);
-        } else if ((PLAYER.pos.y >> 4) + PLAYER.bounds.bottom > image_height) {
-            PLAYER.pos.y = (image_height - PLAYER.bounds.bottom) << 4;
-        }             
+        if (PLAYER.pos.y + PLAYER.bounds.top > image_height_subpx) {
+            PLAYER.pos.y = -PLAYER.bounds.top;
+        } else if (PLAYER.pos.y + PLAYER.bounds.bottom > image_height_subpx) {
+            PLAYER.pos.y = image_height_subpx - EXCLUSIVE_OFFSET(PLAYER.bounds.bottom);
+        }
     }
 
     // Check for trigger collisions
     hit_trigger = trigger_at_intersection(&PLAYER.bounds, &PLAYER.pos);
 
     // Check for actor collisions
-    hit_actor = actor_overlapping_player(FALSE);
+    hit_actor = actor_overlapping_player();
 
     is_hover_trigger = (hit_trigger != NO_TRIGGER_COLLISON)
         && (triggers[hit_trigger].script.bank);

@@ -5,13 +5,12 @@
   "frame": 0,
   "animate": false,
   "spriteSheetId": "5df59e27-8f97-4963-82f1-2bba22fff7aa",
+  "paletteId": "",
   "moveSpeed": 2,
   "animSpeed": 1,
-  "paletteId": "",
   "persistent": false,
   "collisionGroup": "1",
-  "prefabScriptOverrides": {},
-  "_index": 10,
+  "collisionExtraFlags": [],
   "script": [
     {
       "command": "EVENT_IF",
@@ -65,15 +64,6 @@
             },
             "children": {
               "true": [
-                {
-                  "command": "PM_EVENT_PLATPLUS_STATE_STORE",
-                  "args": {
-                    "variable": "51",
-                    "field": "plat_state",
-                    "__collapse": true
-                  },
-                  "id": "59a0ce85-9c56-4c53-bb5a-d22004adf6c7"
-                },
                 {
                   "command": "EVENT_IF_ACTOR_RELATIVE_TO_ACTOR",
                   "args": {
@@ -397,8 +387,14 @@
                 {
                   "command": "EVENT_WAIT",
                   "args": {
-                    "time": 0.8,
-                    "frames": 30,
+                    "time": {
+                      "type": "number",
+                      "value": 0.8
+                    },
+                    "frames": {
+                      "type": "number",
+                      "value": 30
+                    },
                     "__collapse": true
                   },
                   "id": "dd334866-16f9-4257-a0b2-1db2328104ad"

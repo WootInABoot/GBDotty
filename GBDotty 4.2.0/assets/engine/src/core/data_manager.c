@@ -15,6 +15,7 @@
 #include "palette.h"
 #include "data/spritesheet_none.h"
 #include "data/data_bootstrap.h"
+#include "macro.h"
 
 #define ALLOC_BKG_TILES_TOWARDS_SPR
 
@@ -35,6 +36,8 @@ UBYTE image_tile_width;
 UBYTE image_tile_height;
 UINT16 image_width;
 UINT16 image_height;
+UINT16 image_width_subpx;
+UINT16 image_height_subpx;
 UBYTE sprites_len;
 UBYTE actors_len;
 UBYTE projectiles_len;
@@ -56,7 +59,7 @@ void load_init(void) BANKED {
 }
 
 void load_bkg_tileset(const tileset_t* tiles, UBYTE bank) BANKED {
-    if ((!bank) || (!tiles)) return;
+    if ((!bank) && (!tiles)) return;
 
     UWORD n_tiles = ReadBankedUWORD(&(tiles->n_tiles), bank);
 
@@ -104,10 +107,10 @@ void load_background(const background_t* background, UBYTE bank) BANKED {
 
     image_tile_width = bkg.width;
     image_tile_height = bkg.height;
-    image_width = image_tile_width * 8;
-    scroll_x_max = image_width - ((UINT16)SCREENWIDTH);
-    image_height = image_tile_height * 8;
-    scroll_y_max = image_height - ((UINT16)SCREENHEIGHT);
+    image_width = TILE_TO_PX(image_tile_width);
+    image_width_subpx = PX_TO_SUBPX(image_width);
+    image_height = TILE_TO_PX(image_tile_height);
+    image_height_subpx = PX_TO_SUBPX(image_height);
 
     load_bkg_tileset(bkg.tileset.ptr, bkg.tileset.bank);
 #ifdef CGB
@@ -120,6 +123,7 @@ void load_background(const background_t* background, UBYTE bank) BANKED {
 }
 
 inline UBYTE load_sprite_tileset(UBYTE base_tile, const tileset_t * tileset, UBYTE bank) {
+    if ((!bank) && (!tileset)) return 0;
     UBYTE n_tiles = ReadBankedUBYTE(&(tileset->n_tiles), bank);
     if (n_tiles) SetBankedSpriteData(base_tile, n_tiles, tileset->tiles, bank);
     return n_tiles;
@@ -150,7 +154,7 @@ void load_animations(const spritesheet_t *sprite, UBYTE bank, UWORD animation_se
     SWITCH_ROM(_save);
 }
 
-void load_bounds(const spritesheet_t *sprite, UBYTE bank, bounding_box_t * res_bounds) BANKED {
+void load_bounds(const spritesheet_t *sprite, UBYTE bank, rect16_t * res_bounds) BANKED {
     MemcpyBanked(res_bounds, &sprite->bounds, sizeof(sprite->bounds), bank);
 }
 
@@ -221,6 +225,11 @@ UBYTE load_scene(const scene_t * scene, UBYTE bank, UBYTE init_data) BANKED {
         scene_LCD_type = LCD_parallax;
     }
 
+    scroll_x_min = scn.scroll_bounds.left;
+    scroll_x_max = scn.scroll_bounds.right;
+    scroll_y_min = scn.scroll_bounds.top;
+    scroll_y_max = scn.scroll_bounds.bottom;
+
     if (scene_type != SCENE_TYPE_LOGO) {
         // Load player
         PLAYER.sprite = scn.player_sprite;
@@ -261,7 +270,7 @@ UBYTE load_scene(const scene_t * scene, UBYTE bank, UBYTE init_data) BANKED {
         actors_inactive_head = NULL;
 
         // Add player to inactive, then activate
-        PLAYER.active = FALSE;
+        CLR_FLAG(PLAYER.flags, ACTOR_FLAG_ACTIVE);
         actors_active_tail = &PLAYER;
         DL_PUSH_HEAD(actors_inactive_head, actors_active_tail);
         activate_actor(&PLAYER);
@@ -283,11 +292,11 @@ UBYTE load_scene(const scene_t * scene, UBYTE bank, UBYTE init_data) BANKED {
                 }
                 load_animations((void *)actor->sprite.ptr, actor->sprite.bank, ANIM_SET_DEFAULT, actor->animations);
                 // add to inactive list by default
-                actor->active = FALSE;
+                CLR_FLAG(actor->flags, ACTOR_FLAG_ACTIVE);
                 DL_PUSH_HEAD(actors_inactive_head, actor);
 
                 // activate if the actor is pinned or persistent
-                if ((actor->pinned) || (actor->persistent)) activate_actor(actor);
+                if (CHK_FLAG(actor->flags, ACTOR_FLAG_PINNED | ACTOR_FLAG_PERSISTENT)) activate_actor(actor);
             }
         }
 
@@ -345,9 +354,9 @@ void load_player(void) BANKED {
     PLAYER.frame = 0;
     PLAYER.frame_start = 0;
     PLAYER.frame_end = 2;
-    PLAYER.pinned = FALSE;
+    CLR_FLAG(PLAYER.flags, ACTOR_FLAG_PINNED);
     PLAYER.collision_group = COLLISION_GROUP_PLAYER;
-    PLAYER.collision_enabled = TRUE;
+    SET_FLAG(PLAYER.flags, ACTOR_FLAG_COLLISION);
 }
 
 void load_emote(const unsigned char *tiles, UBYTE bank) BANKED {

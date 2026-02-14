@@ -9,8 +9,13 @@
 BANKREF_EXTERN(VM_ACTOR)
 
 #define ACTOR_ATTR_H_FIRST    0x01
-#define ACTOR_ATTR_CHECK_COLL 0x02
+#define ACTOR_ATTR_CHECK_COLL_WALLS  0x02
+#define ACTOR_ATTR_CHECK_COLL_ACTORS 0x20
+#define ACTOR_ATTR_CHECK_COLL        ACTOR_ATTR_CHECK_COLL_WALLS | ACTOR_ATTR_CHECK_COLL_ACTORS
 #define ACTOR_ATTR_DIAGONAL   0x04
+#define ACTOR_ATTR_RELATIVE_SNAP_PX   0x08
+#define ACTOR_ATTR_RELATIVE_SNAP_TILE 0x10
+#define ACTOR_ATTR_RELATIVE           ACTOR_ATTR_RELATIVE_SNAP_PX | ACTOR_ATTR_RELATIVE_SNAP_TILE
 void vm_actor_move_to(SCRIPT_CTX * THIS, INT16 idx) OLDCALL BANKED;
 
 void vm_actor_move_cancel(SCRIPT_CTX * THIS, INT16 idx) OLDCALL BANKED;
@@ -20,7 +25,7 @@ void vm_actor_deactivate(SCRIPT_CTX * THIS, INT16 idx) OLDCALL BANKED;
 void vm_actor_set_anim(SCRIPT_CTX * THIS, INT16 idx, INT16 idx_anim) OLDCALL BANKED;
 void vm_actor_set_pos(SCRIPT_CTX * THIS, INT16 idx) OLDCALL BANKED;
 void vm_actor_emote(SCRIPT_CTX * THIS, INT16 idx, UBYTE emote_tiles_bank, const unsigned char *emote_tiles) OLDCALL BANKED;
-void vm_actor_set_bounds(SCRIPT_CTX * THIS, INT16 idx, BYTE left, BYTE right, BYTE top, BYTE bottom) OLDCALL BANKED;
+void vm_actor_set_bounds(SCRIPT_CTX * THIS, INT16 idx) OLDCALL BANKED;
 void vm_actor_set_spritesheet(SCRIPT_CTX * THIS, INT16 idx, UBYTE spritesheet_bank, const spritesheet_t *spritesheet) OLDCALL BANKED;
 void vm_actor_replace_tile(SCRIPT_CTX * THIS, INT16 idx, UBYTE target_tile, UBYTE tileset_bank, const tileset_t * tileset, UBYTE start_tile, UBYTE length) OLDCALL BANKED;
 void vm_actor_get_pos(SCRIPT_CTX * THIS, INT16 idx) OLDCALL BANKED;
@@ -29,12 +34,13 @@ void vm_actor_get_dir(SCRIPT_CTX * THIS, INT16 idx, INT16 dest) OLDCALL BANKED;
 void vm_actor_get_angle(SCRIPT_CTX * THIS, INT16 idx, INT16 dest) OLDCALL BANKED;
 void vm_actor_set_anim_tick(SCRIPT_CTX * THIS, INT16 idx, UBYTE speed) OLDCALL BANKED;
 void vm_actor_set_move_speed(SCRIPT_CTX * THIS, INT16 idx, UBYTE speed) OLDCALL BANKED;
-
-#define ACTOR_FLAG_PINNED       0x01
-#define ACTOR_FLAG_HIDDEN       0x02
-#define ACTOR_FLAG_ANIM_NOLOOP  0x04
-#define ACTOR_FLAG_COLLISION    0x08
-#define ACTOR_FLAG_PERSISTENT   0x10
+void vm_actor_move_to_init(SCRIPT_CTX * THIS, INT16 idx, UBYTE attr) OLDCALL BANKED;
+void vm_actor_move_to_x(SCRIPT_CTX * THIS, INT16 idx, UBYTE attr) OLDCALL BANKED;
+void vm_actor_move_to_y(SCRIPT_CTX * THIS, INT16 idx, UBYTE attr) OLDCALL BANKED;
+void vm_actor_move_to_xy(SCRIPT_CTX * THIS, INT16 idx, UBYTE attr) OLDCALL BANKED;
+void vm_actor_move_to_set_dir_x(SCRIPT_CTX * THIS, INT16 idx) OLDCALL BANKED;
+void vm_actor_move_to_set_dir_y(SCRIPT_CTX * THIS, INT16 idx) OLDCALL BANKED;
+void vm_actor_set_anim_moving(SCRIPT_CTX * THIS, INT16 idx) OLDCALL BANKED;
 void vm_actor_set_flags(SCRIPT_CTX * THIS, INT16 idx, UBYTE flags, UBYTE mask) OLDCALL BANKED;
 
 void vm_actor_begin_update(SCRIPT_CTX * THIS, INT16 idx) OLDCALL BANKED;

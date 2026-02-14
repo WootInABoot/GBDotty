@@ -27,11 +27,11 @@ void topdown_init(void) BANKED {
 
     if (topdown_grid == 16) {
         // Snap to 16px grid
-        PLAYER.pos.x = ((PLAYER.pos.x >> 8) << 8);
-        PLAYER.pos.y = ((PLAYER.pos.y >> 8) << 8) + 128;
+        PLAYER.pos.x = SUBPX_SNAP_TILE16(PLAYER.pos.x);
+        PLAYER.pos.y = SUBPX_SNAP_TILE16(PLAYER.pos.y) + TILE_TO_SUBPX(1);
     } else {
-        PLAYER.pos.x = ((PLAYER.pos.x >> 7) << 7);
-        PLAYER.pos.y = ((PLAYER.pos.y >> 7) << 7);
+        PLAYER.pos.x = SUBPX_SNAP_TILE(PLAYER.pos.x);
+        PLAYER.pos.y = SUBPX_SNAP_TILE(PLAYER.pos.y);
     }
 }
 
@@ -39,6 +39,7 @@ void topdown_update(void) BANKED {
     actor_t *hit_actor;
     UBYTE tile_start, tile_end;
     direction_e new_dir = DIR_NONE;
+    static UWORD max_pos = 0;
 
     // Is player on an 8x8px tile?
     if ((topdown_grid == 16 && ON_16PX_GRID(PLAYER.pos)) ||
@@ -59,60 +60,44 @@ void topdown_update(void) BANKED {
             new_dir = DIR_LEFT;
 
             // Check for collisions to left of player
-            tile_start = (((PLAYER.pos.y >> 4) + PLAYER.bounds.top)    >> 3);
-            tile_end   = (((PLAYER.pos.y >> 4) + PLAYER.bounds.bottom) >> 3) + 1;
-            UBYTE tile_x = ((PLAYER.pos.x >> 4) + PLAYER.bounds.left) >> 3;
-            while (tile_start != tile_end) {
-                if (tile_at(tile_x - 1, tile_start) & COLLISION_RIGHT) {
-                    player_moving = FALSE;
-                    break;
-                }
-                tile_start++;
+            tile_start = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top);
+            tile_end   = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.bottom);
+            UBYTE tile_x = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.left);
+            if (tile_col_test_range_y(COLLISION_RIGHT, tile_x - 1, tile_start, tile_end)) {
+                player_moving = FALSE;
             }
         } else if (INPUT_RECENT_RIGHT) {
             player_moving = TRUE;
             new_dir = DIR_RIGHT;
 
             // Check for collisions to right of player
-            tile_start = (((PLAYER.pos.y >> 4) + PLAYER.bounds.top)    >> 3);
-            tile_end   = (((PLAYER.pos.y >> 4) + PLAYER.bounds.bottom) >> 3) + 1;
-            UBYTE tile_x = ((PLAYER.pos.x >> 4) + PLAYER.bounds.right) >> 3;
-            while (tile_start != tile_end) {
-                if (tile_at(tile_x + 1, tile_start) & COLLISION_LEFT) {
-                    player_moving = FALSE;
-                    break;
-                }
-                tile_start++;
+            tile_start = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top);
+            tile_end   = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.bottom);
+            UBYTE tile_x = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.right);
+            if (tile_col_test_range_y(COLLISION_LEFT, tile_x + 1, tile_start, tile_end)) {
+                player_moving = FALSE;
             }
         } else if (INPUT_RECENT_UP) {
             player_moving = TRUE;
             new_dir = DIR_UP;
 
             // Check for collisions below player
-            tile_start = (((PLAYER.pos.x >> 4) + PLAYER.bounds.left)  >> 3);
-            tile_end   = (((PLAYER.pos.x >> 4) + PLAYER.bounds.right) >> 3) + 1;
-            UBYTE tile_y = ((PLAYER.pos.y >> 4) + PLAYER.bounds.top) >> 3;
-            while (tile_start != tile_end) {
-                if (tile_at(tile_start, tile_y - 1) & COLLISION_BOTTOM) {
-                    player_moving = FALSE;
-                    break;
-                }
-                tile_start++;
+            tile_start = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.left);
+            tile_end   = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.right);
+            UBYTE tile_y = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.top);
+            if (tile_col_test_range_x(COLLISION_BOTTOM, tile_y - 1, tile_start, tile_end)) {
+                player_moving = FALSE;
             }
         } else if (INPUT_RECENT_DOWN) {
             player_moving = TRUE;
             new_dir = DIR_DOWN;
 
             // Check for collisions below player
-            tile_start = (((PLAYER.pos.x >> 4) + PLAYER.bounds.left)  >> 3);
-            tile_end   = (((PLAYER.pos.x >> 4) + PLAYER.bounds.right) >> 3) + 1;
-            UBYTE tile_y = ((PLAYER.pos.y >> 4) + PLAYER.bounds.bottom) >> 3;
-            while (tile_start != tile_end) {
-                if (tile_at(tile_start, tile_y + 1) & COLLISION_TOP) {
-                    player_moving = FALSE;
-                    break;
-                }
-                tile_start++;
+            tile_start = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.left);
+            tile_end   = SUBPX_TO_TILE(PLAYER.pos.x + PLAYER.bounds.right);
+            UBYTE tile_y = SUBPX_TO_TILE(PLAYER.pos.y + PLAYER.bounds.bottom);
+            if (tile_col_test_range_x(COLLISION_TOP, tile_y + 1, tile_start, tile_end)) {
+                player_moving = FALSE;
             }
         }
 
@@ -123,12 +108,10 @@ void topdown_update(void) BANKED {
             actor_set_anim_idle(&PLAYER);
         }
 
-        if (IS_FRAME_ODD) {
-            // Check for actor overlap
-            hit_actor = actor_overlapping_player(FALSE);
-            if (hit_actor != NULL && hit_actor->collision_group) {
-                player_register_collision_with(hit_actor);
-            }
+        // Check for actor overlap
+        hit_actor = actor_overlapping_player();
+        if (hit_actor != NULL && (hit_actor->collision_group & COLLISION_GROUP_MASK)) {
+            player_register_collision_with(hit_actor);
         }
 
         // Check if walked in to actor
@@ -142,8 +125,8 @@ void topdown_update(void) BANKED {
         }
 
         if (INPUT_PRESSED(INPUT_TOPDOWN_INTERACT)) {
-            hit_actor = actor_in_front_of_player(topdown_grid, TRUE);
-            if (hit_actor != NULL && !hit_actor->collision_group) {
+            hit_actor = actor_with_script_in_front_of_player(topdown_grid);
+            if (hit_actor != NULL && !(hit_actor->collision_group & COLLISION_GROUP_MASK)) {
                 actor_set_dir(hit_actor, FLIPPED_DIR(PLAYER.dir), FALSE);
                 player_moving = FALSE;
                 if (hit_actor->script.bank) {
@@ -151,7 +134,44 @@ void topdown_update(void) BANKED {
                 }
             }
         }
+
+        // Calculate max position for movement clamping
+        UBYTE tile_offset = (topdown_grid == 16) ? 2 : 1;
+        if (PLAYER.dir == DIR_RIGHT) {
+            max_pos = TILE_TO_SUBPX(SUBPX_TO_TILE(PLAYER.pos.x) + tile_offset);
+        } else if (PLAYER.dir == DIR_LEFT) {
+            max_pos = TILE_TO_SUBPX(SUBPX_TO_TILE(PLAYER.pos.x) - tile_offset);
+        } else if (PLAYER.dir == DIR_DOWN) {
+            max_pos = TILE_TO_SUBPX(SUBPX_TO_TILE(PLAYER.pos.y) + tile_offset);
+        } else if (PLAYER.dir == DIR_UP) {
+            max_pos = TILE_TO_SUBPX(SUBPX_TO_TILE(PLAYER.pos.y) - tile_offset);
+        }
     }
 
-    if (player_moving) point_translate_dir(&PLAYER.pos, PLAYER.dir, PLAYER.move_speed);
+    if (player_moving) {
+        point_translate_dir(&PLAYER.pos, PLAYER.dir, PLAYER.move_speed);
+
+        // Clamp to grid
+        if (PLAYER.dir == DIR_RIGHT) {
+            if (PLAYER.pos.x > max_pos) {
+                PLAYER.pos.x = max_pos;
+            }
+        } else if (PLAYER.dir == DIR_LEFT) {
+            if (PLAYER.pos.x < max_pos) {
+                PLAYER.pos.x = max_pos;
+            } else if (max_pos == 0 && PLAYER.pos.x >= (UWORD_MAX - PLAYER.move_speed)) {
+                PLAYER.pos.x = 0;
+            }
+        } else if (PLAYER.dir == DIR_DOWN) {
+            if (PLAYER.pos.y > max_pos) {
+                PLAYER.pos.y = max_pos;
+            }
+        } else if (PLAYER.dir == DIR_UP) {
+            if (PLAYER.pos.y < max_pos) {
+                PLAYER.pos.y = max_pos;
+            } else if (max_pos == 0 && PLAYER.pos.y >= (UWORD_MAX - PLAYER.move_speed)) {
+                PLAYER.pos.y = 0;
+            }
+        }
+    }
 }
