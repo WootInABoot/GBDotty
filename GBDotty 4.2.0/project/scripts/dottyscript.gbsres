@@ -52,7 +52,7 @@
       "command": "EVENT_GROUP",
       "args": {
         "__label": "Vars on Startup",
-        "__collapse": true
+        "__collapse": false
       },
       "children": {
         "true": [
@@ -131,6 +131,18 @@
                     "__collapse": true
                   },
                   "id": "9b4190c4-5890-41d3-aed6-5308c5f1dc2c"
+                },
+                {
+                  "command": "EVENT_SET_VALUE",
+                  "args": {
+                    "variable": "217",
+                    "value": {
+                      "type": "number",
+                      "value": 14000
+                    },
+                    "__collapse": true
+                  },
+                  "id": "2cb14072-fdeb-46ff-89f4-b3294b20d25e"
                 },
                 {
                   "command": "EVENT_SET_VALUE",
@@ -331,7 +343,7 @@
         ],
         "override": true,
         "__scriptTabs": "press",
-        "__collapse": true,
+        "__collapse": false,
         "__label": "Spin",
         "__comment": false
       },
@@ -461,15 +473,6 @@
                                       "__collapse": true
                                     },
                                     "id": "f3840b3f-3107-499b-9ce9-7728de3e447f"
-                                  },
-                                  {
-                                    "command": "PM_EVENT_PLATPLUS_STATE_STORE",
-                                    "args": {
-                                      "variable": "51",
-                                      "field": "plat_state",
-                                      "__collapse": true
-                                    },
-                                    "id": "a88b7103-7b36-49e0-9a06-7ad753c79bf0"
                                   }
                                 ]
                               },
@@ -550,7 +553,7 @@
                                       "actorId": "$self$",
                                       "spriteStateId": "spinR",
                                       "loopAnim": false,
-                                      "__collapse": false
+                                      "__collapse": true
                                     },
                                     "id": "4a4479fb-fc25-46d3-9dfa-4be7a8d67c48"
                                   }
@@ -563,7 +566,7 @@
                               "args": {
                                 "variable": "63",
                                 "__scriptTabs": "true",
-                                "__collapse": true
+                                "__collapse": false
                               },
                               "children": {
                                 "true": [
@@ -742,7 +745,7 @@
                                                   "__collapse": true,
                                                   "__label": "Spin Projectile"
                                                 },
-                                                "id": "db957d9f-24c6-4ca7-86c5-5f12a1537221"
+                                                "id": "7f133749-476a-4fff-b7d8-a60460229881"
                                               },
                                               {
                                                 "command": "EVENT_ENGINE_FIELD_SET",
@@ -755,7 +758,7 @@
                                                   "__collapse": true,
                                                   "__comment": false
                                                 },
-                                                "id": "39fe12fc-b468-4b2a-951a-df81ed4bb45a"
+                                                "id": "bb661ef2-2fc7-40cb-8140-e1141f238048"
                                               },
                                               {
                                                 "command": "EVENT_IF_INPUT",
@@ -764,23 +767,43 @@
                                                     "right"
                                                   ],
                                                   "__collapseElse": false,
-                                                  "__collapse": false,
+                                                  "__collapse": true,
                                                   "__label": "If Left/Right Held, give x velocity",
-                                                  "__comment": false
+                                                  "__comment": true
                                                 },
                                                 "children": {
                                                   "true": [
                                                     {
-                                                      "command": "EVENT_ENGINE_FIELD_SET",
+                                                      "command": "EVENT_IF",
                                                       "args": {
-                                                        "engineFieldKey": "plat_vel_x",
-                                                        "value": {
-                                                          "type": "number",
-                                                          "value": 5000
+                                                        "condition": {
+                                                          "type": "not",
+                                                          "value": {
+                                                            "type": "variable",
+                                                            "value": "2"
+                                                          }
                                                         },
+                                                        "__collapseElse": true,
                                                         "__collapse": false
                                                       },
-                                                      "id": "253d2a16-69ad-47c3-ab4f-d8eedbad3e54"
+                                                      "children": {
+                                                        "true": [
+                                                          {
+                                                            "command": "EVENT_ENGINE_FIELD_SET",
+                                                            "args": {
+                                                              "engineFieldKey": "plat_vel_x",
+                                                              "value": {
+                                                                "type": "number",
+                                                                "value": 5000
+                                                              },
+                                                              "__collapse": false
+                                                            },
+                                                            "id": "f18418b1-938a-4b67-9904-924a223b1bed"
+                                                          }
+                                                        ],
+                                                        "false": []
+                                                      },
+                                                      "id": "9916c471-82a3-4a4f-9a7d-70283ebd0573"
                                                     }
                                                   ],
                                                   "false": [
@@ -807,21 +830,21 @@
                                                               },
                                                               "__collapse": true
                                                             },
-                                                            "id": "614a92e3-5640-4d65-aaef-9f0c02dc1047"
+                                                            "id": "c36552b8-a2d4-4a50-85e4-2d8c5d16ebf5"
                                                           }
                                                         ],
                                                         "false": []
                                                       },
-                                                      "id": "24753aa6-64d3-471c-b224-823645dec644"
+                                                      "id": "6158f041-8ec2-49ee-8f21-30f06947acd9"
                                                     }
                                                   ]
                                                 },
-                                                "id": "f59b2a68-dbeb-492e-b024-3bb83543c1ac"
+                                                "id": "d619d3a2-5fbe-452a-a58e-bdb025a6f759"
                                               }
                                             ],
                                             "false": []
                                           },
-                                          "id": "f0d72499-cf45-484a-9355-6a67c7256af6"
+                                          "id": "a05f3e79-2d5b-4486-afce-2ee3b7385b99"
                                         },
                                         {
                                           "command": "EVENT_LOOP_FOR",
@@ -1214,15 +1237,6 @@
                                                   "__collapse": true
                                                 },
                                                 "id": "e51f4417-4b64-4cb2-9a00-0b9997d7e172"
-                                              },
-                                              {
-                                                "command": "PM_EVENT_PLATPLUS_STATE_STORE",
-                                                "args": {
-                                                  "variable": "51",
-                                                  "field": "plat_state",
-                                                  "__collapse": true
-                                                },
-                                                "id": "1987c02a-5f4e-47a4-b1b1-330c0655eefd"
                                               }
                                             ]
                                           },
@@ -1495,44 +1509,106 @@
                                                               "__collapse": true,
                                                               "__label": "Spin Projectile"
                                                             },
-                                                            "id": "51b76502-29ff-4d6e-ba39-a5dc9e6b56f3"
+                                                            "id": "24cca287-519e-4cde-9d85-c7d6e492a4e7"
+                                                          },
+                                                          {
+                                                            "command": "EVENT_ENGINE_FIELD_SET",
+                                                            "args": {
+                                                              "engineFieldKey": "plat_walk_vel",
+                                                              "value": {
+                                                                "type": "number",
+                                                                "value": 9000
+                                                              },
+                                                              "__collapse": true,
+                                                              "__comment": false
+                                                            },
+                                                            "id": "e7af15cf-ff1e-49ff-91ed-cdf3554efa83"
                                                           },
                                                           {
                                                             "command": "EVENT_IF_INPUT",
                                                             "args": {
                                                               "input": [
-                                                                "left",
                                                                 "right"
                                                               ],
-                                                              "__collapseElse": true,
-                                                              "__collapse": false,
+                                                              "__collapseElse": false,
+                                                              "__collapse": true,
                                                               "__label": "If Left/Right Held, give x velocity",
-                                                              "__comment": false
+                                                              "__comment": true
                                                             },
                                                             "children": {
                                                               "true": [
                                                                 {
-                                                                  "command": "EVENT_ENGINE_FIELD_SET",
+                                                                  "command": "EVENT_IF",
                                                                   "args": {
-                                                                    "engineFieldKey": "plat_walk_vel",
-                                                                    "value": {
-                                                                      "type": "number",
-                                                                      "value": 9000
+                                                                    "condition": {
+                                                                      "type": "not",
+                                                                      "value": {
+                                                                        "type": "variable",
+                                                                        "value": "2"
+                                                                      }
                                                                     },
-                                                                    "__collapse": true,
-                                                                    "__comment": false
+                                                                    "__collapseElse": true,
+                                                                    "__collapse": false
                                                                   },
-                                                                  "id": "bb2342bf-249b-470d-9fe9-407d2c0412aa"
+                                                                  "children": {
+                                                                    "true": [
+                                                                      {
+                                                                        "command": "EVENT_ENGINE_FIELD_SET",
+                                                                        "args": {
+                                                                          "engineFieldKey": "plat_vel_x",
+                                                                          "value": {
+                                                                            "type": "number",
+                                                                            "value": 5000
+                                                                          },
+                                                                          "__collapse": false
+                                                                        },
+                                                                        "id": "1efb4e90-33e1-4e67-ab6b-7612a5c996f2"
+                                                                      }
+                                                                    ],
+                                                                    "false": []
+                                                                  },
+                                                                  "id": "873928bd-d46f-4183-806d-94efed7d2a18"
                                                                 }
                                                               ],
-                                                              "false": []
+                                                              "false": [
+                                                                {
+                                                                  "command": "EVENT_IF_INPUT",
+                                                                  "args": {
+                                                                    "input": [
+                                                                      "left"
+                                                                    ],
+                                                                    "__collapseElse": false,
+                                                                    "__collapse": false,
+                                                                    "__label": "If Left/Right Held, give x velocity",
+                                                                    "__comment": false
+                                                                  },
+                                                                  "children": {
+                                                                    "true": [
+                                                                      {
+                                                                        "command": "EVENT_ENGINE_FIELD_SET",
+                                                                        "args": {
+                                                                          "engineFieldKey": "plat_vel_x",
+                                                                          "value": {
+                                                                            "type": "number",
+                                                                            "value": -5000
+                                                                          },
+                                                                          "__collapse": true
+                                                                        },
+                                                                        "id": "1b65b64f-6938-43d9-9785-576a675fca5a"
+                                                                      }
+                                                                    ],
+                                                                    "false": []
+                                                                  },
+                                                                  "id": "17ef766c-04a6-4a17-8833-feb8db879894"
+                                                                }
+                                                              ]
                                                             },
-                                                            "id": "4f9ce1c1-2159-4024-9bc0-94526d4b1357"
+                                                            "id": "b25c8f36-eeeb-4552-9450-5b5832e74bc3"
                                                           }
                                                         ],
                                                         "false": []
                                                       },
-                                                      "id": "4d352484-fb37-4907-a3b9-a0f9ab3d732d"
+                                                      "id": "58173e8d-3840-43e7-ab76-1e4eff9bf6ab"
                                                     },
                                                     {
                                                       "command": "EVENT_LOOP_FOR",
@@ -9898,7 +9974,8 @@
                       "type": "variable",
                       "value": "48"
                     },
-                    "__collapseElse": true
+                    "__collapseElse": true,
+                    "__collapse": true
                   },
                   "children": {
                     "true": [
@@ -9940,6 +10017,22 @@
                     "false": []
                   },
                   "id": "8310e594-84c6-4402-8451-35fd92411449"
+                },
+                {
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "variable",
+                      "value": "0"
+                    },
+                    "__collapseElse": true,
+                    "__comment": true
+                  },
+                  "children": {
+                    "true": [],
+                    "false": []
+                  },
+                  "id": "2163cd48-a82c-42f0-8433-1399599e7cf3"
                 }
               ]
             },

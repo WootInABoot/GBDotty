@@ -24,6 +24,22 @@
       "children": {
         "script": [
           {
+            "command": "EVENT_TIMER_RESTART",
+            "args": {
+              "timer": 4,
+              "__collapse": true
+            },
+            "id": "1c55c8b9-c3a8-46a0-b71c-9ef6ffc32dc7"
+          },
+          {
+            "command": "EVENT_TIMER_DISABLE",
+            "args": {
+              "timer": 4,
+              "__collapse": true
+            },
+            "id": "5faded11-44c0-411a-9903-5eb06cc654e8"
+          },
+          {
             "command": "EVENT_SET_VALUE",
             "args": {
               "variable": "2",
@@ -43,6 +59,34 @@
             },
             "id": "04684715-1f76-4946-bcd7-0a4c65b9cd58",
             "children": {}
+          },
+          {
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "33",
+              "value": {
+                "type": "number",
+                "value": 20
+              },
+              "__collapse": true
+            },
+            "id": "c2bef184-887c-4101-9e08-821233ecd4b1"
+          },
+          {
+            "command": "EVENT_SET_INPUT_SCRIPT",
+            "args": {
+              "input": [
+                "left",
+                "right"
+              ],
+              "override": true,
+              "__scriptTabs": "press",
+              "__collapse": true
+            },
+            "children": {
+              "true": []
+            },
+            "id": "f226be8b-5e7f-4cea-a60e-3f832ec86775"
           },
           {
             "command": "EVENT_IF",
@@ -74,6 +118,37 @@
               "false": []
             },
             "id": "8739f6a8-26aa-4a09-abd4-143630db7794"
+          },
+          {
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "not",
+                "value": {
+                  "type": "variable",
+                  "value": "48"
+                }
+              },
+              "__collapseElse": true,
+              "__collapse": true
+            },
+            "children": {
+              "true": [
+                {
+                  "command": "EVENT_ACTOR_SET_STATE",
+                  "args": {
+                    "actorId": "$self$",
+                    "spriteStateId": "Rail",
+                    "loopAnim": true,
+                    "__collapse": true
+                  },
+                  "id": "244b0233-9963-4656-be17-cf335cf2177e",
+                  "children": {}
+                }
+              ],
+              "false": []
+            },
+            "id": "4b31d5ab-eb93-4b69-a742-44e683ede627"
           },
           {
             "command": "EVENT_ENGINE_FIELD_SET",
@@ -135,7 +210,7 @@
                 "value": "right"
               },
               "__collapseElse": false,
-              "__collapse": true
+              "__collapse": false
             },
             "children": {
               "true": [
@@ -161,7 +236,7 @@
                       "type": "number",
                       "value": -9000
                     },
-                    "__collapse": true
+                    "__collapse": false
                   },
                   "id": "230982ab-7e6a-41b2-af4b-e13e10bc0bce"
                 }
@@ -170,28 +245,16 @@
             "id": "1a17a99c-0332-4c30-978a-11f127b7f1ac"
           },
           {
-            "command": "EVENT_SET_INPUT_SCRIPT",
+            "command": "EVENT_SET_VALUE",
             "args": {
-              "input": [
-                "left",
-                "right"
-              ],
-              "override": true,
-              "__scriptTabs": "press",
+              "variable": "81",
+              "value": {
+                "type": "constant",
+                "value": "engine::PLATFORM_GROUND_STATE"
+              },
               "__collapse": true
             },
-            "children": {
-              "true": []
-            },
-            "id": "4f8062c7-3000-43ee-8222-352f5e1c7636"
-          },
-          {
-            "command": "EVENT_REMOVE_PLATFORMER_CALLBACK_SCRIPT",
-            "args": {
-              "event": "groundStart",
-              "__collapse": true
-            },
-            "id": "9ab475f4-c874-496a-aade-0a20414dc731"
+            "id": "6f01bdb4-b087-43f1-a1ac-f793df5bd1ac"
           }
         ]
       },
@@ -200,35 +263,62 @@
     {
       "command": "EVENT_SET_PLATFORMER_CALLBACK_SCRIPT",
       "args": {
-        "event": "fallStart",
+        "event": "jumpStart",
         "__scriptTabs": "scriptinput",
         "__collapse": false
       },
       "children": {
         "script": [
           {
-            "command": "EVENT_SET_INPUT_SCRIPT",
+            "command": "EVENT_TIMER_RESTART",
             "args": {
-              "input": [
-                "right",
-                "left"
-              ],
-              "override": false,
-              "__scriptTabs": "press",
-              "__collapse": false
-            },
-            "children": {
-              "true": []
-            },
-            "id": "6c2ab194-9f20-4ccd-906a-bde07173b301"
-          },
-          {
-            "command": "EVENT_REMOVE_PLATFORMER_CALLBACK_SCRIPT",
-            "args": {
-              "event": "fallStart",
+              "timer": 4,
               "__collapse": true
             },
-            "id": "377b0a3b-c349-4ca8-ac80-0e781d65e6a7"
+            "id": "2c58d7da-53e4-4b85-937f-54ddda6e4f6e"
+          },
+          {
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "81",
+              "value": {
+                "type": "constant",
+                "value": "engine::PLATFORM_JUMP_STATE"
+              },
+              "__collapse": true
+            },
+            "id": "e6dea692-323c-44a4-a57b-56a4bb1aabb3"
+          },
+          {
+            "command": "EVENT_SET_TIMER_SCRIPT",
+            "args": {
+              "timer": 4,
+              "duration": 0.75,
+              "frames": 30,
+              "__scriptTabs": "end",
+              "__collapse": true
+            },
+            "children": {
+              "script": [
+                {
+                  "command": "EVENT_SET_INPUT_SCRIPT",
+                  "args": {
+                    "input": [
+                      "left",
+                      "right"
+                    ],
+                    "override": false,
+                    "__scriptTabs": "press",
+                    "__collapse": false
+                  },
+                  "children": {
+                    "true": []
+                  },
+                  "id": "9d6c6f6c-4ee9-462d-8a0e-fc27cf6f7562"
+                }
+              ]
+            },
+            "id": "ef759074-6241-4755-824d-59cbe378ee61"
           }
         ]
       },
