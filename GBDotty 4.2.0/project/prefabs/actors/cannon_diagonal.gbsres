@@ -22,16 +22,31 @@
       "children": {}
     },
     {
+      "command": "EVENT_CALL_CUSTOM_EVENT",
+      "args": {
+        "customEventId": "725aae87-b2a0-43ed-8c4d-d9a22ad50742",
+        "__collapse": true
+      },
+      "id": "64d48ac4-7b8b-4382-8aa8-c878c02864b7"
+    },
+    {
+      "command": "EVENT_CALL_CUSTOM_EVENT",
+      "args": {
+        "customEventId": "cdd27465-12c6-41dd-977b-dfeba59f54d8",
+        "__collapse": true
+      },
+      "id": "6cca8345-ed9d-4ac3-8d5c-d4f36c784078"
+    },
+    {
       "command": "EVENT_SET_INPUT_SCRIPT",
       "args": {
         "input": [
           "left",
           "up",
           "down",
-          "right",
-          "a"
+          "right"
         ],
-        "override": false,
+        "override": true,
         "__scriptTabs": "press",
         "__collapse": true
       },
@@ -81,8 +96,7 @@
                       "left",
                       "up",
                       "down",
-                      "right",
-                      "a"
+                      "right"
                     ],
                     "override": true,
                     "__scriptTabs": "press",
@@ -262,6 +276,15 @@
                   "id": "4c4a6c8b-98a7-40a1-8266-c1a1e817cb00"
                 },
                 {
+                  "command": "EVENT_CALL_CUSTOM_EVENT",
+                  "args": {
+                    "customEventId": "0226ac56-3830-4d36-81d4-44d2a557b943",
+                    "__collapse": true
+                  },
+                  "id": "a3b4ee66-f4a8-404d-b159-5e2a15f36132",
+                  "children": {}
+                },
+                {
                   "command": "EVENT_ACTOR_SET_STATE",
                   "args": {
                     "actorId": "$self$",
@@ -374,15 +397,6 @@
                   "children": {}
                 },
                 {
-                  "command": "EVENT_CALL_CUSTOM_EVENT",
-                  "args": {
-                    "customEventId": "0226ac56-3830-4d36-81d4-44d2a557b943",
-                    "__collapse": true
-                  },
-                  "id": "a3b4ee66-f4a8-404d-b159-5e2a15f36132",
-                  "children": {}
-                },
-                {
                   "command": "EVENT_SOUND_PLAY_EFFECT",
                   "args": {
                     "type": "9d7e0a5d-d66e-42e0-aa65-a84df5503af3",
@@ -462,7 +476,7 @@
                         "command": "EVENT_COMMENT",
                         "args": {
                           "text": "Speed of the shot depending on the dir",
-                          "__collapse": true
+                          "__collapse": false
                         },
                         "id": "86537fb8-c1e7-48af-bbc9-ba1e7909e2de",
                         "children": {}
@@ -471,7 +485,7 @@
                         "command": "EVENT_GROUP",
                         "args": {
                           "__label": "Speed / Start Position",
-                          "__collapse": true
+                          "__collapse": false
                         },
                         "children": {
                           "true": [
@@ -484,7 +498,7 @@
                                   "value": "up"
                                 },
                                 "__collapseElse": false,
-                                "__collapse": true,
+                                "__collapse": false,
                                 "__label": "If Facing Up (Down Left)"
                               },
                               "children": {
@@ -614,7 +628,7 @@
                                     "command": "EVENT_GROUP",
                                     "args": {
                                       "__label": "vel",
-                                      "__collapse": true
+                                      "__collapse": false
                                     },
                                     "children": {
                                       "true": [
@@ -693,7 +707,7 @@
                                           "value": 2
                                         }
                                       },
-                                      "__collapse": false
+                                      "__collapse": true
                                     },
                                     "id": "d0e37579-8a07-4091-bd69-bdd34baa8c48",
                                     "children": {}
@@ -702,7 +716,7 @@
                                     "command": "EVENT_GROUP",
                                     "args": {
                                       "__label": "vel",
-                                      "__collapse": true
+                                      "__collapse": false
                                     },
                                     "children": {
                                       "true": [
@@ -945,136 +959,6 @@
                   },
                   "id": "58ad4fd0-441c-4760-ae80-1a1926f9bd8c",
                   "children": {}
-                },
-                {
-                  "command": "EVENT_GROUP",
-                  "args": {
-                    "__label": "Detect Direction / Slight boost in vel",
-                    "__collapse": false
-                  },
-                  "children": {
-                    "true": [
-                      {
-                        "command": "EVENT_IF_ACTOR_DIRECTION",
-                        "args": {
-                          "actorId": "$self$",
-                          "direction": {
-                            "type": "direction",
-                            "value": "up"
-                          },
-                          "__collapseElse": false,
-                          "__collapse": true
-                        },
-                        "children": {
-                          "true": [
-                            {
-                              "command": "EVENT_ENGINE_FIELD_SET",
-                              "args": {
-                                "engineFieldKey": "plat_vel_y",
-                                "value": {
-                                  "type": "number",
-                                  "value": -14000
-                                },
-                                "__collapse": false
-                              },
-                              "id": "f2081b95-36ae-4f4e-b99f-14f1b7c35daa"
-                            }
-                          ],
-                          "false": []
-                        },
-                        "id": "9e475627-b3f3-41a1-aec2-954e8253ab6d"
-                      },
-                      {
-                        "command": "EVENT_IF_ACTOR_DIRECTION",
-                        "args": {
-                          "actorId": "$self$",
-                          "direction": {
-                            "type": "direction",
-                            "value": "down"
-                          },
-                          "__collapseElse": true,
-                          "__collapse": true
-                        },
-                        "children": {
-                          "true": [
-                            {
-                              "command": "EVENT_ENGINE_FIELD_SET",
-                              "args": {
-                                "engineFieldKey": "plat_vel_y",
-                                "value": {
-                                  "type": "number",
-                                  "value": 14000
-                                }
-                              },
-                              "id": "842df403-406d-4143-ba9b-413304374a0d"
-                            }
-                          ],
-                          "false": []
-                        },
-                        "id": "83f30538-ca67-435d-9a53-a881e8c46e01"
-                      },
-                      {
-                        "command": "EVENT_IF_ACTOR_DIRECTION",
-                        "args": {
-                          "actorId": "$self$",
-                          "direction": {
-                            "type": "direction",
-                            "value": "left"
-                          },
-                          "__collapseElse": true,
-                          "__collapse": true
-                        },
-                        "children": {
-                          "true": [
-                            {
-                              "command": "EVENT_ENGINE_FIELD_SET",
-                              "args": {
-                                "engineFieldKey": "plat_vel_x",
-                                "value": {
-                                  "type": "number",
-                                  "value": -14000
-                                },
-                                "__collapse": false
-                              },
-                              "id": "c734d7ae-7c8c-4981-b043-96cbb1a5d67f"
-                            }
-                          ],
-                          "false": []
-                        },
-                        "id": "28bc5cb0-b8e1-4c90-a7f5-fc9c7898b84a"
-                      },
-                      {
-                        "command": "EVENT_IF_ACTOR_DIRECTION",
-                        "args": {
-                          "actorId": "$self$",
-                          "direction": {
-                            "type": "direction",
-                            "value": "right"
-                          },
-                          "__collapseElse": false,
-                          "__collapse": true
-                        },
-                        "children": {
-                          "true": [
-                            {
-                              "command": "EVENT_ENGINE_FIELD_SET",
-                              "args": {
-                                "engineFieldKey": "plat_vel_x",
-                                "value": {
-                                  "type": "number",
-                                  "value": 14000
-                                }
-                              },
-                              "id": "28853f42-d5c3-4e82-afa2-7e2b885268bc"
-                            }
-                          ],
-                          "false": []
-                        },
-                        "id": "05514afb-623e-4356-91bc-b8f8d453e176"
-                      }
-                    ]
-                  },
-                  "id": "fc02c542-a6cc-4d20-8664-597cdc42be19"
                 },
                 {
                   "command": "EVENT_TIMER_DISABLE",
