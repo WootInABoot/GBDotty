@@ -116,7 +116,7 @@
             "command": "EVENT_GROUP",
             "args": {
               "__label": "Vars",
-              "__collapse": false,
+              "__collapse": true,
               "__comment": false
             },
             "children": {
@@ -127,7 +127,7 @@
                     "variable": "26",
                     "value": {
                       "type": "number",
-                      "value": 6000
+                      "value": 6500
                     },
                     "__collapse": true
                   },
@@ -139,7 +139,7 @@
                     "variable": "101",
                     "value": {
                       "type": "number",
-                      "value": 9000
+                      "value": 8200
                     },
                     "__collapse": true
                   },
@@ -177,7 +177,7 @@
                     "variable": "217",
                     "value": {
                       "type": "number",
-                      "value": 14000
+                      "value": 6000
                     },
                     "__collapse": true
                   },
@@ -979,20 +979,7 @@
                                                   "__collapse": true,
                                                   "__label": "Spin Projectile"
                                                 },
-                                                "id": "7f133749-476a-4fff-b7d8-a60460229881"
-                                              },
-                                              {
-                                                "command": "EVENT_ENGINE_FIELD_SET",
-                                                "args": {
-                                                  "engineFieldKey": "plat_walk_vel",
-                                                  "value": {
-                                                    "type": "number",
-                                                    "value": 9000
-                                                  },
-                                                  "__collapse": true,
-                                                  "__comment": false
-                                                },
-                                                "id": "bb661ef2-2fc7-40cb-8140-e1141f238048"
+                                                "id": "853e62ef-9d49-42c3-9914-c0091a17616b"
                                               },
                                               {
                                                 "command": "EVENT_IF_INPUT",
@@ -1032,12 +1019,12 @@
                                                               },
                                                               "__collapse": false
                                                             },
-                                                            "id": "f18418b1-938a-4b67-9904-924a223b1bed"
+                                                            "id": "433dfd87-36f0-4260-8502-258f25a51a5d"
                                                           }
                                                         ],
                                                         "false": []
                                                       },
-                                                      "id": "9916c471-82a3-4a4f-9a7d-70283ebd0573"
+                                                      "id": "0e354b48-3f2e-4d23-ae9b-b2f94279fc6a"
                                                     }
                                                   ],
                                                   "false": [
@@ -1064,16 +1051,99 @@
                                                               },
                                                               "__collapse": true
                                                             },
-                                                            "id": "c36552b8-a2d4-4a50-85e4-2d8c5d16ebf5"
+                                                            "id": "279060f8-9dee-4f7a-9e8b-082957b5d6c4"
                                                           }
                                                         ],
                                                         "false": []
                                                       },
-                                                      "id": "6158f041-8ec2-49ee-8f21-30f06947acd9"
+                                                      "id": "fb2f1d79-cdb1-4ac4-9daf-db909ff5d18e"
                                                     }
                                                   ]
                                                 },
-                                                "id": "d619d3a2-5fbe-452a-a58e-bdb025a6f759"
+                                                "id": "551f9a20-3ac3-4397-9e77-119bd523a9c1"
+                                              },
+                                              {
+                                                "command": "EVENT_IF",
+                                                "args": {
+                                                  "condition": {
+                                                    "type": "eq",
+                                                    "valueA": {
+                                                      "type": "variable",
+                                                      "value": "81"
+                                                    },
+                                                    "valueB": {
+                                                      "type": "constant",
+                                                      "value": "engine::PLATFORM_JUMP_STATE"
+                                                    }
+                                                  },
+                                                  "__collapseElse": false,
+                                                  "__collapse": true
+                                                },
+                                                "children": {
+                                                  "true": [
+                                                    {
+                                                      "command": "EVENT_IF",
+                                                      "args": {
+                                                        "condition": {
+                                                          "type": "not",
+                                                          "value": {
+                                                            "type": "variable",
+                                                            "value": "62"
+                                                          }
+                                                        },
+                                                        "__collapseElse": false,
+                                                        "__collapse": true
+                                                      },
+                                                      "children": {
+                                                        "true": [
+                                                          {
+                                                            "command": "EVENT_ENGINE_FIELD_SET",
+                                                            "args": {
+                                                              "engineFieldKey": "plat_vel_y",
+                                                              "value": {
+                                                                "type": "number",
+                                                                "value": -4000
+                                                              },
+                                                              "__collapse": false
+                                                            },
+                                                            "id": "a2a549d7-f736-41af-b8aa-19b036c61953"
+                                                          },
+                                                          {
+                                                            "command": "EVENT_ENGINE_FIELD_SET",
+                                                            "args": {
+                                                              "engineFieldKey": "plat_walk_vel",
+                                                              "value": {
+                                                                "type": "variable",
+                                                                "value": "101"
+                                                              },
+                                                              "__collapse": true,
+                                                              "__comment": false
+                                                            },
+                                                            "id": "7b2db8ba-fc38-474c-a387-67793a4f13f4"
+                                                          }
+                                                        ],
+                                                        "false": []
+                                                      },
+                                                      "id": "2d67c997-2b85-44f4-9023-5f0d80c7ffe9"
+                                                    }
+                                                  ],
+                                                  "false": [
+                                                    {
+                                                      "command": "EVENT_ENGINE_FIELD_SET",
+                                                      "args": {
+                                                        "engineFieldKey": "plat_walk_vel",
+                                                        "value": {
+                                                          "type": "variable",
+                                                          "value": "101"
+                                                        },
+                                                        "__collapse": true,
+                                                        "__comment": false
+                                                      },
+                                                      "id": "e5681b6b-4dad-4547-9daf-c17fdb06f8c2"
+                                                    }
+                                                  ]
+                                                },
+                                                "id": "44262c23-655f-4350-b96c-df41a346db07"
                                               },
                                               {
                                                 "command": "EVENT_IF",
@@ -1082,7 +1152,7 @@
                                                     "type": "variable",
                                                     "value": "62"
                                                   },
-                                                  "__collapseElse": true,
+                                                  "__collapseElse": false,
                                                   "__collapse": true
                                                 },
                                                 "children": {
@@ -1101,7 +1171,7 @@
                                                       "children": {
                                                         "true": []
                                                       },
-                                                      "id": "09c246f6-b723-4ce3-afc5-b8799111e651"
+                                                      "id": "b9911eb1-a115-48f4-963d-6dcd923789e7"
                                                     },
                                                     {
                                                       "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
@@ -1110,7 +1180,7 @@
                                                         "speed": 3,
                                                         "__collapse": true
                                                       },
-                                                      "id": "b9e8573c-6113-475d-986b-6e3da8c2b8e1"
+                                                      "id": "9392512a-3e48-4530-94b6-f79bc50957e5"
                                                     },
                                                     {
                                                       "command": "EVENT_GROUP",
@@ -1130,7 +1200,7 @@
                                                               },
                                                               "__collapse": true
                                                             },
-                                                            "id": "11228d4c-d05c-49ef-82f4-591196d092d7"
+                                                            "id": "d1e53c78-92c7-4970-ba57-2d50a2be6d16"
                                                           },
                                                           {
                                                             "command": "EVENT_ENGINE_FIELD_SET",
@@ -1142,7 +1212,7 @@
                                                               },
                                                               "__collapse": true
                                                             },
-                                                            "id": "50d781e9-b968-4b7f-8436-fb93ba49ab21"
+                                                            "id": "973387fe-61f3-4249-8a74-7e2577b27e90"
                                                           },
                                                           {
                                                             "command": "EVENT_SET_VALUE",
@@ -1154,7 +1224,7 @@
                                                               },
                                                               "__collapse": true
                                                             },
-                                                            "id": "5b4e599e-e87e-4ab7-b9f7-856d1e46cb8d"
+                                                            "id": "190af474-3c37-46fc-8cf0-d13274817e11"
                                                           },
                                                           {
                                                             "command": "EVENT_ENGINE_FIELD_SET",
@@ -1166,7 +1236,7 @@
                                                               },
                                                               "__collapse": true
                                                             },
-                                                            "id": "2e64eb48-b6c0-4780-8c56-ed4601410066"
+                                                            "id": "bc044842-365d-4e76-baef-a81cdca1a798"
                                                           },
                                                           {
                                                             "command": "EVENT_ENGINE_FIELD_SET",
@@ -1178,7 +1248,7 @@
                                                               },
                                                               "__collapse": true
                                                             },
-                                                            "id": "7386f18c-dba7-41ad-b8ea-663ed9c0a4a1"
+                                                            "id": "3109b731-2acb-4c07-a839-194183a9d355"
                                                           },
                                                           {
                                                             "command": "EVENT_ENGINE_FIELD_SET",
@@ -1190,7 +1260,7 @@
                                                               },
                                                               "__collapse": true
                                                             },
-                                                            "id": "5ad50da5-5d35-43b2-912f-33b375912375"
+                                                            "id": "415ea31e-1779-4e77-8d93-a6678b25329f"
                                                           },
                                                           {
                                                             "command": "EVENT_ENGINE_FIELD_SET",
@@ -1202,7 +1272,7 @@
                                                               },
                                                               "__collapse": true
                                                             },
-                                                            "id": "c1472546-d8ab-4288-9e21-8d337e772f1b"
+                                                            "id": "1982780d-0a21-4f0b-837a-1abf02755bc3"
                                                           },
                                                           {
                                                             "command": "EVENT_ENGINE_FIELD_SET",
@@ -1214,7 +1284,7 @@
                                                               },
                                                               "__collapse": true
                                                             },
-                                                            "id": "e0259e56-525a-437d-acd5-5b1f6e1d7d86"
+                                                            "id": "7a5b6eca-88a5-4d9c-9c62-a5b6dbf6e4eb"
                                                           },
                                                           {
                                                             "command": "EVENT_ENGINE_FIELD_SET",
@@ -1222,7 +1292,7 @@
                                                               "engineFieldKey": "plat_turn_control",
                                                               "__collapse": true
                                                             },
-                                                            "id": "2e31e812-ae6c-49d1-ac36-67b3ba7c1603"
+                                                            "id": "bd864ab1-83e7-4a5a-8abf-001964b3d432"
                                                           },
                                                           {
                                                             "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
@@ -1231,11 +1301,24 @@
                                                               "speed": 7,
                                                               "__collapse": true
                                                             },
-                                                            "id": "baa8c6bd-fc5c-4af9-9ab3-b0321b79ffee"
+                                                            "id": "d99d1f06-e243-4bec-b00b-78be6c97c909"
                                                           }
                                                         ]
                                                       },
-                                                      "id": "5ad76cbc-4cf0-41bd-a83a-5c6f57f720f6"
+                                                      "id": "467427a5-96eb-45de-89e9-48897db3665a"
+                                                    },
+                                                    {
+                                                      "command": "EVENT_ENGINE_FIELD_SET",
+                                                      "args": {
+                                                        "engineFieldKey": "plat_walk_vel",
+                                                        "value": {
+                                                          "type": "number",
+                                                          "value": 8000
+                                                        },
+                                                        "__collapse": true,
+                                                        "__comment": false
+                                                      },
+                                                      "id": "cbb8d647-ee8f-4a41-8448-33185bf36b56"
                                                     },
                                                     {
                                                       "command": "EVENT_ENGINE_FIELD_SET",
@@ -1243,11 +1326,11 @@
                                                         "engineFieldKey": "plat_vel_y",
                                                         "value": {
                                                           "type": "number",
-                                                          "value": -12000
+                                                          "value": -14000
                                                         },
                                                         "__collapse": true
                                                       },
-                                                      "id": "a9461dba-ce2c-42f5-bc6e-3b651691734a"
+                                                      "id": "5d192802-5daa-45a4-801a-9f6c10c3fce7"
                                                     },
                                                     {
                                                       "command": "EVENT_IF_INPUT",
@@ -1270,7 +1353,7 @@
                                                               },
                                                               "__collapse": true
                                                             },
-                                                            "id": "5a136bef-fd2c-4158-aa9c-a0b979756136"
+                                                            "id": "8ae05d6d-42ad-4faa-a554-9da7c7aff973"
                                                           }
                                                         ],
                                                         "false": [
@@ -1295,16 +1378,16 @@
                                                                     },
                                                                     "__collapse": false
                                                                   },
-                                                                  "id": "21c0cfd9-b08a-4ee1-9e71-768128265405"
+                                                                  "id": "742e7ec8-86fb-4989-8247-0af605d55f87"
                                                                 }
                                                               ],
                                                               "false": []
                                                             },
-                                                            "id": "ef17daea-7c55-4bdf-a22e-bbb043a7b06c"
+                                                            "id": "aba91a8d-8b0c-4fcf-903d-cae1580c1be0"
                                                           }
                                                         ]
                                                       },
-                                                      "id": "90fccda5-7929-4952-aa9b-8a843d5f8e53"
+                                                      "id": "177ad851-c184-445f-ab5f-9aaee8f40dd1"
                                                     },
                                                     {
                                                       "command": "EVENT_WAIT",
@@ -1317,9 +1400,9 @@
                                                           "type": "number",
                                                           "value": 1
                                                         },
-                                                        "__collapse": false
+                                                        "__collapse": true
                                                       },
-                                                      "id": "79116023-6d3c-499d-9c67-a077f60de3d2"
+                                                      "id": "43dc692d-abc2-498c-aa48-0d8a22732c52"
                                                     },
                                                     {
                                                       "command": "EVENT_SET_VALUE",
@@ -1330,17 +1413,17 @@
                                                         },
                                                         "__collapse": true
                                                       },
-                                                      "id": "56e5a5c9-30e5-4e5e-af40-0664d3cc47d8"
+                                                      "id": "08524191-7bfa-4376-b672-60fc2ee35942"
                                                     }
                                                   ],
                                                   "false": []
                                                 },
-                                                "id": "e9d9d78f-351a-4ed5-92c5-fafb9ea835ba"
+                                                "id": "85870d94-bd78-4c9c-9518-2a2b3d478650"
                                               }
                                             ],
                                             "false": []
                                           },
-                                          "id": "a05f3e79-2d5b-4486-afce-2ee3b7385b99"
+                                          "id": "88ff0ca1-5dc7-44d5-90d9-18753bf205ce"
                                         },
                                         {
                                           "command": "EVENT_LOOP_FOR",
@@ -1353,7 +1436,7 @@
                                             "comparison": "<=",
                                             "to": {
                                               "type": "number",
-                                              "value": 15
+                                              "value": 18
                                             },
                                             "operation": "+=",
                                             "value": {
@@ -1847,7 +1930,7 @@
                                   "type": "number",
                                   "value": 30
                                 },
-                                "__collapse": false
+                                "__collapse": true
                               },
                               "id": "c802de40-ad24-4142-a285-9d54182fba44"
                             }
@@ -1868,7 +1951,7 @@
                             },
                             "valueB": {
                               "type": "number",
-                              "value": 15
+                              "value": 18
                             }
                           },
                           "__collapseElse": true,
@@ -2455,20 +2538,7 @@
                                                               "__collapse": true,
                                                               "__label": "Spin Projectile"
                                                             },
-                                                            "id": "b079a7e3-65cf-4e6c-a6a4-60619ef375d2"
-                                                          },
-                                                          {
-                                                            "command": "EVENT_ENGINE_FIELD_SET",
-                                                            "args": {
-                                                              "engineFieldKey": "plat_walk_vel",
-                                                              "value": {
-                                                                "type": "number",
-                                                                "value": 9000
-                                                              },
-                                                              "__collapse": true,
-                                                              "__comment": false
-                                                            },
-                                                            "id": "312e4215-de8c-4999-835a-af0ae81ba0d8"
+                                                            "id": "57ee18b3-f3c4-4cb7-96a4-bb76958c61ef"
                                                           },
                                                           {
                                                             "command": "EVENT_IF_INPUT",
@@ -2508,12 +2578,12 @@
                                                                           },
                                                                           "__collapse": false
                                                                         },
-                                                                        "id": "70acdb68-746e-4e4b-84b5-52bf3f37babb"
+                                                                        "id": "634daf29-07ee-4ef5-9ec5-1f74e24643a1"
                                                                       }
                                                                     ],
                                                                     "false": []
                                                                   },
-                                                                  "id": "40205ac6-2c3a-4eba-95d3-5037b24153bf"
+                                                                  "id": "b741b6e9-c78a-4aba-8236-8250808bd584"
                                                                 }
                                                               ],
                                                               "false": [
@@ -2540,16 +2610,99 @@
                                                                           },
                                                                           "__collapse": true
                                                                         },
-                                                                        "id": "00be06ec-55d5-4954-886d-35b3df8f4263"
+                                                                        "id": "18876c4b-ad95-43c4-9a30-ad0a820bd03a"
                                                                       }
                                                                     ],
                                                                     "false": []
                                                                   },
-                                                                  "id": "85d9adfe-d2c7-47be-b834-bd4ef9abb9e0"
+                                                                  "id": "bd243e35-e401-4ad4-9ae6-1cf3d6014184"
                                                                 }
                                                               ]
                                                             },
-                                                            "id": "ab7ea5f5-cf99-4f14-811d-a53b0541fcd9"
+                                                            "id": "ae690749-029e-4c6e-af2a-18bff9dcb273"
+                                                          },
+                                                          {
+                                                            "command": "EVENT_IF",
+                                                            "args": {
+                                                              "condition": {
+                                                                "type": "eq",
+                                                                "valueA": {
+                                                                  "type": "variable",
+                                                                  "value": "81"
+                                                                },
+                                                                "valueB": {
+                                                                  "type": "constant",
+                                                                  "value": "engine::PLATFORM_JUMP_STATE"
+                                                                }
+                                                              },
+                                                              "__collapseElse": false,
+                                                              "__collapse": true
+                                                            },
+                                                            "children": {
+                                                              "true": [
+                                                                {
+                                                                  "command": "EVENT_IF",
+                                                                  "args": {
+                                                                    "condition": {
+                                                                      "type": "not",
+                                                                      "value": {
+                                                                        "type": "variable",
+                                                                        "value": "62"
+                                                                      }
+                                                                    },
+                                                                    "__collapseElse": false,
+                                                                    "__collapse": true
+                                                                  },
+                                                                  "children": {
+                                                                    "true": [
+                                                                      {
+                                                                        "command": "EVENT_ENGINE_FIELD_SET",
+                                                                        "args": {
+                                                                          "engineFieldKey": "plat_vel_y",
+                                                                          "value": {
+                                                                            "type": "number",
+                                                                            "value": -4000
+                                                                          },
+                                                                          "__collapse": false
+                                                                        },
+                                                                        "id": "bcb05dea-8a97-4d0e-b045-2253f60cab86"
+                                                                      },
+                                                                      {
+                                                                        "command": "EVENT_ENGINE_FIELD_SET",
+                                                                        "args": {
+                                                                          "engineFieldKey": "plat_walk_vel",
+                                                                          "value": {
+                                                                            "type": "variable",
+                                                                            "value": "101"
+                                                                          },
+                                                                          "__collapse": true,
+                                                                          "__comment": false
+                                                                        },
+                                                                        "id": "73f11a99-43f3-43be-abbb-2c3252c51af1"
+                                                                      }
+                                                                    ],
+                                                                    "false": []
+                                                                  },
+                                                                  "id": "5726182c-bca0-466e-beb2-e123bd3e0086"
+                                                                }
+                                                              ],
+                                                              "false": [
+                                                                {
+                                                                  "command": "EVENT_ENGINE_FIELD_SET",
+                                                                  "args": {
+                                                                    "engineFieldKey": "plat_walk_vel",
+                                                                    "value": {
+                                                                      "type": "variable",
+                                                                      "value": "101"
+                                                                    },
+                                                                    "__collapse": true,
+                                                                    "__comment": false
+                                                                  },
+                                                                  "id": "9f02d43c-3002-4627-83c9-515311f43d3f"
+                                                                }
+                                                              ]
+                                                            },
+                                                            "id": "3abcf05c-0228-4ecf-94f6-f4af5863d4de"
                                                           },
                                                           {
                                                             "command": "EVENT_IF",
@@ -2558,7 +2711,7 @@
                                                                 "type": "variable",
                                                                 "value": "62"
                                                               },
-                                                              "__collapseElse": true,
+                                                              "__collapseElse": false,
                                                               "__collapse": true
                                                             },
                                                             "children": {
@@ -2577,7 +2730,7 @@
                                                                   "children": {
                                                                     "true": []
                                                                   },
-                                                                  "id": "023e0b8d-28d6-46af-9f53-4aa18b9c70ac"
+                                                                  "id": "a3c99e3d-6ca7-4b2d-8cd5-3dbbfc345ed2"
                                                                 },
                                                                 {
                                                                   "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
@@ -2586,7 +2739,7 @@
                                                                     "speed": 3,
                                                                     "__collapse": true
                                                                   },
-                                                                  "id": "d625411e-81bc-410b-b3b3-76ad97eb2f03"
+                                                                  "id": "ce061fd5-a318-48e0-8949-dc518188c10b"
                                                                 },
                                                                 {
                                                                   "command": "EVENT_GROUP",
@@ -2606,7 +2759,7 @@
                                                                           },
                                                                           "__collapse": true
                                                                         },
-                                                                        "id": "673ea745-79f6-49c9-9d5b-af045037a6cb"
+                                                                        "id": "cee6cf43-a6d6-4cf0-a8c1-961a3909aa03"
                                                                       },
                                                                       {
                                                                         "command": "EVENT_ENGINE_FIELD_SET",
@@ -2618,7 +2771,7 @@
                                                                           },
                                                                           "__collapse": true
                                                                         },
-                                                                        "id": "51f468ff-afc1-454f-a111-01ff61e4814c"
+                                                                        "id": "034e1595-d3e9-47ff-99b8-39a11b71f7cc"
                                                                       },
                                                                       {
                                                                         "command": "EVENT_SET_VALUE",
@@ -2630,7 +2783,7 @@
                                                                           },
                                                                           "__collapse": true
                                                                         },
-                                                                        "id": "b16bfdba-3b25-4d47-9a11-da0750c7f120"
+                                                                        "id": "fbbaf1a7-06cb-4f1a-9051-3304b6bb69d7"
                                                                       },
                                                                       {
                                                                         "command": "EVENT_ENGINE_FIELD_SET",
@@ -2642,7 +2795,7 @@
                                                                           },
                                                                           "__collapse": true
                                                                         },
-                                                                        "id": "3d2f4fe2-e818-4cf6-af9a-1b44daa6adcf"
+                                                                        "id": "30dc36fd-223c-47c3-9ee0-ac2fd6e7f975"
                                                                       },
                                                                       {
                                                                         "command": "EVENT_ENGINE_FIELD_SET",
@@ -2654,7 +2807,7 @@
                                                                           },
                                                                           "__collapse": true
                                                                         },
-                                                                        "id": "4a20f70d-0f9a-4061-a156-fde55c862b6d"
+                                                                        "id": "30a07f2d-f0b0-4d8b-84c3-de910722256d"
                                                                       },
                                                                       {
                                                                         "command": "EVENT_ENGINE_FIELD_SET",
@@ -2666,7 +2819,7 @@
                                                                           },
                                                                           "__collapse": true
                                                                         },
-                                                                        "id": "5d23f33c-522b-40d2-8c6c-3c64d39168b1"
+                                                                        "id": "3448120c-90e8-480a-b0b4-5334c2c229dd"
                                                                       },
                                                                       {
                                                                         "command": "EVENT_ENGINE_FIELD_SET",
@@ -2678,7 +2831,7 @@
                                                                           },
                                                                           "__collapse": true
                                                                         },
-                                                                        "id": "7794722a-9b11-4d18-8326-617fdf4efc2f"
+                                                                        "id": "de9e5127-14e7-4634-8c99-d5dda445cc2a"
                                                                       },
                                                                       {
                                                                         "command": "EVENT_ENGINE_FIELD_SET",
@@ -2690,7 +2843,7 @@
                                                                           },
                                                                           "__collapse": true
                                                                         },
-                                                                        "id": "91dec4b2-ad2c-4ed1-a9ae-91ad61c5f7f1"
+                                                                        "id": "67c35de1-b075-4e43-8a14-f286503c32e3"
                                                                       },
                                                                       {
                                                                         "command": "EVENT_ENGINE_FIELD_SET",
@@ -2698,7 +2851,7 @@
                                                                           "engineFieldKey": "plat_turn_control",
                                                                           "__collapse": true
                                                                         },
-                                                                        "id": "0f9d3d29-d74c-4b66-b7d6-9e45c34d41a8"
+                                                                        "id": "edd903f6-02f9-4756-b798-66e3f7a8c351"
                                                                       },
                                                                       {
                                                                         "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
@@ -2707,11 +2860,24 @@
                                                                           "speed": 7,
                                                                           "__collapse": true
                                                                         },
-                                                                        "id": "6cfde294-6a64-4845-b1dc-e8bb75d446bf"
+                                                                        "id": "cad4bd55-c407-481c-9a83-03ec8c24bc44"
                                                                       }
                                                                     ]
                                                                   },
-                                                                  "id": "c053dec1-2f3b-4ba4-96b3-3335c8f7325e"
+                                                                  "id": "bb2d60dc-b260-4cae-9356-285f7d3a8cb4"
+                                                                },
+                                                                {
+                                                                  "command": "EVENT_ENGINE_FIELD_SET",
+                                                                  "args": {
+                                                                    "engineFieldKey": "plat_walk_vel",
+                                                                    "value": {
+                                                                      "type": "number",
+                                                                      "value": 8000
+                                                                    },
+                                                                    "__collapse": true,
+                                                                    "__comment": false
+                                                                  },
+                                                                  "id": "a868076b-7b19-424a-8b6e-bc3b5740e40f"
                                                                 },
                                                                 {
                                                                   "command": "EVENT_ENGINE_FIELD_SET",
@@ -2719,11 +2885,11 @@
                                                                     "engineFieldKey": "plat_vel_y",
                                                                     "value": {
                                                                       "type": "number",
-                                                                      "value": -12000
+                                                                      "value": -14000
                                                                     },
                                                                     "__collapse": true
                                                                   },
-                                                                  "id": "8edfd898-7427-4895-aeaf-0c73d1c543e6"
+                                                                  "id": "984bc55f-c726-4bf5-8a17-fee3a3768f0e"
                                                                 },
                                                                 {
                                                                   "command": "EVENT_IF_INPUT",
@@ -2746,7 +2912,7 @@
                                                                           },
                                                                           "__collapse": true
                                                                         },
-                                                                        "id": "fb5fa901-8112-417d-b5e8-867da8b57406"
+                                                                        "id": "80d4efff-5aee-4acc-8a98-5eb244f3e473"
                                                                       }
                                                                     ],
                                                                     "false": [
@@ -2771,16 +2937,16 @@
                                                                                 },
                                                                                 "__collapse": false
                                                                               },
-                                                                              "id": "b791f6a0-95f4-4640-a9da-98d9bf6f0902"
+                                                                              "id": "78e26f7f-c46c-4281-ab25-eb75b66fb6da"
                                                                             }
                                                                           ],
                                                                           "false": []
                                                                         },
-                                                                        "id": "a573e4e8-3b4b-4294-af7c-f1f6b24ac49e"
+                                                                        "id": "7c3412b9-ddb3-4f27-a47d-bc37a8614fcd"
                                                                       }
                                                                     ]
                                                                   },
-                                                                  "id": "81013b15-6d6b-47b2-bee5-897e32117ba4"
+                                                                  "id": "d1137053-82e0-4bec-afa7-6f2d2a62af4c"
                                                                 },
                                                                 {
                                                                   "command": "EVENT_WAIT",
@@ -2793,9 +2959,9 @@
                                                                       "type": "number",
                                                                       "value": 1
                                                                     },
-                                                                    "__collapse": false
+                                                                    "__collapse": true
                                                                   },
-                                                                  "id": "bbb193fd-26dc-4239-9886-2d6708cfc4e7"
+                                                                  "id": "f0f8a4b0-c1e8-4aa0-8988-45c6a682e4eb"
                                                                 },
                                                                 {
                                                                   "command": "EVENT_SET_VALUE",
@@ -2806,17 +2972,17 @@
                                                                     },
                                                                     "__collapse": true
                                                                   },
-                                                                  "id": "ec4c1323-1301-434e-815b-21c2dca16111"
+                                                                  "id": "344d642b-d7ce-4c85-bd14-007c39e30e92"
                                                                 }
                                                               ],
                                                               "false": []
                                                             },
-                                                            "id": "8bde32a0-76b4-4df7-b285-48388a4a65d3"
+                                                            "id": "e9924bed-da7b-4f9e-b7bf-bd751176a79d"
                                                           }
                                                         ],
                                                         "false": []
                                                       },
-                                                      "id": "9c226bd0-6d87-4ddf-b0bc-c3b13f626c31"
+                                                      "id": "697fef38-3a80-4076-bf0f-81b8e77399af"
                                                     },
                                                     {
                                                       "command": "EVENT_LOOP_FOR",
@@ -2829,7 +2995,7 @@
                                                         "comparison": "<=",
                                                         "to": {
                                                           "type": "number",
-                                                          "value": 15
+                                                          "value": 18
                                                         },
                                                         "operation": "+=",
                                                         "value": {
@@ -3324,7 +3490,7 @@
                                               "type": "number",
                                               "value": 30
                                             },
-                                            "__collapse": false
+                                            "__collapse": true
                                           },
                                           "id": "35da8bef-0049-4f9d-80ae-43c00beb0656"
                                         }
@@ -3361,7 +3527,8 @@
               "frames": {
                 "type": "number",
                 "value": 30
-              }
+              },
+              "__collapse": false
             },
             "id": "a3fedc1d-1899-45b5-81e7-9bc67f09d6cd"
           }
@@ -11343,7 +11510,7 @@
       "command": "EVENT_GROUP",
       "args": {
         "__label": "Platformer states",
-        "__collapse": true
+        "__collapse": false
       },
       "children": {
         "true": [
@@ -11574,6 +11741,53 @@
                     "false": []
                   },
                   "id": "1d0fe180-a1fd-4619-95d7-863e460ba68f"
+                },
+                {
+                  "command": "EVENT_IF",
+                  "args": {
+                    "condition": {
+                      "type": "variable",
+                      "value": "57"
+                    },
+                    "__collapseElse": true,
+                    "__collapse": true
+                  },
+                  "children": {
+                    "true": [
+                      {
+                        "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
+                        "args": {
+                          "actorId": "$self$",
+                          "speed": 7,
+                          "__collapse": true
+                        },
+                        "id": "79322671-e8c5-4326-86f0-5ce63c5b1288"
+                      },
+                      {
+                        "command": "EVENT_ACTOR_SET_STATE",
+                        "args": {
+                          "actorId": "$self$",
+                          "spriteStateId": "",
+                          "loopAnim": true,
+                          "__collapse": true
+                        },
+                        "id": "cf442559-1c04-487e-a9ab-08c9b17cccf9"
+                      },
+                      {
+                        "command": "EVENT_SET_VALUE",
+                        "args": {
+                          "variable": "57",
+                          "value": {
+                            "type": "false"
+                          },
+                          "__collapse": true
+                        },
+                        "id": "0c024830-977d-4710-a7b4-513a3ea55953"
+                      }
+                    ],
+                    "false": []
+                  },
+                  "id": "f8c6c534-814e-4db6-ac70-c4a4b09b974b"
                 }
               ]
             },
