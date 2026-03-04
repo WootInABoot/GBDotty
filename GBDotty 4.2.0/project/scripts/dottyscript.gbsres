@@ -1436,7 +1436,7 @@
                                             "comparison": "<=",
                                             "to": {
                                               "type": "number",
-                                              "value": 18
+                                              "value": 20
                                             },
                                             "operation": "+=",
                                             "value": {
@@ -1951,7 +1951,7 @@
                             },
                             "valueB": {
                               "type": "number",
-                              "value": 18
+                              "value": 20
                             }
                           },
                           "__collapseElse": true,
@@ -2995,7 +2995,7 @@
                                                         "comparison": "<=",
                                                         "to": {
                                                           "type": "number",
-                                                          "value": 18
+                                                          "value": 20
                                                         },
                                                         "operation": "+=",
                                                         "value": {
@@ -11675,7 +11675,7 @@
             "args": {
               "event": "fallEnd",
               "__scriptTabs": "scriptinput",
-              "__collapse": true
+              "__collapse": false
             },
             "children": {
               "script": [
@@ -11709,9 +11709,9 @@
                           "variable": "33",
                           "value": {
                             "type": "number",
-                            "value": 20
+                            "value": 60
                           },
-                          "__collapse": true
+                          "__collapse": false
                         },
                         "id": "d9614f0b-547a-4dae-a2d1-6d0cfa86711f"
                       },
@@ -11750,18 +11750,25 @@
                       "value": "57"
                     },
                     "__collapseElse": true,
-                    "__collapse": true
+                    "__collapse": false
                   },
                   "children": {
                     "true": [
                       {
-                        "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
+                        "command": "EVENT_TIMER_RESTART",
                         "args": {
-                          "actorId": "$self$",
-                          "speed": 7,
+                          "timer": 1,
                           "__collapse": true
                         },
-                        "id": "79322671-e8c5-4326-86f0-5ce63c5b1288"
+                        "id": "69e411ce-6838-4353-9694-cd6eb0e39b5f"
+                      },
+                      {
+                        "command": "EVENT_TIMER_DISABLE",
+                        "args": {
+                          "timer": 1,
+                          "__collapse": true
+                        },
+                        "id": "0a36ae92-0283-4e66-b163-881ad626cd65"
                       },
                       {
                         "command": "EVENT_ACTOR_SET_STATE",
@@ -11771,7 +11778,28 @@
                           "loopAnim": true,
                           "__collapse": true
                         },
-                        "id": "cf442559-1c04-487e-a9ab-08c9b17cccf9"
+                        "id": "0388c462-24da-4ca3-bca8-1a73bb06e700"
+                      },
+                      {
+                        "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
+                        "args": {
+                          "actorId": "$self$",
+                          "speed": 7,
+                          "__collapse": true
+                        },
+                        "id": "0847bead-6a6a-4ad9-992a-d70ea7614e15"
+                      },
+                      {
+                        "command": "EVENT_SET_VALUE",
+                        "args": {
+                          "variable": "33",
+                          "value": {
+                            "type": "number",
+                            "value": 60
+                          },
+                          "__collapse": true
+                        },
+                        "id": "b6a56ffe-9247-4f58-b315-a3111daab594"
                       },
                       {
                         "command": "EVENT_SET_VALUE",
@@ -11782,12 +11810,23 @@
                           },
                           "__collapse": true
                         },
-                        "id": "0c024830-977d-4710-a7b4-513a3ea55953"
+                        "id": "0251e72a-b545-4d6d-9f35-86c876e3fb05"
+                      },
+                      {
+                        "command": "EVENT_SET_VALUE",
+                        "args": {
+                          "variable": "47",
+                          "value": {
+                            "type": "false"
+                          },
+                          "__collapse": true
+                        },
+                        "id": "009a5c37-74d5-4cf8-bd6d-9abde1dc0a1e"
                       }
                     ],
                     "false": []
                   },
-                  "id": "f8c6c534-814e-4db6-ac70-c4a4b09b974b"
+                  "id": "3959ecd4-1696-4d17-a0e8-041f5213c2b7"
                 }
               ]
             },
