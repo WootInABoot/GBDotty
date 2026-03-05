@@ -18,18 +18,6 @@
     {
       "command": "EVENT_SET_VALUE",
       "args": {
-        "variable": "33",
-        "value": {
-          "type": "number",
-          "value": -15
-        },
-        "__collapse": false
-      },
-      "id": "4946a893-de9d-4339-8a0c-63daf71b7e2e"
-    },
-    {
-      "command": "EVENT_SET_VALUE",
-      "args": {
         "variable": "47",
         "value": {
           "type": "true"
@@ -37,6 +25,27 @@
         "__collapse": true
       },
       "id": "7d09587c-bb46-420f-b781-bb797a72dd35"
+    },
+    {
+      "command": "EVENT_SET_VALUE",
+      "args": {
+        "variable": "33",
+        "value": {
+          "type": "number",
+          "value": -15
+        },
+        "__collapse": true
+      },
+      "id": "4946a893-de9d-4339-8a0c-63daf71b7e2e"
+    },
+    {
+      "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
+      "args": {
+        "actorId": "$self$",
+        "speed": 3,
+        "__collapse": true
+      },
+      "id": "16b88e52-af8c-4ce0-bf36-8117f2ee8905"
     },
     {
       "command": "EVENT_ACTOR_SET_FRAME",
@@ -85,7 +94,7 @@
                       "value": "50"
                     },
                     "__collapseElse": true,
-                    "__collapse": true
+                    "__collapse": false
                   },
                   "children": {
                     "true": [
@@ -231,6 +240,15 @@
                         "id": "965c15ef-f654-4247-bcbf-f4c36f5b1eab"
                       },
                       {
+                        "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
+                        "args": {
+                          "actorId": "$self$",
+                          "speed": 3,
+                          "__collapse": true
+                        },
+                        "id": "3ca8905d-b3c6-411f-a4a3-a92990916a47"
+                      },
+                      {
                         "command": "EVENT_IF",
                         "args": {
                           "condition": {
@@ -273,7 +291,7 @@
                                       "actorId": "$self$",
                                       "spriteStateId": "spinR",
                                       "loopAnim": false,
-                                      "__collapse": false
+                                      "__collapse": true
                                     },
                                     "id": "520fabb5-6f67-40b0-b111-8710888278cd"
                                   }
@@ -294,10 +312,19 @@
                                   }
                                 },
                                 "__collapseElse": false,
-                                "__collapse": true
+                                "__collapse": false
                               },
                               "children": {
                                 "true": [
+                                  {
+                                    "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
+                                    "args": {
+                                      "actorId": "$self$",
+                                      "speed": 7,
+                                      "__collapse": true
+                                    },
+                                    "id": "6de9feaf-662a-40c5-b3f4-6ccc202bcd4c"
+                                  },
                                   {
                                     "command": "EVENT_ACTOR_SET_STATE",
                                     "args": {
