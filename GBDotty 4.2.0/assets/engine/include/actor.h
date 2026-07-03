@@ -13,7 +13,7 @@
 #define ON_8PX_GRID(A)        ((((A).x | (A).y) & 0xFF) == 0)
 #define ON_16PX_GRID(A)       ((((A).x >> 5) & 15) == 0 && (((A).y >> 5) & 15) == 8)
 
-#define PLAYER_HURT_IFRAMES   20
+#define PLAYER_HURT_IFRAMES   5
 
 #define ANIM_JUMP_LEFT        0
 #define ANIM_JUMP_RIGHT       2
